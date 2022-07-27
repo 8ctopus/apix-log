@@ -206,7 +206,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
     /**
      * Process any accumulated deferred log if there are any.
      */
-    final public function __destruct()
+    public function flushDeferredLogs()
     {
         if ($this->deferred && !empty($this->deferred_logs)) {
 
@@ -216,18 +216,27 @@ abstract class AbstractLogger extends PsrAbstractLogger
                 },
                 $this->deferred_logs
             );
-            
+
             $formatter = $this->getLogFormatter();
-            
+
             $messages = implode($formatter->separator, $messages);
 
             $entries = new LogEntry('notice', $messages);
             $entries->setFormatter( $formatter );
             $this->write($entries);
 
+            // cleanup array
+            $this->deferred_logs = array();
             // return $this->formatter->format($this);
         }
+    }
 
+    /**
+     * Process any accumulated deferred log if there are any.
+     */
+    final public function __destruct()
+    {
+        $this->flushDeferredLogs();
         $this->close();
     }
 
