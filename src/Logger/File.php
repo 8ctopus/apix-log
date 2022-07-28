@@ -19,7 +19,6 @@ use Psr\Log\InvalidArgumentException;
  */
 class File extends ErrorLog
 {
-
     /**
      * Constructor.
      *
