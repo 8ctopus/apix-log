@@ -148,7 +148,7 @@ class Logger extends AbstractLogger
     {
         return usort(
             $this->buckets, function ($a, $b) {
-                return $a->getMinLevel() > $b->getMinLevel();
+                return $a->getMinLevel() - $b->getMinLevel();
             }
         );
     }
