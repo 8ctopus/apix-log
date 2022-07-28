@@ -219,11 +219,9 @@ abstract class AbstractLogger extends PsrAbstractLogger
 
             $formatter = $this->getLogFormatter();
 
-            $messages = implode($formatter->separator, $messages);
+            $messages = implode($formatter->separator, $messages) . $formatter->separator;
 
-            $entries = new LogEntry('notice', $messages);
-            $entries->setFormatter( $formatter );
-            $this->write($entries);
+            $this->write($messages);
 
             // cleanup array
             $this->deferred_logs = array();
