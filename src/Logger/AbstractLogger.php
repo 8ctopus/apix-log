@@ -80,6 +80,12 @@ abstract class AbstractLogger extends PsrAbstractLogger
      */
     protected $empty = true;
 
+    /*
+     * Minimum level logged
+     * @var int
+     */
+    protected $min_level_logged = 7;
+
     /**
      * Gets the named level code.
      *
@@ -119,6 +125,10 @@ abstract class AbstractLogger extends PsrAbstractLogger
     {
         if ($this->empty) {
             $this->empty = false;
+        }
+
+        if ($this->min_level_logged > $log->level_code) {
+            $this->min_level_logged = $log->level_code;
         }
 
         if ($this->deferred) {
@@ -321,5 +331,15 @@ abstract class AbstractLogger extends PsrAbstractLogger
     public function isEmpty() : bool
     {
         return $this->empty;
+    }
+
+    /**
+     * Gets min level logged
+     *
+     * @return int
+     */
+    public function getMinLevelLogged() : int
+    {
+        return $this->min_level_logged;
     }
 }
