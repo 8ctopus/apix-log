@@ -24,23 +24,28 @@ class File extends ErrorLog
      * Constructor.
      *
      * @param  string $file The file to append to.
+     * @param bool $clear Whether or not to clear log file
      * @throws InvalidArgumentException If the file cannot be created or written.
      */
-    public function __construct($file)
+    public function __construct($file, $clear)
     {
         if (null === $file || !file_exists($file) && !touch($file)) {
             throw new InvalidArgumentException(
                 sprintf('Log file "%s" cannot be created', $file), 1
             );
         }
+
         if (!is_writable($file)) {
             throw new InvalidArgumentException(
                 sprintf('Log file "%s" is not writable', $file), 2
             );
         }
 
+        if ($clear) {
+            file_put_contents($file, '');
+        }
+
         $this->destination = $file;
         $this->type = static::FILE;
     }
-
 }
