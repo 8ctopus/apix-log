@@ -63,6 +63,12 @@ abstract class AbstractLogger extends PsrAbstractLogger
     protected $deferred_logs = array();
 
     /**
+     * Flush deferred logs when deferred array reaches count
+     * @var int|null
+     */
+    protected $deferred_trigger = null;
+
+    /**
      * Holds the log formatter.
      * @var LogFormatter|null
      */
@@ -133,6 +139,10 @@ abstract class AbstractLogger extends PsrAbstractLogger
 
         if ($this->deferred) {
             $this->deferred_logs[] = $log;
+
+            if ($this->deferred_trigger && count($this->deferred_logs[]) >= $this->deferred_trigger) {
+                $this->flushDeferredLogs();
+            }
         } else {
             $this->write($log);
         }
@@ -230,6 +240,19 @@ abstract class AbstractLogger extends PsrAbstractLogger
     public function deferred()
     {
         return $this->deferred;
+    }
+
+    /**
+     * Sets deferred trigger.
+     *
+     * @param int|null $value
+     * @return self
+     */
+    public function setDeferredTrigger($value)
+    {
+        $this->deferred_trigger = $value;
+
+        return $this;
     }
 
     /**
