@@ -19,7 +19,7 @@ use Psr\Log\InvalidArgumentException;
  */
 final class FileTest extends \PHPUnit\Framework\TestCase
 {
-    protected $dest = 'test';
+    protected string $dest = 'test';
 
     protected function tearDown() : void
     {

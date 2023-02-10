@@ -24,12 +24,12 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
      *
      * Example ->error('Foo') would yield "error Foo"
      *
-     * @param mixed $logger
-     * @param mixed $deferred
+     * @param Logger\Runtime $logger
+     * @param bool $deferred
      *
      * @return string[]
      */
-    public function getLogs($logger, $deferred = false) : array
+    public function getLogs(Logger\Runtime $logger, bool $deferred = false) : array
     {
         $lines = $logger->getItems();
 

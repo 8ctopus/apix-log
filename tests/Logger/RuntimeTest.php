@@ -17,7 +17,7 @@ use Apix\Log\Logger;
  */
 final class RuntimeTest extends \PHPUnit\Framework\TestCase
 {
-    protected $logger;
+    protected ?Logger\Runtime $logger;
 
     protected function setUp() : void
     {

@@ -18,7 +18,7 @@ use Apix\Log\Logger;
  */
 final class ErrorLogTest extends \PHPUnit\Framework\TestCase
 {
-    protected $dest = 'test';
+    protected string $dest = 'test';
 
     protected function setUp() : void
     {

@@ -16,7 +16,7 @@ use stdClass;
 
 abstract class TestCase implements LoggerInterface
 {
-    protected $dest = 'build/apix-unit-test-logger.log';
+    protected string $dest = 'build/apix-unit-test-logger.log';
 
     public static function normalizeLogs($logs)
     {
@@ -48,7 +48,7 @@ abstract class TestCase implements LoggerInterface
         return self::normalizeLogs(file($this->dest, FILE_IGNORE_NEW_LINES));
     }
 
-    public function providerMessagesAndContextes()
+    public function providerMessagesAndContextes() : array
     {
         $obj = new stdClass();
         $obj->baz = 'biz';

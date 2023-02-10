@@ -20,9 +20,9 @@ use ValueError;
  */
 final class StreamTest extends \PHPUnit\Framework\TestCase
 {
-    protected $dest = 'php://memory';
+    protected string $dest = 'php://memory';
     protected $stream;
-    protected $logger;
+    protected ?Logger\Stream $logger;
 
     protected function setUp() : void
     {

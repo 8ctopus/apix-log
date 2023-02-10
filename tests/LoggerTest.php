@@ -20,7 +20,7 @@ use stdClass;
  */
 final class LoggerTest extends \PHPUnit\Framework\TestCase
 {
-    protected Logger $logger;
+    protected ?Logger $logger;
 
     protected function setUp() : void
     {
