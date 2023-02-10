@@ -27,7 +27,7 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
      * @param Logger\Runtime $logger
      * @param bool $deferred
      *
-     * @return string[]
+     * @return array
      */
     public function getLogs(Logger\Runtime $logger, bool $deferred = false) : array
     {

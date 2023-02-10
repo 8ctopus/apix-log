@@ -41,7 +41,7 @@ abstract class TestCase implements LoggerInterface
      *
      * Example ->error('Foo') would yield "error Foo"
      *
-     * @return string[]
+     * @return array
      */
     public function getLogs() : array
     {
