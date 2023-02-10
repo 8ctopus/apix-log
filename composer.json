@@ -1,9 +1,9 @@
 {
-    "name": "apix/log",
+    "name": "8ctopus/apix-log",
     "description": "Minimalist, thin and fast PSR-3 compliant (multi-bucket) logger.",
     "type": "library",
     "keywords": ["psr", "psr-3", "psr-log", "log", "logger", "logging", "tracker", "tracking", "apix"],
-    "homepage": "https://github.com/frqnck/apix-log",
+    "homepage": "https://github.com/8ctopus/log",
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -13,11 +13,12 @@
         {
             "name": "Apix Log Community",
             "homepage": "https://github.com/apix/log/contributors"
+        },
+        {
+            "name": "8ctopus",
+            "email": "hello@octopuslabs.io"
         }
     ],
-    "support": {
-        "irc": "irc://irc.freenode.org/ouarz"
-    },
     "require": {
         "php": ">=8.0",
         "psr/log": "^2.0 || ^3.0"
@@ -25,20 +26,24 @@
     "require-dev": {
         "phpunit/phpunit": "^8.0|^9.0"
     },
-    "suggest": {
-        "PHPMailer/apix-log-phpmailer": "Allow sending log messages via PHPMailer",
-        "jspalink/apix-log-pushover": "Allow sending log messages via Pushover",
-        "apix/log-tracker": "Allow sending log messages to logger/tracker such as Google Analytics, Dashbot, etc."
-    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
-        "psr-4": { "Apix\\Log\\": "src/" }
+        "psr-4": {
+            "Apix\\Log\\": "src/"
+        }
     },
     "autoload-dev": {
-        "psr-4": { "Apix\\Log\\tests\\": "tests/" }
+        "psr-4": {
+            "Apix\\Log\\tests\\": "tests/"
+        }
     },
     "provide": {
         "psr/log-implementation": "^1.0"
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "suggest": {
+        "PHPMailer/apix-log-phpmailer": "Allow sending log messages via PHPMailer",
+        "jspalink/apix-log-pushover": "Allow sending log messages via Pushover",
+        "apix/log-tracker": "Allow sending log messages to logger/tracker such as Google Analytics, Dashbot, etc."
+    }
 }
