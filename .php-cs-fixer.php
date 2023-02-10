@@ -1,11 +1,11 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-//    ->exclude('vendor/')
+    ->exclude('vendor/')
 //    ->notPath('src/Symfony/Component/Translation/Tests/fixtures/resources.php')
     ->in('.');
 
-return (new PhpCsFixer\Config('Docker', 'Docker style guide'))
+return (new PhpCsFixer\Config('', ''))
     ->setRules([
         '@PhpCsFixer' => true,
         '@PhpCsFixer:risky' => true,
