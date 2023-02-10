@@ -51,7 +51,7 @@ class MyJsonFormatter extends LogFormatter
  */
 final class InterfacesTest extends \PHPUnit\Framework\TestCase
 {
-    protected $logger;
+    protected StandardOutput $logger;
 
     protected function setUp() : void
     {

@@ -20,7 +20,7 @@ use stdClass;
  */
 final class LoggerTest extends \PHPUnit\Framework\TestCase
 {
-    protected $logger;
+    protected Logger $logger;
 
     protected function setUp() : void
     {
@@ -86,8 +86,7 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
     {
         $mock_logger = $this->_getMocklogger(['write']);
         $mock_logger->expects(static::once())
-            ->method('write')
-        ;
+            ->method('write');
 
         $this->logger->add($mock_logger);
 
@@ -98,8 +97,7 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
     {
         $mock_logger = $this->_getMocklogger(['process']);
         $mock_logger->expects(static::once()) // <-- process IS expected
-            ->method('process')
-        ;
+            ->method('process');
 
         $this->logger->add($mock_logger);
         $mock_logger->setMinLevel(LogLevel::WARNING);
@@ -143,11 +141,13 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
             $buckets[0]->getItems(),
             'Entries at Critical minimal level.'
         );
+
         static::assertCount(
             6,
             $buckets[1]->getItems(),
             'Entries at Notice minimal level.'
         );
+
         static::assertCount(
             8,
             $buckets[2]->getItems(),
@@ -164,11 +164,13 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
             $buckets[0]->getItems(),
             'Entries at Critical minimal level.'
         );
+
         static::assertCount(
             3,
             $buckets[1]->getItems(),
             'Entries at Notice minimal level.'
         );
+
         static::assertCount(
             2,
             $buckets[2]->getItems(),
@@ -182,6 +184,7 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
             $this->logger->cascading(),
             "The 'cascading' property should be True by default"
         );
+
         $this->logger->setCascading(false);
         static::assertFalse($this->logger->cascading());
     }
@@ -215,6 +218,7 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
             $this->logger->deferred(),
             "The 'deferred' property should be False by default"
         );
+
         $this->logger->setDeferred(true);
         static::assertTrue($this->logger->deferred());
     }
@@ -270,8 +274,7 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
                     ? $this->getMock('Apix\Log\Logger\Nil', $r)
                     : $this->getMockBuilder('Apix\Log\Logger\Nil')
                         ->onlyMethods($r)
-                        ->getMock()
-        ;
+                        ->getMock();
     }
 
     protected function _getFilledInLogBuckets($cascading = true)
