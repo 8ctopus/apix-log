@@ -22,19 +22,22 @@ class File extends ErrorLog
     /**
      * Constructor.
      *
-     * @param  string $file The file to append to.
-     * @throws InvalidArgumentException If the file cannot be created or written.
+     * @param string $file the file to append to
+     *
+     * @throws InvalidArgumentException if the file cannot be created or written
      */
     public function __construct($file)
     {
         if (null === $file || !file_exists($file) && !touch($file)) {
             throw new InvalidArgumentException(
-                sprintf('Log file "%s" cannot be created', $file), 1
+                sprintf('Log file "%s" cannot be created', $file),
+                1
             );
         }
         if (!is_writable($file)) {
             throw new InvalidArgumentException(
-                sprintf('Log file "%s" is not writable', $file), 2
+                sprintf('Log file "%s" is not writable', $file),
+                2
             );
         }
 

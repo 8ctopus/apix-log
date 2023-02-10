@@ -20,7 +20,7 @@ use Apix\Log\LogEntry;
  *    2.) Implements this interface `LoggerInterface`
  *    3.) Cast to string the provided `LogEntry $log` e.g. (string) $log
  *
- * @example 
+ * @example
  *   class StandardOutput extends AbstractLogger implements LoggerInterface
  *   {
  *     public function write(LogEntry $log)
@@ -35,13 +35,10 @@ use Apix\Log\LogEntry;
  */
 interface LoggerInterface
 {
-
     /**
      * Writes the given log entry.
      *
-     * @param  LogEntry|string $log
-     * @return bool Wether the log entry was successfully written or not.
+     * @return bool wether the log entry was successfully written or not
      */
     public function write(LogEntry|string $log);
-
 }

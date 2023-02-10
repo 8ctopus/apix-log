@@ -9,9 +9,13 @@
 
 namespace Apix\Log\tests\Logger;
 
-use Apix\Log\tests\Logger\TestCase;
 use Apix\Log\Logger;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class RuntimeTest extends \PHPUnit\Framework\TestCase
 {
     protected $logger;
@@ -44,12 +48,12 @@ class RuntimeTest extends \PHPUnit\Framework\TestCase
 
     public function testAbstractLogger()
     {
-        $context = array('foo', 'bar');
+        $context = ['foo', 'bar'];
         $this->logger->debug('msg1', $context);
         $this->logger->error('msg2', $context);
 
         $this->assertSame(
-            array('debug msg1', 'error msg2'),
+            ['debug msg1', 'error msg2'],
             $this->getLogs()
         );
     }

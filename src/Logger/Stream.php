@@ -10,8 +10,9 @@
 
 namespace Apix\Log\Logger;
 
-use Psr\Log\InvalidArgumentException;
 use Apix\Log\LogEntry;
+use LogicException;
+use Psr\Log\InvalidArgumentException;
 
 /**
  * Stream log wrapper.
@@ -20,9 +21,9 @@ use Apix\Log\LogEntry;
  */
 class Stream extends AbstractLogger implements LoggerInterface
 {
-
     /**
      * Holds the stream.
+     *
      * @var resource
      */
     protected $stream;
@@ -30,8 +31,10 @@ class Stream extends AbstractLogger implements LoggerInterface
     /**
      * Constructor.
      *
-     * @param  resource|string $stream The stream to append to.
-     * @throws InvalidArgumentException If the stream cannot be created/opened.
+     * @param resource|string $stream the stream to append to
+     * @param mixed           $mode
+     *
+     * @throws InvalidArgumentException if the stream cannot be created/opened
      */
     public function __construct($stream = 'php://stdout', $mode = 'a')
     {
@@ -41,7 +44,8 @@ class Stream extends AbstractLogger implements LoggerInterface
 
         if (!is_resource($stream)) {
             throw new InvalidArgumentException(sprintf(
-                'The stream "%s" cannot be created or opened', $stream
+                'The stream "%s" cannot be created or opened',
+                $stream
             ));
         }
 
@@ -54,10 +58,11 @@ class Stream extends AbstractLogger implements LoggerInterface
     public function write(LogEntry|string $log)
     {
         if (!is_resource($this->stream)) {
-            throw new \LogicException(
+            throw new LogicException(
                 'The stream resource has been __destruct() too early'
             );
         }
+
         return (bool) fwrite($this->stream, $log . $log->formatter->separator);
     }
 
@@ -70,5 +75,4 @@ class Stream extends AbstractLogger implements LoggerInterface
             fclose($this->stream);
         }
     }
-
 }

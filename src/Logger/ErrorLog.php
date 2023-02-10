@@ -19,13 +19,14 @@ use Apix\Log\LogEntry;
  */
 class ErrorLog extends AbstractLogger implements LoggerInterface
 {
-    const PHP  = 0;
-    const MAIL = 1;
-    const FILE = 3;
-    const SAPI = 4;
+    public const PHP = 0;
+    public const MAIL = 1;
+    public const FILE = 3;
+    public const SAPI = 4;
 
     /**
      * Holds the destination string (filename path or email address).
+     *
      * @var string
      */
     protected $destination;
@@ -36,21 +37,25 @@ class ErrorLog extends AbstractLogger implements LoggerInterface
      *      1: message is sent by email to the address in the destination.
      *      3: message is appended to the file destination.
      *      4: message is sent directly to the SAPI.
-     * @var integer
+     *
+     * @var int
      */
     protected $type;
 
     /**
      * Holds a string of additional (mail) headers.
-     * @var string|null
+     *
+     * @var null|string
+     *
      * @see http://php.net/manual/en/function.mail.php
      */
-    protected $headers = null;
+    protected $headers;
 
     /**
      * Constructor.
-     * @param string|null $file The filename to log messages to.
-     * @param integer     $type The message/delivery type.
+     *
+     * @param null|string $file the filename to log messages to
+     * @param int         $type the message/delivery type
      */
     public function __construct($file = null, $type = self::PHP)
     {
@@ -65,7 +70,7 @@ class ErrorLog extends AbstractLogger implements LoggerInterface
     {
         $message = (string) $log;
 
-        if(!$this->deferred && $this->type == self::FILE) {
+        if (!$this->deferred && self::FILE == $this->type) {
             $message = $log->formatter->separator . $message . $log->formatter->separator;
         }
 
@@ -78,9 +83,7 @@ class ErrorLog extends AbstractLogger implements LoggerInterface
     }
 
     /**
-     * Get log destination
-     *
-     * @return string|null
+     * Get log destination.
      */
     public function getDestination() : string|null
     {

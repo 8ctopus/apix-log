@@ -10,8 +10,6 @@
 
 namespace Apix\Log;
 
-use Psr\Log\InvalidArgumentException;
-
 /**
  * Describes a log Entry.
  *
@@ -19,39 +17,44 @@ use Psr\Log\InvalidArgumentException;
  */
 class LogEntry
 {
-
     /**
      * Holds this log timestamp.
-     * @var integer
+     *
+     * @var int
      */
     public $timestamp;
 
     /**
      * Holds this log name.
+     *
      * @var string
      */
     public $name;
 
     /**
      * Holds this log level code.
-     * @var integer
+     *
+     * @var int
      */
     public $level_code;
 
     /**
      * Holds this log message.
+     *
      * @var string
      */
     public $message;
 
     /**
      * Holds this log context.
+     *
      * @var array
      */
     public $context;
 
     /**
      * Holds this log formatter.
+     *
      * @var LogFormatter
      */
     public $formatter;
@@ -59,29 +62,24 @@ class LogEntry
     /**
      * Constructor.
      *
-     * @param string $name    The level name.
-     * @param string $message The message for this log entry.
-     * @param array  $context The contexts for this log entry.
+     * @param string $name    the level name
+     * @param string $message the message for this log entry
+     * @param array  $context the contexts for this log entry
      */
-    public function __construct($name, $message, array $context = array())
+    public function __construct($name, $message, array $context = [])
     {
         $this->timestamp = time();
 
         $this->name = $name;
         $this->level_code = Logger::getLevelCode($name);
 
-        // Message is not a string let assume it is a context -- and permute. 
+        // Message is not a string let assume it is a context -- and permute.
         if (!is_string($message)) {
-            $context = array('ctx' => $message);
+            $context = ['ctx' => $message];
             $message = '{ctx}';
         }
         $this->message = $message;
         $this->context = $context;
-    }
-    
-    public function setFormatter(LogFormatter $formatter)
-    {
-        $this->formatter = $formatter;
     }
 
     /**
@@ -94,4 +92,8 @@ class LogEntry
         return $this->formatter->format($this);
     }
 
+    public function setFormatter(LogFormatter $formatter)
+    {
+        $this->formatter = $formatter;
+    }
 }

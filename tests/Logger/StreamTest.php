@@ -11,12 +11,19 @@
 namespace Apix\Log\tests\Logger;
 
 use Apix\Log\Logger;
-use Psr\Log\InvalidArgumentException;
+use LogicException;
+use ValueError;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class StreamTest extends \PHPUnit\Framework\TestCase
 {
     protected $dest = 'php://memory';
-    protected $stream, $logger;
+    protected $stream;
+    protected $logger;
 
     protected function setUp() : void
     {
@@ -41,6 +48,7 @@ class StreamTest extends \PHPUnit\Framework\TestCase
             $lines,
             -1
         );
+
         return self::normalizeLogs($lines);
     }
 
@@ -60,17 +68,17 @@ class StreamTest extends \PHPUnit\Framework\TestCase
 
     public function testThrowsInvalidArgumentExceptionWhenFileCannotBeCreated()
     {
-        $this->expectException(\ValueError::class);
+        $this->expectException(ValueError::class);
         $this->expectExceptionMessage('Path cannot be empty');
         new Logger\Stream(null);
     }
 
     public function testThrowsLogicException()
     {
-        $this->expectException(\LogicException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('The stream resource has been __destruct() too early');
 
-        $logger = new Logger\Stream;
+        $logger = new Logger\Stream();
         $logger->__destruct();
         $logger->debug('foo');
     }

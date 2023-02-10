@@ -10,10 +10,13 @@
 
 namespace Apix\Log;
 
-use Apix\Log;
 use Psr\Log\InvalidArgumentException;
-use PHPUnit\Framework\Assert;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class MailTest extends \PHPUnit\Framework\TestCase
 {
     public function testThrowsInvalidArgumentExceptionWhenNull()

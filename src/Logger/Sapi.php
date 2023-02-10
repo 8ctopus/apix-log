@@ -14,11 +14,11 @@ namespace Apix\Log\Logger;
  * Sapi (Server API) log wrapper.
  *
  * @author             Franck Cassedanne <franck at ouarz.net>
+ *
  * @codeCoverageIgnore
  */
 class Sapi extends ErrorLog
 {
-
     /**
      * Constructor.
      *
@@ -29,5 +29,4 @@ class Sapi extends ErrorLog
         $this->destination = $destination;
         $this->type = static::SAPI;
     }
-
 }

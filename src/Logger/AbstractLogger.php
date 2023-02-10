@@ -10,11 +10,11 @@
 
 namespace Apix\Log\Logger;
 
+use Apix\Log\LogEntry;
+use Apix\Log\LogFormatter;
 use Psr\Log\AbstractLogger as PsrAbstractLogger;
 use Psr\Log\InvalidArgumentException;
 use Stringable;
-use Apix\Log\LogEntry;
-use Apix\Log\LogFormatter;
 
 /**
  * Abstratc class.
@@ -25,9 +25,10 @@ abstract class AbstractLogger extends PsrAbstractLogger
 {
     /**
      * The PSR-3 logging levels.
+     *
      * @var array
      */
-    protected static $levels = array(
+    protected static $levels = [
         'emergency',
         'alert',
         'critical',
@@ -35,68 +36,88 @@ abstract class AbstractLogger extends PsrAbstractLogger
         'warning',
         'notice',
         'info',
-        'debug'
-    );
+        'debug',
+    ];
 
     /**
      * Holds the minimal level index supported by this logger.
+     *
      * @var int
      */
     protected $min_level = 7;
 
     /**
      * Whether this logger will cascade downstream.
+     *
      * @var bool
      */
     protected $cascading = true;
 
     /**
      * Whether this logger will be deferred (push the logs at destruct time).
+     *
      * @var bool
      */
     protected $deferred = false;
 
     /**
      * Holds the deferred logs.
+     *
      * @var array
      */
-    protected $deferred_logs = array();
+    protected $deferred_logs = [];
 
     /**
-     * Flush deferred logs when deferred array reaches count
-     * @var int|null
+     * Flush deferred logs when deferred array reaches count.
+     *
+     * @var null|int
      */
-    protected $deferred_trigger = null;
+    protected $deferred_trigger;
 
     /**
      * Holds the log formatter.
-     * @var LogFormatter|null
+     *
+     * @var null|LogFormatter
      */
-    protected $log_formatter = null;
+    protected $log_formatter;
 
     /**
      * Holds the logger options (useful to set default options).
+     *
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
-     * Minimum level logged
+     * Minimum level logged.
+     *
      * @var int
      */
     protected $min_level_logged = 7;
 
     /**
      * Whether or not log is empty.
+     *
      * @var bool
      */
     protected $empty = true;
 
     /**
+     * Process any accumulated deferred log if there are any.
+     */
+    final public function __destruct()
+    {
+        $this->flushDeferredLogs();
+        $this->close();
+    }
+
+    /**
      * Gets the named level code.
      *
-     * @param  string $level_name The name of a PSR-3 level.
+     * @param string $level_name the name of a PSR-3 level
+     *
      * @return int
+     *
      * @throws InvalidArgumentException
      */
     public static function getLevelCode($level_name)
@@ -114,7 +135,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
     /**
      * {@inheritdoc}
      */
-    public function log($level, Stringable|string $message, array $context = array()) : void
+    public function log($level, Stringable|string $message, array $context = []) : void
     {
         $entry = new LogEntry($level, $message, $context);
         $entry->setFormatter($this->getLogFormatter());
@@ -124,12 +145,12 @@ abstract class AbstractLogger extends PsrAbstractLogger
     /**
      * Processes the given log.
      *
-     * @param  LogEntry $log The log entry to process.
-     * @return bool Wether this logger cascade downstream.
+     * @param LogEntry $log the log entry to process
+     *
+     * @return bool whether this logger cascades downstream
      */
     public function process(LogEntry $log)
     {
-
         if ($this->min_level_logged > $log->level_code) {
             $this->min_level_logged = $log->level_code;
         }
@@ -154,7 +175,8 @@ abstract class AbstractLogger extends PsrAbstractLogger
     /**
      * Checks whether the given level code is handled by this logger.
      *
-     * @param  int $level_code
+     * @param int $level_code
+     *
      * @return bool
      */
     public function isHandling($level_code)
@@ -165,14 +187,15 @@ abstract class AbstractLogger extends PsrAbstractLogger
     /**
      * Sets the minimal level at which this logger will be triggered.
      *
-     * @param  string    $name
-     * @param  bool|true $cascading Should the logs continue pass that level.
+     * @param string    $name
+     * @param bool|true $cascading should the logs continue pass that level
+     *
      * @return self
      */
     public function setMinLevel($name, $cascading = true)
     {
         $this->min_level = self::getLevelCode(strtolower($name));
-        $this->cascading = (boolean) $cascading;
+        $this->cascading = (bool) $cascading;
 
         return $this;
     }
@@ -180,8 +203,9 @@ abstract class AbstractLogger extends PsrAbstractLogger
     /**
      * Alias to self::setMinLevel().
      *
-     * @param  string    $name
-     * @param  bool|false $blocking Should the logs continue pass that level.
+     * @param string     $name
+     * @param bool|false $blocking should the logs continue pass that level
+     *
      * @return self
      */
     public function interceptAt($name, $blocking = false)
@@ -202,18 +226,20 @@ abstract class AbstractLogger extends PsrAbstractLogger
     /**
      * Sets wether to enable/disable cascading.
      *
-     * @param  bool $bool
+     * @param bool $bool
+     *
      * @return self
      */
     public function setCascading($bool)
     {
-        $this->cascading = (boolean) $bool;
+        $this->cascading = (bool) $bool;
 
         return $this;
     }
 
     /**
-     * Get cascading property
+     * Get cascading property.
+     *
      * @return bool
      */
     public function cascading()
@@ -224,18 +250,20 @@ abstract class AbstractLogger extends PsrAbstractLogger
     /**
      * Sets wether to enable/disable log deferring.
      *
-     * @param  bool $bool
+     * @param bool $bool
+     *
      * @return self
      */
     public function setDeferred($bool)
     {
-        $this->deferred = (boolean) $bool;
+        $this->deferred = (bool) $bool;
 
         return $this;
     }
 
     /**
-     * Get deferred property
+     * Get deferred property.
+     *
      * @return bool
      */
     public function deferred()
@@ -246,7 +274,8 @@ abstract class AbstractLogger extends PsrAbstractLogger
     /**
      * Sets deferred trigger.
      *
-     * @param int|null $value
+     * @param null|int $value
+     *
      * @return self
      */
     public function setDeferredTrigger($value)
@@ -272,7 +301,6 @@ abstract class AbstractLogger extends PsrAbstractLogger
     public function flushDeferredLogs()
     {
         if ($this->deferred && !empty($this->deferred_logs)) {
-
             $messages = array_map(
                 function ($log) {
                     return (string) $log;
@@ -287,18 +315,9 @@ abstract class AbstractLogger extends PsrAbstractLogger
             $this->write($messages);
 
             // cleanup array
-            $this->deferred_logs = array();
+            $this->deferred_logs = [];
             // return $this->formatter->format($this);
         }
-    }
-
-    /**
-     * Process any accumulated deferred log if there are any.
-     */
-    final public function __destruct()
-    {
-        $this->flushDeferredLogs();
-        $this->close();
     }
 
     /**
@@ -313,8 +332,6 @@ abstract class AbstractLogger extends PsrAbstractLogger
 
     /**
      * Sets a log formatter.
-     *
-     * @param LogFormatter $formatter
      */
     public function setLogFormatter(LogFormatter $formatter)
     {
@@ -328,8 +345,8 @@ abstract class AbstractLogger extends PsrAbstractLogger
      */
     public function getLogFormatter()
     {
-        if(!$this->log_formatter) {
-            $this->setLogFormatter(new LogFormatter);
+        if (!$this->log_formatter) {
+            $this->setLogFormatter(new LogFormatter());
         }
 
         return $this->log_formatter;
@@ -337,20 +354,16 @@ abstract class AbstractLogger extends PsrAbstractLogger
 
     /**
      * Sets and merges the options for this logger, overriding any default.
-     *
-     * @param array|null $options
      */
-    public function setOptions(array $options=null)
+    public function setOptions(array $options = null)
     {
         if (null !== $options) {
-            $this->options = $options+$this->options;
+            $this->options = $options + $this->options;
         }
     }
 
     /**
-     * Gets min level logged
-     *
-     * @return int
+     * Gets min level logged.
      */
     public function getMinLevelLogged() : int
     {
@@ -358,9 +371,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
     }
 
     /**
-     * Check if log is empty
-     *
-     * @return bool
+     * Check if log is empty.
      */
     public function isEmpty() : bool
     {

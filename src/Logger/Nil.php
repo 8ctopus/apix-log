@@ -16,11 +16,11 @@ use Apix\Log\LogEntry;
  * Nil (Null) log wrapper.
  *
  * @author             Franck Cassedanne <franck at ouarz.net>
+ *
  * @codeCoverageIgnore
  */
 class Nil extends AbstractLogger implements LoggerInterface
 {
-
     /**
      * {@inheritDoc}
      */
@@ -28,5 +28,4 @@ class Nil extends AbstractLogger implements LoggerInterface
     {
         return false;
     }
-
 }

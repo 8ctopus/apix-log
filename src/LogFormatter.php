@@ -17,9 +17,9 @@ namespace Apix\Log;
  */
 class LogFormatter implements LogFormatterInterface
 {
-
     /**
      * Holds this log separator.
+     *
      * @var string
      */
     public $separator = PHP_EOL;
@@ -30,19 +30,19 @@ class LogFormatter implements LogFormatterInterface
      * Builds a replacement array with braces around the context keys.
      * It replaces {foo} with the value from $context['foo'].
      *
-     * @param  string $message
-     * @param  array  $context
+     * @param string $message
+     *
      * @return string
      */
-    public function interpolate($message, array $context = array())
-    {        
-        $replaces = array();
+    public function interpolate($message, array $context = [])
+    {
+        $replaces = [];
         foreach ($context as $key => $val) {
             if (is_bool($val)) {
                 $val = '[bool: ' . (int) $val . ']';
             } elseif (is_null($val)
                 || is_scalar($val)
-                || ( is_object($val) && method_exists($val, '__toString') )
+                || (is_object($val) && method_exists($val, '__toString'))
             ) {
                 $val = (string) $val;
             } elseif (is_array($val) || is_object($val)) {
@@ -59,7 +59,8 @@ class LogFormatter implements LogFormatterInterface
     /**
      * Formats the given log entry.
      *
-     * @param  LogEntry $log The log entry to format.
+     * @param LogEntry $log the log entry to format
+     *
      * @return string
      */
     public function format(LogEntry $log)
@@ -71,5 +72,4 @@ class LogFormatter implements LogFormatterInterface
             self::interpolate($log->message, $log->context)
         );
     }
-
 }

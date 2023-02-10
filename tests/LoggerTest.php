@@ -12,8 +12,13 @@ namespace Apix\Log;
 
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LogLevel;
-use PHPUnit\Framework\Assert;
+use stdClass;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class LoggerTest extends \PHPUnit\Framework\TestCase
 {
     protected $logger;
@@ -41,18 +46,18 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('"stdClass" must interface "Apix\Log\Logger\LoggerInterface"');
-        new Logger(array( new \StdClass() ));
+        new Logger([new stdClass()]);
     }
 
     public function testConstructor()
     {
-        $err_logger = $this->_getMocklogger(array('process'));
+        $err_logger = $this->_getMocklogger(['process']);
         $err_logger->setMinLevel(LogLevel::ERROR);
 
-        $crit_logger = $this->_getMocklogger(array('process'));
+        $crit_logger = $this->_getMocklogger(['process']);
         $crit_logger->setMinLevel(LogLevel::CRITICAL);
 
-        $this->logger = new Logger(array($err_logger, $crit_logger));
+        $this->logger = new Logger([$err_logger, $crit_logger]);
 
         $err_logger->expects($this->once())->method('process');
         $crit_logger->expects($this->once())->method('process');
@@ -78,20 +83,12 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         Logger::getPsrLevelName('non-existant');
     }
 
-    protected function _getMocklogger($r = array())
-    {
-        return !method_exists($this, 'createMock')
-                    ? $this->getMock('Apix\Log\Logger\Nil', $r)
-                    : $this->getMockBuilder('Apix\Log\Logger\Nil')
-                           ->setMethods($r)
-                           ->getMock();
-    }
-
     public function testWriteIsCalled()
     {
-        $mock_logger = $this->_getMocklogger(array('write'));
+        $mock_logger = $this->_getMocklogger(['write']);
         $mock_logger->expects($this->once())
-            ->method('write');
+            ->method('write')
+        ;
 
         $this->logger->add($mock_logger);
 
@@ -100,9 +97,10 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
 
     public function testLogWillProcess()
     {
-        $mock_logger = $this->_getMocklogger(array('process'));
+        $mock_logger = $this->_getMocklogger(['process']);
         $mock_logger->expects($this->once()) // <-- process IS expected
-            ->method('process');
+            ->method('process')
+        ;
 
         $this->logger->add($mock_logger);
         $mock_logger->setMinLevel(LogLevel::WARNING);
@@ -112,47 +110,15 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
 
     public function testLogWillNotProcess()
     {
-        $mock_logger = $this->_getMocklogger(array('process'));
+        $mock_logger = $this->_getMocklogger(['process']);
         $mock_logger->setMinLevel(LogLevel::ERROR);
 
         $mock_logger->expects($this->never()) // <-- process IS NOT expected
-            ->method('process');
+            ->method('process')
+        ;
         $this->logger->add($mock_logger);
 
         $this->logger->warning('test');
-    }
-
-    protected function _getFilledInLogBuckets($cascading=true)
-    {
-        // The log bucket for everything (starts at 0 Debug level).
-        $dev_log = new Logger\Runtime();
-        $dev_log->setMinLevel('debug', $cascading);
-
-        // The log bucket for Critical, Alert and Emergency.
-        $urgent_log = new Logger\Runtime();
-        $urgent_log->setMinLevel('critical', $cascading);
-
-        // The log bucket that starts at Notice level
-        $notices_log = new Logger\Runtime();
-        $notices_log->setMinLevel('notice', $cascading);
-
-        $this->logger->add($notices_log);
-        $this->logger->add($urgent_log);
-        $this->logger->add($dev_log);
-
-        // Log some stuff...
-        $this->logger->emergency('foo');
-        $this->logger->alert('foo');
-        $this->logger->critical('foo');
-
-        $this->logger->error('foo');
-        $this->logger->warning('foo');
-        $this->logger->notice('foo');
-
-        $this->logger->info('foo');
-        $this->logger->debug('foo');
-
-        return $this->logger->getBuckets();
     }
 
     /**
@@ -174,13 +140,19 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         $buckets = $this->_getFilledInLogBuckets();
 
         $this->assertCount(
-            3, $buckets[0]->getItems(), 'Entries at Critical minimal level.'
+            3,
+            $buckets[0]->getItems(),
+            'Entries at Critical minimal level.'
         );
         $this->assertCount(
-            6, $buckets[1]->getItems(), 'Entries at Notice minimal level.'
+            6,
+            $buckets[1]->getItems(),
+            'Entries at Notice minimal level.'
         );
         $this->assertCount(
-            8, $buckets[2]->getItems(), 'Entries at Debug minimal level.'
+            8,
+            $buckets[2]->getItems(),
+            'Entries at Debug minimal level.'
         );
     }
 
@@ -189,19 +161,26 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         $buckets = $this->_getFilledInLogBuckets(false);
 
         $this->assertCount(
-            3, $buckets[0]->getItems(), 'Entries at Critical minimal level.'
+            3,
+            $buckets[0]->getItems(),
+            'Entries at Critical minimal level.'
         );
         $this->assertCount(
-            3, $buckets[1]->getItems(), 'Entries at Notice minimal level.'
+            3,
+            $buckets[1]->getItems(),
+            'Entries at Notice minimal level.'
         );
         $this->assertCount(
-            2, $buckets[2]->getItems(), 'Entries at Debug minimal level.'
+            2,
+            $buckets[2]->getItems(),
+            'Entries at Debug minimal level.'
         );
     }
 
     public function testSetCascading()
     {
-        $this->assertTrue($this->logger->cascading(),
+        $this->assertTrue(
+            $this->logger->cascading(),
             "The 'cascading' property should be True by default"
         );
         $this->logger->setCascading(false);
@@ -284,5 +263,48 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         $this->logger->interceptAt('warning', true);
         $this->assertEquals(4, $this->logger->getMinLevel());
         $this->assertFalse($this->logger->cascading());
+    }
+
+    protected function _getMocklogger($r = [])
+    {
+        return !method_exists($this, 'createMock')
+                    ? $this->getMock('Apix\Log\Logger\Nil', $r)
+                    : $this->getMockBuilder('Apix\Log\Logger\Nil')
+                        ->setMethods($r)
+                        ->getMock()
+        ;
+    }
+
+    protected function _getFilledInLogBuckets($cascading = true)
+    {
+        // The log bucket for everything (starts at 0 Debug level).
+        $dev_log = new Logger\Runtime();
+        $dev_log->setMinLevel('debug', $cascading);
+
+        // The log bucket for Critical, Alert and Emergency.
+        $urgent_log = new Logger\Runtime();
+        $urgent_log->setMinLevel('critical', $cascading);
+
+        // The log bucket that starts at Notice level
+        $notices_log = new Logger\Runtime();
+        $notices_log->setMinLevel('notice', $cascading);
+
+        $this->logger->add($notices_log);
+        $this->logger->add($urgent_log);
+        $this->logger->add($dev_log);
+
+        // Log some stuff...
+        $this->logger->emergency('foo');
+        $this->logger->alert('foo');
+        $this->logger->critical('foo');
+
+        $this->logger->error('foo');
+        $this->logger->warning('foo');
+        $this->logger->notice('foo');
+
+        $this->logger->info('foo');
+        $this->logger->debug('foo');
+
+        return $this->logger->getBuckets();
     }
 }

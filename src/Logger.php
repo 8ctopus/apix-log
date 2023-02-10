@@ -23,16 +23,16 @@ class Logger extends AbstractLogger
     /**
      * Holds all the registered loggers as buckets.
      *
-     * @var Logger\LoggerInterface[].
+     * @var logger\LoggerInterface[]
      */
-    protected $buckets = array();
+    protected $buckets = [];
 
     /**
      * Constructor.
      *
      * @param Logger\LoggerInterface[] $loggers
      */
-    public function __construct(array $loggers = array())
+    public function __construct(array $loggers = [])
     {
         foreach ($loggers as $key => $logger) {
             if ($logger instanceof Logger\LoggerInterface) {
@@ -42,7 +42,7 @@ class Logger extends AbstractLogger
                     sprintf(
                         '"%s" must interface "%s".',
                         get_class($logger),
-                        __NAMESPACE__.'\Logger\LoggerInterface'
+                        __NAMESPACE__ . '\Logger\LoggerInterface'
                     )
                 );
             }
@@ -54,9 +54,9 @@ class Logger extends AbstractLogger
      * Processes the given log.
      * (overwrite abstract).
      *
-     * @param LogEntry $log The log record to handle.
+     * @param LogEntry $log the log record to handle
      *
-     * @return bool False when not processed.
+     * @return bool false when not processed
      */
     public function process(LogEntry $log)
     {
@@ -76,31 +76,13 @@ class Logger extends AbstractLogger
     }
 
     /**
-     * Flush deferred logs
+     * Flush deferred logs.
      */
     public function flushDeferredLogs()
     {
         foreach ($this->buckets as $bucket) {
             $bucket->flushDeferredLogs();
         }
-    }
-
-    /**
-     * Checks if any log bucket can handle the given code.
-     *
-     * @param int $level_code
-     *
-     * @return int|false
-     */
-    protected function getIndexFirstBucket($level_code)
-    {
-        foreach ($this->buckets as $key => $logger) {
-            if ($logger->isHandling($level_code)) {
-                return $key;
-            }
-        }
-
-        return false;
     }
 
     /**
@@ -114,7 +96,7 @@ class Logger extends AbstractLogger
      */
     public static function getPsrLevelName($level_name)
     {
-        $logLevel = '\Psr\Log\LogLevel::'.strtoupper($level_name);
+        $logLevel = '\Psr\Log\LogLevel::' . strtoupper($level_name);
         if (!defined($logLevel)) {
             throw new InvalidArgumentException(
                 sprintf('Invalid PSR-3 log level "%s"', $level_name)
@@ -127,30 +109,13 @@ class Logger extends AbstractLogger
     /**
      * Adds a logger.
      *
-     * @param Logger\LoggerInterface $logger
-     *
-     * @return bool Returns TRUE on success or FALSE on failure.
+     * @return bool returns TRUE on success or FALSE on failure
      */
     public function add(Logger\LoggerInterface $logger)
     {
         $this->buckets[] = $logger;
 
         return $this->sortBuckets();
-    }
-
-    /**
-     * Sorts the log buckets, prioritizes top-down by minimal level.
-     * Beware: Exisiting level will be in FIFO order.
-     *
-     * @return bool Returns TRUE on success or FALSE on failure.
-     */
-    protected function sortBuckets()
-    {
-        return usort(
-            $this->buckets, function ($a, $b) {
-                return $a->getMinLevel() - $b->getMinLevel();
-            }
-        );
     }
 
     /**
@@ -161,5 +126,39 @@ class Logger extends AbstractLogger
     public function getBuckets()
     {
         return $this->buckets;
+    }
+
+    /**
+     * Checks if any log bucket can handle the given code.
+     *
+     * @param int $level_code
+     *
+     * @return false|int
+     */
+    protected function getIndexFirstBucket($level_code)
+    {
+        foreach ($this->buckets as $key => $logger) {
+            if ($logger->isHandling($level_code)) {
+                return $key;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Sorts the log buckets, prioritizes top-down by minimal level.
+     * Beware: Exisiting level will be in FIFO order.
+     *
+     * @return bool returns TRUE on success or FALSE on failure
+     */
+    protected function sortBuckets()
+    {
+        return usort(
+            $this->buckets,
+            function ($a, $b) {
+                return $a->getMinLevel() - $b->getMinLevel();
+            }
+        );
     }
 }

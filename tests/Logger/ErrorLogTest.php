@@ -12,6 +12,11 @@ namespace Apix\Log\tests\Logger;
 
 use Apix\Log\Logger;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class ErrorLogTest extends \PHPUnit\Framework\TestCase
 {
     protected $dest = 'test';

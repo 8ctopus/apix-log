@@ -17,7 +17,7 @@ namespace Apix\Log;
  *    1.) Extends the `LogFormatter`
  *    2.) Implements this interface `LogFormatterInterface`
  *
- * @example 
+ * @example
  *   class MyJsonFormatter extends LogFormatter
  *   {
  *     public function format(LogEntry $log)
@@ -32,13 +32,12 @@ namespace Apix\Log;
  */
 interface LogFormatterInterface
 {
-
     /**
      * Formats the given log entry.
      *
-     * @param  LogEntry $log The log entry to format.
+     * @param LogEntry $log the log entry to format
+     *
      * @return string
      */
     public function format(LogEntry $log);
-
 }

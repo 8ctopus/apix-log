@@ -19,13 +19,13 @@ use Psr\Log\InvalidArgumentException;
  */
 class Mail extends ErrorLog
 {
-
     /**
      * Constructor.
      *
-     * @param  string      $email   The email to append to.
-     * @param  string|null $headers A string of additional (mail) headers.
-     * @throws Psr\Log\InvalidArgumentException If the email does not validate.
+     * @param string      $email   the email to append to
+     * @param null|string $headers a string of additional (mail) headers
+     *
+     * @throws Psr\Log\InvalidArgumentException if the email does not validate
      */
     public function __construct($email, $headers = null)
     {
@@ -39,5 +39,4 @@ class Mail extends ErrorLog
         $this->type = static::MAIL;
         $this->headers = (string) $headers;
     }
-
 }

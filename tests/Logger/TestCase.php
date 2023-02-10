@@ -10,13 +10,15 @@
 
 namespace Apix\Log\tests\Logger;
 
+use Exception;
 use Psr\Log\LoggerInterface;
+use stdClass;
 
 abstract class TestCase implements LoggerInterface
 {
     protected $dest = 'build/apix-unit-test-logger.log';
 
-    static public function normalizeLogs($logs)
+    public static function normalizeLogs($logs)
     {
         $normalize = function ($log) {
             return preg_replace_callback(
@@ -35,7 +37,7 @@ abstract class TestCase implements LoggerInterface
     }
 
     /**
-     * This must return the log messages in order with a simple formatting: "<LOG LEVEL> <MESSAGE>"
+     * This must return the log messages in order with a simple formatting: "<LOG LEVEL> <MESSAGE>".
      *
      * Example ->error('Foo') would yield "error Foo"
      *
@@ -48,75 +50,83 @@ abstract class TestCase implements LoggerInterface
 
     public function providerMessagesAndContextes()
     {
-        $obj = new \stdClass();
+        $obj = new stdClass();
         $obj->baz = 'biz';
-        $obj->nested = new \stdClass();
-        $obj->nested->buz ='bez';
+        $obj->nested = new stdClass();
+        $obj->nested->buz = 'bez';
 
-        return array(
-            array('null', null, ''),
-            array('bool1', true, '[bool: 1]'),
-            array('bool2', false, '[bool: 0]'),
-            array('string', 'Foo', 'Foo'),
-            array('int', 0, '0'),
-            array('float', 0.5, '0.5'),
-            array('resource', fopen('php://memory', 'r'), '[type: resource]'),
+        return [
+            ['null', null, ''],
+            ['bool1', true, '[bool: 1]'],
+            ['bool2', false, '[bool: 0]'],
+            ['string', 'Foo', 'Foo'],
+            ['int', 0, '0'],
+            ['float', 0.5, '0.5'],
+            ['resource', fopen('php://memory', 'r'), '[type: resource]'],
 
             // objects
-            array('obj__toString', new DummyTest(), '__toString!'),
-            array('obj_stdClass', new \stdClass(), '{}'),
-            array('obj_instance', $obj, '{"baz":"biz","nested":{"buz":"bez"}}'),
-            
+            ['obj__toString', new DummyTest(), '__toString!'],
+            ['obj_stdClass', new stdClass(), '{}'],
+            ['obj_instance', $obj, '{"baz":"biz","nested":{"buz":"bez"}}'],
+
             // nested arrays...
-            array('nested_values', array('foo','bar'), '["foo","bar"]'),
-            array('nested_asso', array('foo'=>1,'bar'=>'2'), '{"foo":1,"bar":"2"}'),
-            array('nested_object', array(new DummyTest), '[{"foo":"bar"}]'),
-            array('nested_unicode', array('ƃol-xᴉdɐ'), '["\u0183ol-x\u1d09d\u0250"]'),
-        );
+            ['nested_values', ['foo', 'bar'], '["foo","bar"]'],
+            ['nested_asso', ['foo' => 1, 'bar' => '2'], '{"foo":1,"bar":"2"}'],
+            ['nested_object', [new DummyTest()], '[{"foo":"bar"}]'],
+            ['nested_unicode', ['ƃol-xᴉdɐ'], '["\u0183ol-x\u1d09d\u0250"]'],
+        ];
     }
 
     /**
      * @dataProvider providerMessagesAndContextes
+     *
+     * @param mixed $msg
+     * @param mixed $context
+     * @param mixed $exp
      */
     public function testMessageWithContext($msg, $context, $exp)
     {
-        $this->getLogger()->alert('{'.$msg.'}', array( $msg => $context));
+        $this->getLogger()->alert('{' . $msg . '}', [$msg => $context]);
 
-        $this->assertEquals(array('alert ' . $exp), $this->getLogs());
+        $this->assertEquals(['alert ' . $exp], $this->getLogs());
     }
 
     /**
      * @dataProvider providerMessagesAndContextes
+     *
+     * @param mixed $msg
+     * @param mixed $context
+     * @param mixed $exp
      */
     public function testContextIsPermutted($msg, $context, $exp)
     {
         $this->getLogger()->notice($context);
 
-        $this->assertEquals(array('notice ' . $exp), $this->getLogs());
+        $this->assertEquals(['notice ' . $exp], $this->getLogs());
     }
 
     public function testContextIsAnException()
     {
-        $this->getLogger()->critical(new \Exception('Boo!'));
-        
+        $this->getLogger()->critical(new Exception('Boo!'));
+
         $logs = $this->getLogs();
-        
+
         $prefix = version_compare(PHP_VERSION, '7.0.0-dev', '>=')
-                ? "critical Exception: Boo! in "
+                ? 'critical Exception: Boo! in '
                 : "critical exception 'Exception' with message 'Boo!' in ";
-        
+
         $this->assertStringStartsWith(
             $prefix,
             $logs[0]
         );
     }
-
 }
 
 class DummyTest
 {
     public $foo = 'bar';
     protected $foo2 = 'bar2';
+
     public function __toString()
     {
         return '__toString!';

@@ -39,11 +39,16 @@ class MyJsonFormatter extends LogFormatter
     {
         // Interpolate the context values into the message placeholders.
         $log->message = self::interpolate($log->message, $log->context);
-        
+
         return json_encode($log);
     }
 }
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class InterfacesTest extends \PHPUnit\Framework\TestCase
 {
     protected $logger;
@@ -68,16 +73,16 @@ class InterfacesTest extends \PHPUnit\Framework\TestCase
 
     public function testSetLogFormatter()
     {
-        $formatter = new MyJsonFormatter;
+        $formatter = new MyJsonFormatter();
         $this->logger->setLogFormatter($formatter);
         $this->assertSame($this->logger->getLogFormatter(), $formatter);
     }
 
     public function testLogFormatterInterfaceExample()
     {
-        $formatter = new MyJsonFormatter;
+        $formatter = new MyJsonFormatter();
         $this->logger->setLogFormatter($formatter);
-        $this->logger->error('hello {who}', array('who'=>'world'));
+        $this->logger->error('hello {who}', ['who' => 'world']);
 
         $this->expectOutputRegex(
             '@\{"timestamp":.*\,"name":"error"\,"level_code":3\,"message":"hello world","context":\{"who":"world"\}\,"formatter":\{"separator":"~"\}\}@'

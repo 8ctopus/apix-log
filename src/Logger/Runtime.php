@@ -21,9 +21,10 @@ class Runtime extends AbstractLogger implements LoggerInterface
 {
     /**
      * Holds the logged items.
+     *
      * @var array
      */
-    protected $items = array();
+    protected $items = [];
 
     /**
      * {@inheritDoc}
@@ -42,5 +43,4 @@ class Runtime extends AbstractLogger implements LoggerInterface
     {
         return $this->items;
     }
-
 }

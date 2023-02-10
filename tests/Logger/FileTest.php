@@ -13,6 +13,11 @@ namespace Apix\Log\tests\Logger;
 use Apix\Log\Logger;
 use Psr\Log\InvalidArgumentException;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class FileTest extends \PHPUnit\Framework\TestCase
 {
     protected $dest = 'test';
