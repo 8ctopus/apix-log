@@ -50,10 +50,10 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
 
     public function testConstructor() : void
     {
-        $err_logger = $this->_getMocklogger(['process']);
+        $err_logger = $this->_getMockLogger(['process']);
         $err_logger->setMinLevel(LogLevel::ERROR);
 
-        $crit_logger = $this->_getMocklogger(['process']);
+        $crit_logger = $this->_getMockLogger(['process']);
         $crit_logger->setMinLevel(LogLevel::CRITICAL);
 
         $this->logger = new Logger([$err_logger, $crit_logger]);
@@ -84,7 +84,7 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
 
     public function testWriteIsCalled() : void
     {
-        $mock_logger = $this->_getMocklogger(['write']);
+        $mock_logger = $this->_getMockLogger(['write']);
         $mock_logger->expects(static::once())
             ->method('write');
 
@@ -95,7 +95,7 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
 
     public function testLogWillProcess() : void
     {
-        $mock_logger = $this->_getMocklogger(['process']);
+        $mock_logger = $this->_getMockLogger(['process']);
         $mock_logger->expects(static::once()) // <-- process IS expected
             ->method('process');
 
@@ -107,7 +107,7 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
 
     public function testLogWillNotProcess() : void
     {
-        $mock_logger = $this->_getMocklogger(['process']);
+        $mock_logger = $this->_getMockLogger(['process']);
         $mock_logger->setMinLevel(LogLevel::ERROR);
 
         $mock_logger->expects(static::never()) // <-- process IS NOT expected
@@ -268,7 +268,7 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
         static::assertFalse($this->logger->cascading());
     }
 
-    protected function _getMocklogger($r = [])
+    protected function _getMockLogger($r = [])
     {
         return $this->getMockBuilder('Apix\Log\Logger\Nil')
             ->onlyMethods($r)
