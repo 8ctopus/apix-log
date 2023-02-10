@@ -270,7 +270,7 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
         return !method_exists($this, 'createMock')
                     ? $this->getMock('Apix\Log\Logger\Nil', $r)
                     : $this->getMockBuilder('Apix\Log\Logger\Nil')
-                        ->setMethods($r)
+                        ->onlyMethods($r)
                         ->getMock()
         ;
     }
