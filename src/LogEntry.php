@@ -22,42 +22,42 @@ class LogEntry
      *
      * @var int
      */
-    public $timestamp;
+    public int $timestamp;
 
     /**
      * Holds this log name.
      *
      * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * Holds this log level code.
      *
      * @var int
      */
-    public $level_code;
+    public int $level_code;
 
     /**
      * Holds this log message.
      *
      * @var string
      */
-    public $message;
+    public string $message;
 
     /**
      * Holds this log context.
      *
      * @var array
      */
-    public $context;
+    public array $context;
 
     /**
      * Holds this log formatter.
      *
      * @var LogFormatter
      */
-    public $formatter;
+    public LogFormatter $formatter;
 
     /**
      * Constructor.

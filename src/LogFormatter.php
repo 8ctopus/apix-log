@@ -22,7 +22,7 @@ class LogFormatter implements LogFormatterInterface
      *
      * @var string
      */
-    public $separator = PHP_EOL;
+    public string $separator = PHP_EOL;
 
     /**
      * Interpolates context values into the message placeholders.

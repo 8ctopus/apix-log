@@ -28,7 +28,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
      *
      * @var array
      */
-    protected static $levels = [
+    protected static array $levels = [
         'emergency',
         'alert',
         'critical',
@@ -44,63 +44,63 @@ abstract class AbstractLogger extends PsrAbstractLogger
      *
      * @var int
      */
-    protected $min_level = 7;
+    protected int $min_level = 7;
 
     /**
      * Whether this logger will cascade downstream.
      *
      * @var bool
      */
-    protected $cascading = true;
+    protected bool $cascading = true;
 
     /**
      * Whether this logger will be deferred (push the logs at destruct time).
      *
      * @var bool
      */
-    protected $deferred = false;
+    protected bool $deferred = false;
 
     /**
      * Holds the deferred logs.
      *
      * @var array
      */
-    protected $deferred_logs = [];
+    protected array $deferred_logs = [];
 
     /**
      * Flush deferred logs when deferred array reaches count.
      *
      * @var null|int
      */
-    protected $deferred_trigger;
+    protected ?int $deferred_trigger;
 
     /**
      * Holds the log formatter.
      *
      * @var null|LogFormatter
      */
-    protected $log_formatter;
+    protected ?LogFormatter $log_formatter;
 
     /**
      * Holds the logger options (useful to set default options).
      *
      * @var array
      */
-    protected $options = [];
+    protected array $options = [];
 
     /**
      * Minimum level logged.
      *
      * @var int
      */
-    protected $min_level_logged = 7;
+    protected int $min_level_logged = 7;
 
     /**
      * Whether or not log is empty.
      *
      * @var bool
      */
-    protected $empty = true;
+    protected bool $empty = true;
 
     /**
      * Process any accumulated deferred log if there are any.
@@ -162,7 +162,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
         if ($this->deferred) {
             $this->deferred_logs[] = $log;
 
-            if ($this->deferred_trigger && \count($this->deferred_logs) >= $this->deferred_trigger) {
+            if (isset($this->deferred_trigger) && \count($this->deferred_logs) >= $this->deferred_trigger) {
                 $this->flushDeferredLogs();
             }
         } else {
@@ -345,7 +345,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
      */
     public function getLogFormatter()
     {
-        if (!$this->log_formatter) {
+        if (!isset($this->log_formatter)) {
             $this->setLogFormatter(new LogFormatter());
         }
 

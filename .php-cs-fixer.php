@@ -34,6 +34,7 @@ return (new PhpCsFixer\Config('', ''))
         'phpdoc_no_empty_return' => false,
         'phpdoc_summary' => false,
         'phpdoc_to_param_type' => true,
+        'phpdoc_to_property_type' => true,
         'phpdoc_trim' => true,
         'phpdoc_trim_consecutive_blank_line_separation' => true,
         'php_unit_method_casing' => false,

@@ -27,9 +27,9 @@ class ErrorLog extends AbstractLogger implements LoggerInterface
     /**
      * Holds the destination string (filename path or email address).
      *
-     * @var string
+     * @var string|null
      */
-    protected $destination;
+    protected ?string $destination;
 
     /**
      * Holds the message/delivery type:
@@ -40,7 +40,7 @@ class ErrorLog extends AbstractLogger implements LoggerInterface
      *
      * @var int
      */
-    protected $type;
+    protected int $type;
 
     /**
      * Holds a string of additional (mail) headers.
@@ -49,7 +49,7 @@ class ErrorLog extends AbstractLogger implements LoggerInterface
      *
      * @see http://php.net/manual/en/function.mail.php
      */
-    protected $headers;
+    protected ?string $headers;
 
     /**
      * Constructor.
@@ -61,6 +61,7 @@ class ErrorLog extends AbstractLogger implements LoggerInterface
     {
         $this->destination = $file;
         $this->type = $type;
+        $this->headers = '';
     }
 
     /**

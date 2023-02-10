@@ -24,7 +24,7 @@ class Runtime extends AbstractLogger implements LoggerInterface
      *
      * @var array
      */
-    protected $items = [];
+    protected array $items = [];
 
     /**
      * {@inheritDoc}

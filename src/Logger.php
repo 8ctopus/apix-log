@@ -25,7 +25,7 @@ class Logger extends AbstractLogger
      *
      * @var logger\LoggerInterface[]
      */
-    protected $buckets = [];
+    protected array $buckets = [];
 
     /**
      * Constructor.

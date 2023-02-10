@@ -33,7 +33,7 @@ class StandardOutput extends AbstractLogger implements LoggerInterface
  */
 class MyJsonFormatter extends LogFormatter
 {
-    public $separator = '~';
+    public string $separator = '~';
 
     public function format(LogEntry $log)
     {
