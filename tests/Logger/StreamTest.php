@@ -39,7 +39,7 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
     /**
      * {@inheritDoc}
      */
-    public function getLogs()
+    public function getLogs() : array
     {
         fseek($this->stream, 0);
         $lines = fread($this->stream, 1000);
