@@ -3,12 +3,11 @@
 /vendor/*
 
 # phpunit
-/phpunit.xml
 /.phpunit.result.cache
 /coverage/
 
-# development
+# other
 /*.sublime-workspace
+/.php-cs-fixer.cache
 /test.php
 /*.log
-/.php-cs-fixer.cache
