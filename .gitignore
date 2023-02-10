@@ -8,3 +8,4 @@
 /build/
 /phpunit.xml
 /.phpunit.result.cache
+/*.sublime-workspace
