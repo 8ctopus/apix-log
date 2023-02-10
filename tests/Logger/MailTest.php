@@ -23,7 +23,7 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('"" is an invalid email address');
-        new Logger\Mail(null);
+        new Logger\Mail('');
     }
 
     public function testThrowsInvalidArgumentException()

@@ -94,7 +94,7 @@ class Logger extends AbstractLogger
      *
      * @throws InvalidArgumentException
      */
-    public static function getPsrLevelName($level_name)
+    public static function getPsrLevelName(string $level_name)
     {
         $logLevel = '\Psr\Log\LogLevel::' . strtoupper($level_name);
         if (!\defined($logLevel)) {
@@ -135,7 +135,7 @@ class Logger extends AbstractLogger
      *
      * @return false|int
      */
-    protected function getIndexFirstBucket($level_code)
+    protected function getIndexFirstBucket(int $level_code)
     {
         foreach ($this->buckets as $key => $logger) {
             if ($logger->isHandling($level_code)) {

@@ -120,7 +120,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
      *
      * @throws InvalidArgumentException
      */
-    public static function getLevelCode($level_name)
+    public static function getLevelCode(string $level_name)
     {
         $level_code = array_search($level_name, static::$levels, true);
         if (false === $level_code) {
@@ -179,7 +179,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
      *
      * @return bool
      */
-    public function isHandling($level_code)
+    public function isHandling(int $level_code)
     {
         return $this->min_level >= $level_code;
     }
@@ -192,7 +192,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
      *
      * @return self
      */
-    public function setMinLevel($name, $cascading = true)
+    public function setMinLevel(string $name, bool $cascading = true)
     {
         $this->min_level = self::getLevelCode(strtolower($name));
         $this->cascading = (bool) $cascading;
@@ -208,7 +208,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
      *
      * @return self
      */
-    public function interceptAt($name, $blocking = false)
+    public function interceptAt(string $name, bool $blocking = false)
     {
         return $this->setMinLevel($name, !$blocking);
     }
@@ -230,7 +230,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
      *
      * @return self
      */
-    public function setCascading($bool)
+    public function setCascading(bool $bool)
     {
         $this->cascading = (bool) $bool;
 
@@ -254,7 +254,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
      *
      * @return self
      */
-    public function setDeferred($bool)
+    public function setDeferred(bool $bool)
     {
         $this->deferred = (bool) $bool;
 
@@ -278,7 +278,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
      *
      * @return self
      */
-    public function setDeferredTrigger($value)
+    public function setDeferredTrigger(?int $value)
     {
         $this->deferred_trigger = $value;
 

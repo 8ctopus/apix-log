@@ -27,7 +27,7 @@ class Mail extends ErrorLog
      *
      * @throws Psr\Log\InvalidArgumentException if the email does not validate
      */
-    public function __construct($email, $headers = null)
+    public function __construct(string $email, ?string $headers = null)
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidArgumentException(

@@ -26,7 +26,7 @@ class File extends ErrorLog
      *
      * @throws InvalidArgumentException if the file cannot be created or written
      */
-    public function __construct($file)
+    public function __construct(string $file)
     {
         if (null === $file || !file_exists($file) && !touch($file)) {
             throw new InvalidArgumentException(

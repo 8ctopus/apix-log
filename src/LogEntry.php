@@ -66,7 +66,7 @@ class LogEntry
      * @param string $message the message for this log entry
      * @param array  $context the contexts for this log entry
      */
-    public function __construct($name, $message, array $context = [])
+    public function __construct(string $name, string $message, array $context = [])
     {
         $this->timestamp = time();
 
