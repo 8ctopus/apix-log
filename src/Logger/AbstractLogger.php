@@ -63,6 +63,12 @@ abstract class AbstractLogger extends PsrAbstractLogger
     protected $deferred_logs = array();
 
     /**
+     * Flush deferred logs when deferred array reaches count
+     * @var int|null
+     */
+    protected $deferred_trigger = null;
+
+    /**
      * Holds the log formatter.
      * @var LogFormatter|null
      */
@@ -134,6 +140,10 @@ abstract class AbstractLogger extends PsrAbstractLogger
 
         if ($this->deferred) {
             $this->deferred_logs[] = $log;
+
+            if ($this->deferred_trigger && count($this->deferred_logs) >= $this->deferred_trigger) {
+                $this->flushDeferredLogs();
+            }
         } else {
             $this->write($log);
         }
@@ -234,6 +244,19 @@ abstract class AbstractLogger extends PsrAbstractLogger
     }
 
     /**
+     * Sets deferred trigger.
+     *
+     * @param int|null $value
+     * @return self
+     */
+    public function setDeferredTrigger($value)
+    {
+        $this->deferred_trigger = $value;
+
+        return $this;
+    }
+
+    /**
      * Returns all the deferred logs.
      *
      * @return array
@@ -246,7 +269,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
     /**
      * Process any accumulated deferred log if there are any.
      */
-    final public function __destruct()
+    public function flushDeferredLogs()
     {
         if ($this->deferred && !empty($this->deferred_logs)) {
 
@@ -259,15 +282,22 @@ abstract class AbstractLogger extends PsrAbstractLogger
 
             $formatter = $this->getLogFormatter();
 
-            $messages = implode($formatter->separator, $messages);
+            $messages = implode($formatter->separator, $messages) . $formatter->separator;
 
-            $entries = new LogEntry('notice', $messages);
-            $entries->setFormatter( $formatter );
-            $this->write($entries);
+            $this->write($messages);
 
+            // cleanup array
+            $this->deferred_logs = array();
             // return $this->formatter->format($this);
         }
+    }
 
+    /**
+     * Process any accumulated deferred log if there are any.
+     */
+    final public function __destruct()
+    {
+        $this->flushDeferredLogs();
         $this->close();
     }
 
