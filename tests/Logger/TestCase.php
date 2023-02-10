@@ -11,7 +11,7 @@
 namespace Apix\Log\tests\Logger;
 
 use Exception;
-use Psr\Log\LoggerInterface;
+use Apix\Log\Logger\LoggerInterface;
 use stdClass;
 
 abstract class TestCase implements LoggerInterface
