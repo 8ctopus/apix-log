@@ -34,7 +34,7 @@ class Logger extends AbstractLogger
      */
     public function __construct(array $loggers = [])
     {
-        foreach ($loggers as $key => $logger) {
+        foreach ($loggers as $logger) {
             if ($logger instanceof Logger\LoggerInterface) {
                 $this->buckets[] = $logger;
             } else {
