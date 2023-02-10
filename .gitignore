@@ -11,3 +11,4 @@
 /*.sublime-workspace
 /test.php
 /*.log
+/.php-cs-fixer.cache
