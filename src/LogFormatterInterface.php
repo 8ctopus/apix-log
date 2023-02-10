@@ -39,5 +39,5 @@ interface LogFormatterInterface
      *
      * @return string
      */
-    public function format(LogEntry $log);
+    public function format(LogEntry $log) : string;
 }

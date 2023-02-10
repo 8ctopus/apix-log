@@ -24,7 +24,7 @@ class Nil extends AbstractLogger implements LoggerInterface
     /**
      * {@inheritDoc}
      */
-    public function write(LogEntry|string $log)
+    public function write(LogEntry|string $log) : bool
     {
         return false;
     }

@@ -43,7 +43,7 @@ abstract class TestCase implements LoggerInterface
      *
      * @return string[]
      */
-    public function getLogs()
+    public function getLogs() : array
     {
         return self::normalizeLogs(file($this->dest, FILE_IGNORE_NEW_LINES));
     }

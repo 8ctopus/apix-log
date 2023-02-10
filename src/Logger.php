@@ -58,7 +58,7 @@ class Logger extends AbstractLogger
      *
      * @return bool false when not processed
      */
-    public function process(LogEntry $log)
+    public function process(LogEntry $log) : bool
     {
         $i = $this->getIndexFirstBucket($log->level_code);
         if (false !== $i) {
@@ -94,7 +94,7 @@ class Logger extends AbstractLogger
      *
      * @throws InvalidArgumentException
      */
-    public static function getPsrLevelName(string $level_name)
+    public static function getPsrLevelName(string $level_name) : string
     {
         $logLevel = '\Psr\Log\LogLevel::' . strtoupper($level_name);
         if (!\defined($logLevel)) {
@@ -111,7 +111,7 @@ class Logger extends AbstractLogger
      *
      * @return bool returns TRUE on success or FALSE on failure
      */
-    public function add(Logger\LoggerInterface $logger)
+    public function add(Logger\LoggerInterface $logger) : bool
     {
         $this->buckets[] = $logger;
 
@@ -123,7 +123,7 @@ class Logger extends AbstractLogger
      *
      * @return array
      */
-    public function getBuckets()
+    public function getBuckets() : array
     {
         return $this->buckets;
     }
@@ -152,7 +152,7 @@ class Logger extends AbstractLogger
      *
      * @return bool returns TRUE on success or FALSE on failure
      */
-    protected function sortBuckets()
+    protected function sortBuckets() : bool
     {
         return usort(
             $this->buckets,

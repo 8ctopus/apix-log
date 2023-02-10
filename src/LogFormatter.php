@@ -34,7 +34,7 @@ class LogFormatter implements LogFormatterInterface
      *
      * @return string
      */
-    public function interpolate(string $message, array $context = [])
+    public function interpolate(string $message, array $context = []) : string
     {
         $replaces = [];
         foreach ($context as $key => $val) {
@@ -63,7 +63,7 @@ class LogFormatter implements LogFormatterInterface
      *
      * @return string
      */
-    public function format(LogEntry $log)
+    public function format(LogEntry $log) : string
     {
         return sprintf(
             '[%s] %s %s',

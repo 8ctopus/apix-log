@@ -20,9 +20,10 @@ use Apix\Log\Logger\LoggerInterface;
  */
 class StandardOutput extends AbstractLogger implements LoggerInterface
 {
-    public function write(LogEntry|string $log)
+    public function write(LogEntry|string $log) : bool
     {
         echo $log;
+        return true;
     }
 }
 
@@ -35,7 +36,7 @@ class MyJsonFormatter extends LogFormatter
 {
     public string $separator = '~';
 
-    public function format(LogEntry $log)
+    public function format(LogEntry $log) : string
     {
         // Interpolate the context values into the message placeholders.
         $log->message = self::interpolate($log->message, $log->context);

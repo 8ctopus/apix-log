@@ -40,5 +40,5 @@ interface LoggerInterface
      *
      * @return bool whether the log entry was successfully written or not
      */
-    public function write(LogEntry|string $log);
+    public function write(LogEntry|string $log) : bool;
 }

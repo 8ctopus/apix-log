@@ -27,7 +27,7 @@ class ErrorLog extends AbstractLogger implements LoggerInterface
     /**
      * Holds the destination string (filename path or email address).
      *
-     * @var string|null
+     * @var null|string
      */
     protected ?string $destination;
 
@@ -67,7 +67,7 @@ class ErrorLog extends AbstractLogger implements LoggerInterface
     /**
      * {@inheritDoc}
      */
-    public function write(LogEntry|string $log)
+    public function write(LogEntry|string $log) : bool
     {
         $message = (string) $log;
 

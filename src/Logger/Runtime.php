@@ -29,9 +29,10 @@ class Runtime extends AbstractLogger implements LoggerInterface
     /**
      * {@inheritDoc}
      */
-    public function write(LogEntry|string $log)
+    public function write(LogEntry|string $log) : bool
     {
         $this->items[] = (string) $log;
+        return true;
     }
 
     /**
@@ -39,7 +40,7 @@ class Runtime extends AbstractLogger implements LoggerInterface
      *
      * @return array
      */
-    public function getItems()
+    public function getItems() : array
     {
         return $this->items;
     }

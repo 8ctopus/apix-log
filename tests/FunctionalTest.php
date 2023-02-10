@@ -30,7 +30,7 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
      *
      * @return string[]
      */
-    public function getLogs($logger, $deferred = false)
+    public function getLogs($logger, $deferred = false) : array
     {
         $lines = $logger->getItems();
 

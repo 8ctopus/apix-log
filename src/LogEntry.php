@@ -87,7 +87,7 @@ class LogEntry
      *
      * @return string
      */
-    public function __toString()
+    public function __toString() : string
     {
         return $this->formatter->format($this);
     }
