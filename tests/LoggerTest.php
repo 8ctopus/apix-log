@@ -270,11 +270,9 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
 
     protected function _getMocklogger($r = [])
     {
-        return !method_exists($this, 'createMock')
-                    ? $this->getMock('Apix\Log\Logger\Nil', $r)
-                    : $this->getMockBuilder('Apix\Log\Logger\Nil')
-                        ->onlyMethods($r)
-                        ->getMock();
+        return $this->getMockBuilder('Apix\Log\Logger\Nil')
+            ->onlyMethods($r)
+            ->getMock();
     }
 
     protected function _getFilledInLogBuckets($cascading = true)
