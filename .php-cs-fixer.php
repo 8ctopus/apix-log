@@ -16,10 +16,10 @@ return (new PhpCsFixer\Config('Docker', 'Docker style guide'))
             ],
         ],
         'concat_space' => [
-            'spacing' => 'one'
+            'spacing' => 'one',
         ],
         'echo_tag_syntax' => [
-            'format' => 'short'
+            'format' => 'short',
         ],
         'global_namespace_import' => [
             'import_classes' => true,
