@@ -1,12 +1,9 @@
-APIx Log, very thin PSR-3 logger
-[![Build Status](https://travis-ci.org/apix/log.svg?branch=master)](https://travis-ci.org/apix/log)
-================================
-[![Latest Stable Version](https://poser.pugx.org/apix/log/version)](https://packagist.org/packages/apix/log)
-[![Total Downloads](https://poser.pugx.org/apix/log/downloads)](https://packagist.org/packages/apix/log)
-[![Build Status](https://scrutinizer-ci.com/g/apix/log/badges/build.png?b=master)](https://scrutinizer-ci.com/g/apix/log/build-status/master)
-[![Code Quality](https://scrutinizer-ci.com/g/apix/log/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/apix/log/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/apix/log/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/apix/log/?branch=master)
-[![License](https://poser.pugx.org/apix/log/license.svg)](https://packagist.org/packages/apix/log)
+# APIx Log, very thin PSR-3 logger
+==================================
+
+[![Latest Stable Version](https://poser.pugx.org/8ctopus/log/version)](https://packagist.org/packages/8ctopus/log)
+[![Total Downloads](https://poser.pugx.org/8ctopus/log/downloads)](https://packagist.org/packages/8ctopus/log)
+[![License](https://poser.pugx.org/8ctopus/log/license.svg)](https://packagist.org/packages/8ctopus/log)
 
 Minimalist and fast **PSR-3** compliant logger.
 
@@ -14,15 +11,16 @@ Minimalist and fast **PSR-3** compliant logger.
    * [ErrorLog](src/Logger/ErrorLog.php), [File](src/Logger/File.php), [Mail](src/Logger/Mail.php), [Sapi](src/Logger/Sapi.php) ~ built around the `error_log()` function,
    * [Runtime](src/Logger/Runtime.php) ~ as an Array/ArrayObject wrapper, and [Nil](src/Logger/Nil.php) ~ as Null wrapper,
    * [Stream](src/Logger/Stream.php) ~ logs are sent to sockets, local and remote files, filters and other similar resources (default to standard output bypassing output buffering).
+
 * Extendable, additional logging backends are available:
    * [PHPMailer/apix-log-phpmailer](https://github.com/PHPMailer/apix-log-phpmailer) ~ logs are sent using PHPMailer,
    * [jspalink/apix-log-pushover](https://github.com/jspalink/apix-log-pushover) ~ logs are sent using Pushover,
-   * [apix/log-tracker](https://github.com/apix/log-tracker) ~ adds logger/tracker such as Google Analytics, Dashbot, etc...,
+   * [8ctopus/log-tracker](https://github.com/8ctopus/log-tracker) ~ adds logger/tracker such as Google Analytics, Dashbot, etc...,
    * More contributions will be linked here.
+
 * Clean API, see the [`LoggerInterface`](src/Logger/LoggerInterface.php) and the [`LogFormatterInterface`](src/LogFormatterInterface.php).
 * 100% Unit **tested** and compliant with PSR0, PSR1 and PSR2.
-* [Continuously integrated](//travis-ci.org/apix/log) against **7.0**, **8.x**, ~~and HHVM~~ (use ^1.1 for older PHP versions).
-* Available as a [Composer](https://packagist.org/packages/apix/log) ~~and as a [PEAR](http://pear.ouarz.net)~~ package.
+* Available as a [Composer](https://packagist.org/packages/8ctopus/log).
 
 Feel free to comment, send pull requests and patches...
 
@@ -46,7 +44,8 @@ $urgent_logger->alert('Running out of {stuff}', ['stuff' => 'beers']);
 
 Advanced usage ~ *multi-logs dispatcher*
 --------------
-Lets create an additional logger with purpose of catching log entries that have a severity level of `warning` or more -- see the [log levels](#log-levels) for the order.
+
+Let's create an additional logger with purpose of catching log entries that have a severity level of `warning` or more -- see the [log levels](#log-levels) for the order.
 ```php
 $app_logger = new Apix\Log\Logger\File('/var/log/apix_app.log');
 $app_logger->setMinLevel('warning')  // intercept logs that are >= `warning`
@@ -55,12 +54,14 @@ $app_logger->setMinLevel('warning')  // intercept logs that are >= `warning`
 ```
 `setCascading()` was set to *false* (default is *true*) so the entries caught here won't continue downstream past that particular log bucket. `setDeferred()` was set to *true* (default is *false*) so processing happen on `__destruct` (end of script generally) rather than on the fly. 
 
-Now, lets create a main logger object and inject the two previous loggers.
+Now, let's create a main logger object and inject the two previous loggers.
+
 ```php
 // The main logger object (injecting an array of loggers)
 $logger = new Apix\Log\Logger( array($urgent_logger, $app_logger) );
 ```
-Lets create an additional logger -- just for development/debug purposes.
+Let's create an additional logger -- just for development/debug purposes.
+
 ```php
 if(DEBUG) {
   // Bucket for the remaining logs -- i.e. `notice`, `info` and `debug`
@@ -71,7 +72,8 @@ if(DEBUG) {
   $logger->add($dev_logger);   		// another way to inject a log bucket
 }
 ```
-Finally, lets push some log entries:
+
+Finally, let's push some log entries:
 
 ```php
 $e = new \Exception('Boo!');
@@ -107,13 +109,8 @@ The eight [RFC 5424][] levels of logs are supported, in cascading order:
 Installation
 ------------------------
 
-Install the current major version using Composer with (recommended)
 ```
-$ composer require apix/log:1.2.*
-```
-Or install the latest stable version with
-```
-$ composer require apix/log
+$ composer require 8ctopus/log
 ```
 
 License
