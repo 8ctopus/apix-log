@@ -5,7 +5,7 @@
 /vendor/*
 
 # development
-/build/
 /phpunit.xml
 /.phpunit.result.cache
 /*.sublime-workspace
+/test.php
