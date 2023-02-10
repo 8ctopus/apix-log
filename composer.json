@@ -38,6 +38,9 @@
             "Apix\\Log\\tests\\": "tests/"
         }
     },
+    "scripts": {
+        "test": "phpunit"
+    },
     "provide": {
         "psr/log-implementation": "^1.0"
     },
