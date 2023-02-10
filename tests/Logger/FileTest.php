@@ -18,7 +18,7 @@ use Psr\Log\InvalidArgumentException;
  *
  * @coversNothing
  */
-class FileTest extends \PHPUnit\Framework\TestCase
+final class FileTest extends \PHPUnit\Framework\TestCase
 {
     protected $dest = 'test';
 

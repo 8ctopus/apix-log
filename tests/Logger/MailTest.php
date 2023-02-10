@@ -17,7 +17,7 @@ use Psr\Log\InvalidArgumentException;
  *
  * @coversNothing
  */
-class MailTest extends \PHPUnit\Framework\TestCase
+final class MailTest extends \PHPUnit\Framework\TestCase
 {
     public function testThrowsInvalidArgumentExceptionWhenNull()
     {
@@ -36,6 +36,6 @@ class MailTest extends \PHPUnit\Framework\TestCase
     public function testConstructor()
     {
         new Logger\Mail('foo@bar.com', 'CC: some@somewhere.com');
-        $this->assertTrue(true);
+        static::assertTrue(true);
     }
 }

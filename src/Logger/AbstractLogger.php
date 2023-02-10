@@ -122,7 +122,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
      */
     public static function getLevelCode($level_name)
     {
-        $level_code = array_search($level_name, static::$levels);
+        $level_code = array_search($level_name, static::$levels, true);
         if (false === $level_code) {
             throw new InvalidArgumentException(
                 sprintf('Invalid log level "%s"', $level_name)
@@ -162,7 +162,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
         if ($this->deferred) {
             $this->deferred_logs[] = $log;
 
-            if ($this->deferred_trigger && count($this->deferred_logs) >= $this->deferred_trigger) {
+            if ($this->deferred_trigger && \count($this->deferred_logs) >= $this->deferred_trigger) {
                 $this->flushDeferredLogs();
             }
         } else {

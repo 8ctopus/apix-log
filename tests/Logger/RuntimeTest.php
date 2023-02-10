@@ -16,7 +16,7 @@ use Apix\Log\Logger;
  *
  * @coversNothing
  */
-class RuntimeTest extends \PHPUnit\Framework\TestCase
+final class RuntimeTest extends \PHPUnit\Framework\TestCase
 {
     protected $logger;
 
@@ -27,7 +27,7 @@ class RuntimeTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown() : void
     {
-        unset($this->logger);
+        $this->logger = null;
     }
 
     /**
@@ -52,7 +52,7 @@ class RuntimeTest extends \PHPUnit\Framework\TestCase
         $this->logger->debug('msg1', $context);
         $this->logger->error('msg2', $context);
 
-        $this->assertSame(
+        static::assertSame(
             ['debug msg1', 'error msg2'],
             $this->getLogs()
         );

@@ -19,7 +19,7 @@ use stdClass;
  *
  * @coversNothing
  */
-class LoggerTest extends \PHPUnit\Framework\TestCase
+final class LoggerTest extends \PHPUnit\Framework\TestCase
 {
     protected $logger;
 
@@ -30,7 +30,7 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown() : void
     {
-        unset($this->logger);
+        $this->logger = null;
     }
 
     /**
@@ -38,8 +38,8 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetLevelCodeSameOrderAsRfc5424()
     {
-        $this->assertSame(3, Logger::getLevelCode(LogLevel::ERROR));
-        $this->assertSame(3, Logger::getLevelCode('error'));
+        static::assertSame(3, Logger::getLevelCode(LogLevel::ERROR));
+        static::assertSame(3, Logger::getLevelCode('error'));
     }
 
     public function testConstructorThrowsInvalidArgumentException()
@@ -59,8 +59,8 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
 
         $this->logger = new Logger([$err_logger, $crit_logger]);
 
-        $err_logger->expects($this->once())->method('process');
-        $crit_logger->expects($this->once())->method('process');
+        $err_logger->expects(static::once())->method('process');
+        $crit_logger->expects(static::once())->method('process');
 
         $this->logger->error('test err');
         $this->logger->critical('test crit');
@@ -74,7 +74,7 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
 
     public function testgGtPsrLevelName()
     {
-        $this->assertEquals('error', Logger::getPsrLevelName(LogLevel::ERROR));
+        static::assertSame('error', Logger::getPsrLevelName(LogLevel::ERROR));
     }
 
     public function testGetPsrLevelNameWillThrows()
@@ -86,7 +86,7 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
     public function testWriteIsCalled()
     {
         $mock_logger = $this->_getMocklogger(['write']);
-        $mock_logger->expects($this->once())
+        $mock_logger->expects(static::once())
             ->method('write')
         ;
 
@@ -98,7 +98,7 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
     public function testLogWillProcess()
     {
         $mock_logger = $this->_getMocklogger(['process']);
-        $mock_logger->expects($this->once()) // <-- process IS expected
+        $mock_logger->expects(static::once()) // <-- process IS expected
             ->method('process')
         ;
 
@@ -113,7 +113,7 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         $mock_logger = $this->_getMocklogger(['process']);
         $mock_logger->setMinLevel(LogLevel::ERROR);
 
-        $mock_logger->expects($this->never()) // <-- process IS NOT expected
+        $mock_logger->expects(static::never()) // <-- process IS NOT expected
             ->method('process')
         ;
         $this->logger->add($mock_logger);
@@ -128,28 +128,28 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
     {
         $buckets = $this->_getFilledInLogBuckets();
 
-        $this->assertCount(3, $buckets);
+        static::assertCount(3, $buckets);
 
-        $this->assertEquals(2, $buckets[0]->getMinLevel(), 'Critical level');
-        $this->assertEquals(5, $buckets[1]->getMinLevel(), 'Notice level');
-        $this->assertEquals(7, $buckets[2]->getMinLevel(), 'Debug level');
+        static::assertSame(2, $buckets[0]->getMinLevel(), 'Critical level');
+        static::assertSame(5, $buckets[1]->getMinLevel(), 'Notice level');
+        static::assertSame(7, $buckets[2]->getMinLevel(), 'Debug level');
     }
 
     public function testLogEntriesAreCascasdingDown()
     {
         $buckets = $this->_getFilledInLogBuckets();
 
-        $this->assertCount(
+        static::assertCount(
             3,
             $buckets[0]->getItems(),
             'Entries at Critical minimal level.'
         );
-        $this->assertCount(
+        static::assertCount(
             6,
             $buckets[1]->getItems(),
             'Entries at Notice minimal level.'
         );
-        $this->assertCount(
+        static::assertCount(
             8,
             $buckets[2]->getItems(),
             'Entries at Debug minimal level.'
@@ -160,17 +160,17 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
     {
         $buckets = $this->_getFilledInLogBuckets(false);
 
-        $this->assertCount(
+        static::assertCount(
             3,
             $buckets[0]->getItems(),
             'Entries at Critical minimal level.'
         );
-        $this->assertCount(
+        static::assertCount(
             3,
             $buckets[1]->getItems(),
             'Entries at Notice minimal level.'
         );
-        $this->assertCount(
+        static::assertCount(
             2,
             $buckets[2]->getItems(),
             'Entries at Debug minimal level.'
@@ -179,12 +179,12 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
 
     public function testSetCascading()
     {
-        $this->assertTrue(
+        static::assertTrue(
             $this->logger->cascading(),
             "The 'cascading' property should be True by default"
         );
         $this->logger->setCascading(false);
-        $this->assertFalse($this->logger->cascading());
+        static::assertFalse($this->logger->cascading());
     }
 
     public function testCascading()
@@ -201,23 +201,23 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         $buckets = $this->logger->getBuckets();
 
         $this->logger->alert('cascading');
-        $this->assertCount(1, $buckets[0]->getItems());
-        $this->assertCount(1, $buckets[1]->getItems());
+        static::assertCount(1, $buckets[0]->getItems());
+        static::assertCount(1, $buckets[1]->getItems());
 
         $app_log->setCascading(false)->alert('not-cascading');
 
-        $this->assertCount(2, $buckets[0]->getItems(), 'app_log count = 2');
-        $this->assertCount(1, $buckets[1]->getItems(), 'dev_log count = 1');
+        static::assertCount(2, $buckets[0]->getItems(), 'app_log count = 2');
+        static::assertCount(1, $buckets[1]->getItems(), 'dev_log count = 1');
     }
 
     public function testSetDeferred()
     {
-        $this->assertFalse(
+        static::assertFalse(
             $this->logger->deferred(),
             "The 'deferred' property should be False by default"
         );
         $this->logger->setDeferred(true);
-        $this->assertTrue($this->logger->deferred());
+        static::assertTrue($this->logger->deferred());
     }
 
     public function testDeferring()
@@ -225,12 +225,12 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         $logger = new Logger\Runtime();
         $logger->alert('not-deferred');
 
-        $this->assertCount(1, $logger->getItems());
+        static::assertCount(1, $logger->getItems());
 
         $logger->setDeferred(true)->alert('deferred');
 
-        $this->assertCount(1, $logger->getItems());
-        $this->assertCount(1, $logger->getDeferredLogs());
+        static::assertCount(1, $logger->getItems());
+        static::assertCount(1, $logger->getDeferredLogs());
     }
 
     public function testDestructIsNotDeferring()
@@ -241,7 +241,7 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
 
         $logger->__destruct();
 
-        $this->assertCount(1, $logger->getDeferredLogs());
+        static::assertCount(1, $logger->getDeferredLogs());
     }
 
     public function testSeparatorOfLogFormatter()
@@ -249,20 +249,20 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         $test = $this->logger->getLogFormatter();
         $test->separator = '~';
 
-        $this->assertEquals('~', $this->logger->getLogFormatter()->separator);
+        static::assertSame('~', $this->logger->getLogFormatter()->separator);
     }
 
     public function testInterceptAtAliasSetMinLevel()
     {
-        $this->assertEquals(7, $this->logger->getMinLevel());
+        static::assertSame(7, $this->logger->getMinLevel());
 
         $this->logger->setMinLevel('alert', true);
-        $this->assertEquals(1, $this->logger->getMinLevel());
-        $this->assertTrue($this->logger->cascading());
+        static::assertSame(1, $this->logger->getMinLevel());
+        static::assertTrue($this->logger->cascading());
 
         $this->logger->interceptAt('warning', true);
-        $this->assertEquals(4, $this->logger->getMinLevel());
-        $this->assertFalse($this->logger->cascading());
+        static::assertSame(4, $this->logger->getMinLevel());
+        static::assertFalse($this->logger->cascading());
     }
 
     protected function _getMocklogger($r = [])

@@ -17,7 +17,7 @@ use Apix\Log\Logger;
  *
  * @coversNothing
  */
-class ErrorLogTest extends \PHPUnit\Framework\TestCase
+final class ErrorLogTest extends \PHPUnit\Framework\TestCase
 {
     protected $dest = 'test';
 
@@ -25,7 +25,7 @@ class ErrorLogTest extends \PHPUnit\Framework\TestCase
     {
         // HHVM support
         // @see: https://github.com/facebook/hhvm/issues/3558
-        if (defined('HHVM_VERSION')) {
+        if (\defined('HHVM_VERSION')) {
             ini_set('log_errors', 'On');
             ini_set('error_log', $this->dest);
         }
@@ -49,6 +49,6 @@ class ErrorLogTest extends \PHPUnit\Framework\TestCase
 
         $content = file_get_contents($this->dest);
 
-        $this->assertStringContainsString($message, $content);
+        static::assertStringContainsString($message, $content);
     }
 }

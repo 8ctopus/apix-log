@@ -74,7 +74,7 @@ class LogEntry
         $this->level_code = Logger::getLevelCode($name);
 
         // Message is not a string let assume it is a context -- and permute.
-        if (!is_string($message)) {
+        if (!\is_string($message)) {
             $context = ['ctx' => $message];
             $message = '{ctx}';
         }

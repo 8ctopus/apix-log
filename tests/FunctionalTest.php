@@ -18,7 +18,7 @@ use Exception;
  *
  * @coversNothing
  */
-class ReadmeTest extends \PHPUnit\Framework\TestCase
+final class FunctionalTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * This must return the log messages in order with a simple formatting: "<LOG LEVEL> <MESSAGE>".
@@ -91,7 +91,7 @@ class ReadmeTest extends \PHPUnit\Framework\TestCase
 
         $urgent_logs = $this->getLogs($urgent_logger);
 
-        $this->assertSame(
+        static::assertSame(
             'alert Running out of beers',
             $urgent_logs[0]
         );
@@ -100,7 +100,7 @@ class ReadmeTest extends \PHPUnit\Framework\TestCase
                 ? 'Exception: Boo! in '
                 : "exception 'Exception' with message 'Boo!' in ";
 
-        $this->assertStringStartsWith(
+        static::assertStringStartsWith(
             'critical OMG saw ' . $prefixException,
             $urgent_logs[1]
         );
@@ -110,17 +110,17 @@ class ReadmeTest extends \PHPUnit\Framework\TestCase
 
         $app_logs = $this->getLogs($app_logger, true);
 
-        $this->assertStringStartsWith(
+        static::assertStringStartsWith(
             'critical OMG saw ' . $prefixException,
             $app_logs[0]
         );
 
-        $this->assertStringStartsWith(
+        static::assertStringStartsWith(
             'error ' . $prefixException,
             $app_logs[1]
         );
 
-        $this->assertSame(
+        static::assertSame(
             ['info Something happened -> ["xyz"]'],
             $this->getLogs($debug_logger)
         );

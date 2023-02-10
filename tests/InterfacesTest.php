@@ -49,7 +49,7 @@ class MyJsonFormatter extends LogFormatter
  *
  * @coversNothing
  */
-class InterfacesTest extends \PHPUnit\Framework\TestCase
+final class InterfacesTest extends \PHPUnit\Framework\TestCase
 {
     protected $logger;
 
@@ -60,12 +60,12 @@ class InterfacesTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown() : void
     {
-        unset($this->logger);
+        $this->logger = null;
     }
 
     public function testGetLogFormatterReturnsDefaultLogFormatter()
     {
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             '\Apix\Log\LogFormatter',
             $this->logger->getLogFormatter()
         );
@@ -75,7 +75,7 @@ class InterfacesTest extends \PHPUnit\Framework\TestCase
     {
         $formatter = new MyJsonFormatter();
         $this->logger->setLogFormatter($formatter);
-        $this->assertSame($this->logger->getLogFormatter(), $formatter);
+        static::assertSame($this->logger->getLogFormatter(), $formatter);
     }
 
     public function testLogFormatterInterfaceExample()

@@ -41,7 +41,7 @@ class Logger extends AbstractLogger
                 throw new InvalidArgumentException(
                     sprintf(
                         '"%s" must interface "%s".',
-                        get_class($logger),
+                        \get_class($logger),
                         __NAMESPACE__ . '\Logger\LoggerInterface'
                     )
                 );
@@ -97,7 +97,7 @@ class Logger extends AbstractLogger
     public static function getPsrLevelName($level_name)
     {
         $logLevel = '\Psr\Log\LogLevel::' . strtoupper($level_name);
-        if (!defined($logLevel)) {
+        if (!\defined($logLevel)) {
             throw new InvalidArgumentException(
                 sprintf('Invalid PSR-3 log level "%s"', $level_name)
             );

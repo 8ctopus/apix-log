@@ -38,17 +38,17 @@ class LogFormatter implements LogFormatterInterface
     {
         $replaces = [];
         foreach ($context as $key => $val) {
-            if (is_bool($val)) {
+            if (\is_bool($val)) {
                 $val = '[bool: ' . (int) $val . ']';
-            } elseif (is_null($val)
-                || is_scalar($val)
-                || (is_object($val) && method_exists($val, '__toString'))
+            } elseif (null === $val
+                || \is_scalar($val)
+                || (\is_object($val) && method_exists($val, '__toString'))
             ) {
                 $val = (string) $val;
-            } elseif (is_array($val) || is_object($val)) {
+            } elseif (\is_array($val) || \is_object($val)) {
                 $val = @json_encode($val);
             } else {
-                $val = '[type: ' . gettype($val) . ']';
+                $val = '[type: ' . \gettype($val) . ']';
             }
             $replaces['{' . $key . '}'] = $val;
         }

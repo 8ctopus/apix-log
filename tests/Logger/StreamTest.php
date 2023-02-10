@@ -19,7 +19,7 @@ use ValueError;
  *
  * @coversNothing
  */
-class StreamTest extends \PHPUnit\Framework\TestCase
+final class StreamTest extends \PHPUnit\Framework\TestCase
 {
     protected $dest = 'php://memory';
     protected $stream;
@@ -33,7 +33,8 @@ class StreamTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown() : void
     {
-        unset($this->logger, $this->stream);
+        $this->logger = null;
+        $this->stream = null;
     }
 
     /**

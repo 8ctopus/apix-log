@@ -13,7 +13,7 @@ namespace Apix;
 // Set the default timezone
 date_default_timezone_set('UTC');
 
-define('APP_VENDOR', realpath(__DIR__ . '/../vendor'));
+\define('APP_VENDOR', realpath(__DIR__ . '/../vendor'));
 
 // Composer
 $loader = include APP_VENDOR . '/autoload.php';

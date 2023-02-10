@@ -38,11 +38,11 @@ class Stream extends AbstractLogger implements LoggerInterface
      */
     public function __construct($stream = 'php://stdout', $mode = 'a')
     {
-        if (!is_resource($stream)) {
+        if (!\is_resource($stream)) {
             $stream = @fopen($stream, $mode);
         }
 
-        if (!is_resource($stream)) {
+        if (!\is_resource($stream)) {
             throw new InvalidArgumentException(sprintf(
                 'The stream "%s" cannot be created or opened',
                 $stream
@@ -57,7 +57,7 @@ class Stream extends AbstractLogger implements LoggerInterface
      */
     public function write(LogEntry|string $log)
     {
-        if (!is_resource($this->stream)) {
+        if (!\is_resource($this->stream)) {
             throw new LogicException(
                 'The stream resource has been __destruct() too early'
             );
@@ -71,7 +71,7 @@ class Stream extends AbstractLogger implements LoggerInterface
      */
     public function close()
     {
-        if (is_resource($this->stream)) {
+        if (\is_resource($this->stream)) {
             fclose($this->stream);
         }
     }
