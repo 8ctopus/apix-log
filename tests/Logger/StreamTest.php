@@ -17,7 +17,6 @@ use ValueError;
 /**
  * @internal
  *
- * @coversNothing
  */
 final class StreamTest extends \PHPUnit\Framework\TestCase
 {

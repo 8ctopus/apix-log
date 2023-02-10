@@ -17,7 +17,6 @@ use stdClass;
 /**
  * @internal
  *
- * @coversNothing
  */
 final class LoggerTest extends \PHPUnit\Framework\TestCase
 {

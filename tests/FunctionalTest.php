@@ -16,7 +16,6 @@ use Exception;
 /**
  * @internal
  *
- * @coversNothing
  */
 final class FunctionalTest extends \PHPUnit\Framework\TestCase
 {

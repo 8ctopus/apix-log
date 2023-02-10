@@ -48,7 +48,6 @@ class MyJsonFormatter extends LogFormatter
 /**
  * @internal
  *
- * @coversNothing
  */
 final class InterfacesTest extends \PHPUnit\Framework\TestCase
 {

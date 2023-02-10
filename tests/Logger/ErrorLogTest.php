@@ -15,7 +15,6 @@ use Apix\Log\Logger;
 /**
  * @internal
  *
- * @coversNothing
  */
 final class ErrorLogTest extends \PHPUnit\Framework\TestCase
 {
