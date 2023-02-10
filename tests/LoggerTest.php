@@ -268,14 +268,14 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
         static::assertFalse($this->logger->cascading());
     }
 
-    protected function _getMockLogger($r = [])
+    protected function _getMockLogger(array $r = [])
     {
         return $this->getMockBuilder('Apix\Log\Logger\Nil')
             ->onlyMethods($r)
             ->getMock();
     }
 
-    protected function _getFilledInLogBuckets($cascading = true)
+    protected function _getFilledInLogBuckets(bool $cascading = true) : array
     {
         // The log bucket for everything (starts at 0 Debug level).
         $dev_log = new Logger\Runtime();

@@ -80,11 +80,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase implements LoggerInt
     /**
      * @dataProvider providerMessagesAndContextes
      *
-     * @param mixed $msg
+     * @param string $msg
      * @param mixed $context
-     * @param mixed $exp
+     * @param string $exp
      */
-    public function testMessageWithContext($msg, $context, $exp) : void
+    public function testMessageWithContext(string $msg, mixed $context, string $exp) : void
     {
         $this->getLogger()->alert('{' . $msg . '}', [$msg => $context]);
 
@@ -94,11 +94,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase implements LoggerInt
     /**
      * @dataProvider providerMessagesAndContextes
      *
-     * @param mixed $msg
+     * @param string $msg
      * @param mixed $context
-     * @param mixed $exp
+     * @param string $exp
      */
-    public function testContextIsPermutted($msg, $context, $exp) : void
+    public function testContextIsPermutted(string $msg, mixed $context, string $exp) : void
     {
         $this->getLogger()->notice($context);
 
@@ -119,6 +119,14 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase implements LoggerInt
             $prefix,
             $logs[0]
         );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLogger()
+    {
+        return $this->logger;
     }
 }
 
