@@ -40,7 +40,7 @@ final class ErrorLogTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testWrite()
+    public function testWrite() : void
     {
         $logger = new Logger\ErrorLog();
 

@@ -30,7 +30,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testThrowsInvalidArgumentExceptionWhenFileCannotBeCreated()
+    public function testThrowsInvalidArgumentExceptionWhenFileCannotBeCreated() : void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Log file "" cannot be created');
@@ -38,7 +38,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
         new Logger\File('');
     }
 
-    public function testThrowsInvalidArgumentExceptionWhenNotWritable()
+    public function testThrowsInvalidArgumentExceptionWhenNotWritable() : void
     {
         touch($this->dest);
         chmod($this->dest, 0000);

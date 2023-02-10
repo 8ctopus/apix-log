@@ -44,7 +44,7 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
         return TestCase::normalizeLogs($lines);
     }
 
-    public function testUsages()
+    public function testUsages() : void
     {
         // Basic usage
         $urgent_logger = new Logger\Runtime();

@@ -78,7 +78,7 @@ class Logger extends AbstractLogger
     /**
      * Flush deferred logs.
      */
-    public function flushDeferredLogs()
+    public function flushDeferredLogs() : void
     {
         foreach ($this->buckets as $bucket) {
             $bucket->flushDeferredLogs();

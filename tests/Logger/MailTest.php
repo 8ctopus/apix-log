@@ -19,21 +19,21 @@ use Psr\Log\InvalidArgumentException;
  */
 final class MailTest extends \PHPUnit\Framework\TestCase
 {
-    public function testThrowsInvalidArgumentExceptionWhenNull()
+    public function testThrowsInvalidArgumentExceptionWhenNull() : void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('"" is an invalid email address');
         new Logger\Mail('');
     }
 
-    public function testThrowsInvalidArgumentException()
+    public function testThrowsInvalidArgumentException() : void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('"foo" is an invalid email address');
         new Logger\Mail('foo');
     }
 
-    public function testConstructor()
+    public function testConstructor() : void
     {
         new Logger\Mail('foo@bar.com', 'CC: some@somewhere.com');
         static::assertTrue(true);

@@ -64,7 +64,7 @@ final class InterfacesTest extends \PHPUnit\Framework\TestCase
         $this->logger = null;
     }
 
-    public function testGetLogFormatterReturnsDefaultLogFormatter()
+    public function testGetLogFormatterReturnsDefaultLogFormatter() : void
     {
         static::assertInstanceOf(
             '\Apix\Log\LogFormatter',
@@ -72,14 +72,14 @@ final class InterfacesTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testSetLogFormatter()
+    public function testSetLogFormatter() : void
     {
         $formatter = new MyJsonFormatter();
         $this->logger->setLogFormatter($formatter);
         static::assertSame($this->logger->getLogFormatter(), $formatter);
     }
 
-    public function testLogFormatterInterfaceExample()
+    public function testLogFormatterInterfaceExample() : void
     {
         $formatter = new MyJsonFormatter();
         $this->logger->setLogFormatter($formatter);

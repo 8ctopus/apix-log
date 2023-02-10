@@ -46,7 +46,7 @@ final class RuntimeTest extends \PHPUnit\Framework\TestCase
         return $this->logger;
     }
 
-    public function testAbstractLogger()
+    public function testAbstractLogger() : void
     {
         $context = ['foo', 'bar'];
         $this->logger->debug('msg1', $context);

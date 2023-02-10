@@ -44,6 +44,7 @@ return (new PhpCsFixer\Config('', ''))
             'space_before' => 'one',
         ],
         'single_line_comment_spacing' => false,
+        'void_return' => true,
         'yoda_style' => false,
     ])
     ->setFinder($finder)

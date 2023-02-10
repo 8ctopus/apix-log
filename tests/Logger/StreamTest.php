@@ -67,14 +67,14 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
     //     $this->assertEquals($this->logger, $logger);
     // }
 
-    public function testThrowsInvalidArgumentExceptionWhenFileCannotBeCreated()
+    public function testThrowsInvalidArgumentExceptionWhenFileCannotBeCreated() : void
     {
         $this->expectException(ValueError::class);
         $this->expectExceptionMessage('Path cannot be empty');
         new Logger\Stream(null);
     }
 
-    public function testThrowsLogicException()
+    public function testThrowsLogicException() : void
     {
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('The stream resource has been __destruct() too early');

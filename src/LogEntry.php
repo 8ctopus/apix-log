@@ -92,7 +92,7 @@ class LogEntry
         return $this->formatter->format($this);
     }
 
-    public function setFormatter(LogFormatter $formatter)
+    public function setFormatter(LogFormatter $formatter) : void
     {
         $this->formatter = $formatter;
     }

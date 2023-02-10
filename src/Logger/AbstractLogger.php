@@ -298,7 +298,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
     /**
      * Process any accumulated deferred log if there are any.
      */
-    public function flushDeferredLogs()
+    public function flushDeferredLogs() : void
     {
         if ($this->deferred && !empty($this->deferred_logs)) {
             $messages = array_map(
@@ -325,7 +325,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
      *
      * This method is called last at __destruct() time.
      */
-    public function close()
+    public function close() : void
     {
         // empty
     }
@@ -333,7 +333,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
     /**
      * Sets a log formatter.
      */
-    public function setLogFormatter(LogFormatter $formatter)
+    public function setLogFormatter(LogFormatter $formatter) : void
     {
         $this->log_formatter = $formatter;
     }
@@ -355,7 +355,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
     /**
      * Sets and merges the options for this logger, overriding any default.
      */
-    public function setOptions(array $options = null)
+    public function setOptions(array $options = null) : void
     {
         if (null !== $options) {
             $this->options = $options + $this->options;

@@ -84,7 +84,7 @@ abstract class TestCase implements LoggerInterface
      * @param mixed $context
      * @param mixed $exp
      */
-    public function testMessageWithContext($msg, $context, $exp)
+    public function testMessageWithContext($msg, $context, $exp) : void
     {
         $this->getLogger()->alert('{' . $msg . '}', [$msg => $context]);
 
@@ -98,14 +98,14 @@ abstract class TestCase implements LoggerInterface
      * @param mixed $context
      * @param mixed $exp
      */
-    public function testContextIsPermutted($msg, $context, $exp)
+    public function testContextIsPermutted($msg, $context, $exp) : void
     {
         $this->getLogger()->notice($context);
 
         $this->assertEquals(['notice ' . $exp], $this->getLogs());
     }
 
-    public function testContextIsAnException()
+    public function testContextIsAnException() : void
     {
         $this->getLogger()->critical(new Exception('Boo!'));
 

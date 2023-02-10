@@ -69,7 +69,7 @@ class Stream extends AbstractLogger implements LoggerInterface
     /**
      * {@inheritDoc}
      */
-    public function close()
+    public function close() : void
     {
         if (\is_resource($this->stream)) {
             fclose($this->stream);
