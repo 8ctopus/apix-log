@@ -1,17 +1,10 @@
-# System related
-.DS_Store
-.build
-.tmp
-*~
 *.log
 
-# Composer related
-composer.lock
-composer.phar
+# composer
+/composer.lock
 /vendor/*
 
-# Development related
+# development
 /build/
-phpunit.xml
-TODO
-.phpunit.result.cache
+/phpunit.xml
+/.phpunit.result.cache
