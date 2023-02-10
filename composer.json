@@ -39,7 +39,7 @@
         }
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "phpunit --coverage-html=coverage"
     },
     "provide": {
         "psr/log-implementation": "^1.0"

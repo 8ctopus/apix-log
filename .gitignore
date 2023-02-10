@@ -1,11 +1,13 @@
-*.log
-
 # composer
 /composer.lock
 /vendor/*
 
-# development
+# phpunit
 /phpunit.xml
 /.phpunit.result.cache
+/coverage/
+
+# development
 /*.sublime-workspace
 /test.php
+/*.log
