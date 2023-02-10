@@ -14,7 +14,7 @@ use Exception;
 use Apix\Log\Logger\LoggerInterface;
 use stdClass;
 
-abstract class TestCase implements LoggerInterface
+abstract class TestCase extends \PHPUnit\Framework\TestCase implements LoggerInterface
 {
     protected string $dest = 'build/apix-unit-test-logger.log';
 
@@ -88,7 +88,7 @@ abstract class TestCase implements LoggerInterface
     {
         $this->getLogger()->alert('{' . $msg . '}', [$msg => $context]);
 
-        $this->assertEquals(['alert ' . $exp], $this->getLogs());
+        self::assertEquals(['alert ' . $exp], $this->getLogs());
     }
 
     /**
@@ -102,7 +102,7 @@ abstract class TestCase implements LoggerInterface
     {
         $this->getLogger()->notice($context);
 
-        $this->assertEquals(['notice ' . $exp], $this->getLogs());
+        self::assertEquals(['notice ' . $exp], $this->getLogs());
     }
 
     public function testContextIsAnException() : void
