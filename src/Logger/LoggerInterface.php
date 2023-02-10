@@ -38,7 +38,7 @@ interface LoggerInterface
     /**
      * Writes the given log entry.
      *
-     * @return bool wether the log entry was successfully written or not
+     * @return bool whether the log entry was successfully written or not
      */
     public function write(LogEntry|string $log);
 }

@@ -17,7 +17,7 @@ use Psr\Log\InvalidArgumentException;
 use Stringable;
 
 /**
- * Abstratc class.
+ * Abstract class.
  *
  * @author Franck Cassedanne <franck at ouarz.net>
  */
@@ -224,7 +224,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
     }
 
     /**
-     * Sets wether to enable/disable cascading.
+     * Sets whether to enable/disable cascading.
      *
      * @param bool $bool
      *
@@ -248,7 +248,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
     }
 
     /**
-     * Sets wether to enable/disable log deferring.
+     * Sets whether to enable/disable log deferring.
      *
      * @param bool $bool
      *
