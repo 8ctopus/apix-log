@@ -87,6 +87,8 @@ class ErrorLog extends AbstractLogger implements LoggerInterface
 
     /**
      * Get log destination.
+     *
+     * @return null|string
      */
     public function getDestination() : string|null
     {

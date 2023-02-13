@@ -10,7 +10,8 @@
 
 namespace Apix\Log\tests\Logger;
 
-use Apix\Log\Logger;
+use Apix\Log\Logger\ErrorLog;
+use Stringable;
 
 /**
  * @internal
@@ -39,9 +40,9 @@ final class ErrorLogTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testWrite() : void
+    public function testWriteString() : void
     {
-        $logger = new Logger\ErrorLog();
+        $logger = new ErrorLog();
 
         $message = 'test log';
         $logger->debug($message);
@@ -49,5 +50,31 @@ final class ErrorLogTest extends \PHPUnit\Framework\TestCase
         $content = file_get_contents($this->dest);
 
         static::assertStringContainsString($message, $content);
+    }
+
+    public function testWriteObject() : void
+    {
+        $destination = 'test';
+
+        $logger = (new ErrorLog($destination, ErrorLog::FILE))
+            ->setDeferred(false);
+
+        $test = new TestClass();
+        $logger->debug($test);
+
+        $logger->flushDeferredLogs();
+
+        $content = file_get_contents($this->dest);
+
+        static::assertStringContainsString((string) $test, $content);
+        static::assertSame($destination, $logger->getDestination());
+    }
+}
+
+class TestClass implements Stringable
+{
+    public function __toString()
+    {
+        return 'test class';
     }
 }
