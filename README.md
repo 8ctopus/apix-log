@@ -1,5 +1,4 @@
 # APIx Log, very thin PSR-3 logger
-==================================
 
 This project is a detached fork of [APIx Log](https://github.com/apix/log) as I wanted to add features not available in the original version.
 
@@ -28,10 +27,9 @@ Feel free to comment, send pull requests and patches...
 
 :new: *Log dispatch can be postponed/accumulated using `setDeferred()`.*
 
-Basic usage ~ *standalone*
------------
-```php
+## Basic usage ~ *standalone*
 
+```php
 $urgent_logger = new Apix\Log\Logger\Mail('franck@foo.bar');
 $urgent_logger->setMinLevel('critical');   // catch logs >= to `critical`
 ```
@@ -44,16 +42,17 @@ To log an event, use:
 $urgent_logger->alert('Running out of {stuff}', ['stuff' => 'beers']);
 ```
 
-Advanced usage ~ *multi-logs dispatcher*
---------------
+## Advanced usage ~ *multi-logs dispatcher*
 
 Let's create an additional logger with purpose of catching log entries that have a severity level of `warning` or more -- see the [log levels](#log-levels) for the order.
+
 ```php
 $app_logger = new Apix\Log\Logger\File('/var/log/apix_app.log');
 $app_logger->setMinLevel('warning')  // intercept logs that are >= `warning`
            ->setCascading(false)     // don't propagate to further buckets
            ->setDeferred(true);      // postpone/accumulate logs processing
 ```
+
 `setCascading()` was set to *false* (default is *true*) so the entries caught here won't continue downstream past that particular log bucket. `setDeferred()` was set to *true* (default is *false*) so processing happen on `__destruct` (end of script generally) rather than on the fly. 
 
 Now, let's create a main logger object and inject the two previous loggers.
@@ -62,12 +61,14 @@ Now, let's create a main logger object and inject the two previous loggers.
 // The main logger object (injecting an array of loggers)
 $logger = new Apix\Log\Logger( array($urgent_logger, $app_logger) );
 ```
+
 Let's create an additional logger -- just for development/debug purposes.
 
 ```php
-if(DEBUG) {
+if (DEBUG) {
   // Bucket for the remaining logs -- i.e. `notice`, `info` and `debug`
   $dev_logger = new Apix\Log\Logger\Stream(); // default to screen without output buffer
+
   // $dev_logger = new Logger\File('/tmp/apix_debug.log'); 
   $dev_logger->setMinLevel('debug');
 
@@ -90,8 +91,8 @@ $logger->error($e); // push an object (or array) directly
 $logger->info('Testing a var {my_var}', array('my_var' => array(...)));
 ```
 
-Log levels
-----------
+## Log levels
+
 The eight [RFC 5424][] levels of logs are supported, in cascading order:
 
  Severity  | Description
@@ -108,13 +109,10 @@ The eight [RFC 5424][] levels of logs are supported, in cascading order:
 [PSR-3]: http://tools.ietf.org/html/rfc5424
 [RFC 5424]: http://tools.ietf.org/html/rfc5424#section-6.2.1
 
-Installation
-------------------------
+## Installation
 
-```
-$ composer require 8ctopus/apix-log
-```
+   composer require 8ctopus/apix-log
 
-License
--------
-APIx Log is licensed under the New BSD license -- see the `LICENSE.txt` for the full license details.
+## License
+
+   APIx Log is licensed under the New BSD license -- see the `LICENSE.txt` for the full license details.
