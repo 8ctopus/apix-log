@@ -25,7 +25,7 @@ class Mail extends ErrorLog
      * @param string      $email   the email to append to
      * @param null|string $headers a string of additional (mail) headers
      *
-     * @throws Psr\Log\InvalidArgumentException if the email does not validate
+     * @throws InvalidArgumentException if the email does not validate
      */
     public function __construct(string $email, ?string $headers = null)
     {
