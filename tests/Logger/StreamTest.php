@@ -67,6 +67,12 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
     //     self::assertEquals(self::logger, $logger);
     // }
 
+    public function testWrite() : void
+    {
+        $this->logger->info('test');
+        self::assertEquals('info test', $this->getLogs()[0]);
+    }
+
     public function testThrowsInvalidArgumentExceptionWhenFileCannotBeCreated() : void
     {
         self::expectException(ValueError::class);
