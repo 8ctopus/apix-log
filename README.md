@@ -18,7 +18,7 @@ Minimalist and fast **PSR-3** compliant logger.
    * [jspalink/apix-log-pushover](https://github.com/jspalink/apix-log-pushover) ~ logs are sent using Pushover,
    * [apix/log-tracker](https://github.com/apix/log-tracker) ~ adds logger/tracker such as Google Analytics, Dashbot, etc...,
 
-* Very fast and even faster when logging is deferred
+* Very fast and even faster when logging is deferred. [See here on how it compares to monolog](https://github.com/apix/log/issues/9)
 * Clean API, see the [`LoggerInterface`](src/Logger/LoggerInterface.php) and the [`LogFormatterInterface`](src/LogFormatterInterface.php).
 * 100% Unit **tested** and compliant with PSR0, PSR1 and PSR2.
 
