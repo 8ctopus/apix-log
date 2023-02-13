@@ -22,12 +22,12 @@ final class LogEntryTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstructor() : void
     {
-        $entry = new LogEntry('emergency', 'test', ['context']);
+        $entry = new LogEntry('emergency', 'test', ['a' => 1, 'b' => false]);
         $entry->setFormatter(new LogFormatter());
 
         static::assertSame(date("[Y-m-d H:i:s]") . ' EMERGENCY test', (string) $entry);
 
-        $entry = new LogEntry(0, 'test', ['context']);
+        $entry = new LogEntry(0, 'test', ['a' => 1, 'b' => false]);
         $entry->setFormatter(new LogFormatter());
 
         static::assertSame(date("[Y-m-d H:i:s]") . ' EMERGENCY test', (string) $entry);
