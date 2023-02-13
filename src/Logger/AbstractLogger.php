@@ -126,6 +126,20 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
     }
 
     /**
+     * Gets the level name.
+     *
+     * @param int $level_code PSR-3 level
+     *
+     * @return string
+     *
+     * @throws InvalidArgumentException
+     */
+    public static function getLevelName(int $level_code) : string
+    {
+        return static::$levels[$level_code];
+    }
+
+    /**
      * Logs with an arbitrary level.
      *
      * @param mixed   $level
