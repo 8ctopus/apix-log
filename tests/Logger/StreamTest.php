@@ -11,14 +11,14 @@
 namespace Apix\Log\tests\Logger;
 
 use Apix\Log\Logger\Stream;
+use InvalidArgumentException;
 use LogicException;
 use ValueError;
-use InvalidArgumentException;
 
 /**
  * @internal
  *
- * @covers Apix\Log\Logger\Stream
+ * @covers \Apix\Log\Logger\Stream
  */
 final class StreamTest extends \PHPUnit\Framework\TestCase
 {
@@ -71,7 +71,7 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
     public function testWrite() : void
     {
         $this->logger->info('test');
-        self::assertEquals('info test', $this->getLogs()[0]);
+        static::assertSame('info test', $this->getLogs()[0]);
     }
 
     public function testInvalidResource() : void

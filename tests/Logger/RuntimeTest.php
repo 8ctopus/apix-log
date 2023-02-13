@@ -14,7 +14,7 @@ use Apix\Log\Logger;
 /**
  * @internal
  *
- * @covers Apix\Log\Logger\Runtime
+ * @covers \Apix\Log\Logger\Runtime
  */
 final class RuntimeTest extends \PHPUnit\Framework\TestCase
 {

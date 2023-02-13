@@ -16,7 +16,7 @@ use Stringable;
 /**
  * @internal
  *
- * @covers Apix\Log\Logger\ErrorLog
+ * @covers \Apix\Log\Logger\ErrorLog
  */
 final class ErrorLogTest extends \PHPUnit\Framework\TestCase
 {

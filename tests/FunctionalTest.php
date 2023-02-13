@@ -16,6 +16,7 @@ use Exception;
 /**
  * @internal
  *
+ * @coversNothing
  */
 final class FunctionalTest extends \PHPUnit\Framework\TestCase
 {
@@ -52,11 +53,12 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
         $urgent_logger->setMinLevel('critical');
 
         $urgent_logger->alert(
-            'Running out of {items} {left} left, recharge: {recharge} {resource}', [
+            'Running out of {items} {left} left, recharge: {recharge} {resource}',
+            [
                 'items' => 'beers',
                 'left' => 5,
                 'recharge' => true,
-                'resource' => \tmpfile(),
+                'resource' => tmpfile(),
             ]
         );
 

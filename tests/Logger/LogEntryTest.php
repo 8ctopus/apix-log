@@ -16,7 +16,7 @@ use Apix\Log\LogFormatter;
 /**
  * @internal
  *
- * @covers Apix\Log\LogEntry
+ * @covers \Apix\Log\LogEntry
  */
 final class LogEntryTest extends \PHPUnit\Framework\TestCase
 {
@@ -25,11 +25,11 @@ final class LogEntryTest extends \PHPUnit\Framework\TestCase
         $entry = new LogEntry('emergency', 'test', ['a' => 1, 'b' => false]);
         $entry->setFormatter(new LogFormatter());
 
-        static::assertSame(date("[Y-m-d H:i:s]") . ' EMERGENCY test', (string) $entry);
+        static::assertSame(date('[Y-m-d H:i:s]') . ' EMERGENCY test', (string) $entry);
 
         $entry = new LogEntry(0, 'test', ['a' => 1, 'b' => false]);
         $entry->setFormatter(new LogFormatter());
 
-        static::assertSame(date("[Y-m-d H:i:s]") . ' EMERGENCY test', (string) $entry);
+        static::assertSame(date('[Y-m-d H:i:s]') . ' EMERGENCY test', (string) $entry);
     }
 }

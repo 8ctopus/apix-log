@@ -10,6 +10,8 @@
 
 namespace Apix\Log;
 
+use Stringable;
+
 /**
  * Standard log formatter.
  *
@@ -42,7 +44,7 @@ class LogFormatter implements LogFormatterInterface
         foreach ($context as $key => $val) {
             if (\is_bool($val)) {
                 $val = $val ? 'true' : 'false';
-            } elseif (null === $val || \is_scalar($val) || ($val instanceof \Stringable)) {
+            } elseif (null === $val || \is_scalar($val) || ($val instanceof Stringable)) {
                 $val = (string) $val;
             } elseif (\is_array($val) || \is_object($val)) {
                 $val = @json_encode($val);
@@ -53,7 +55,7 @@ class LogFormatter implements LogFormatterInterface
             $replaces['{' . $key . '}'] = $val;
         }
 
-        return \strtr($message, $replaces);
+        return strtr($message, $replaces);
     }
 
     /**
@@ -65,10 +67,10 @@ class LogFormatter implements LogFormatterInterface
      */
     public function format(LogEntry $log) : string
     {
-        return \sprintf(
+        return sprintf(
             '[%s] %s %s',
-            \date('Y-m-d H:i:s', $log->timestamp),
-            \strtoupper($log->name),
+            date('Y-m-d H:i:s', $log->timestamp),
+            strtoupper($log->name),
             self::interpolate($log->message, $log->context)
         );
     }

@@ -101,7 +101,7 @@ class Logger extends AbstractLogger
      */
     public static function getPsrLevelName(string $level_name) : string
     {
-        $logLevel = '\Psr\Log\LogLevel::' . \strtoupper($level_name);
+        $logLevel = '\Psr\Log\LogLevel::' . strtoupper($level_name);
 
         if (!\defined($logLevel)) {
             throw new InvalidArgumentException(
@@ -167,7 +167,7 @@ class Logger extends AbstractLogger
      */
     protected function sortBuckets() : bool
     {
-        return \usort(
+        return usort(
             $this->buckets,
             function ($a, $b) {
                 return $a->getMinLevel() - $b->getMinLevel();

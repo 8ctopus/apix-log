@@ -11,7 +11,6 @@
 namespace Apix\Log;
 
 use Apix\Log\Logger\Stream;
-use Apix\Log\ApixLogException;
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LogLevel;
 use stdClass;
@@ -19,8 +18,8 @@ use stdClass;
 /**
  * @internal
  *
- * @covers Apix\Log\Logger
- * @covers Apix\Log\Logger\AbstractLogger
+ * @covers \Apix\Log\Logger
+ * @covers \Apix\Log\Logger\AbstractLogger
  */
 final class LoggerTest extends \PHPUnit\Framework\TestCase
 {
