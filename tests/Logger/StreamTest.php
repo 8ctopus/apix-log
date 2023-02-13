@@ -79,7 +79,7 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
         self::expectException(InvalidArgumentException::class);
         self::expectExceptionMessage('The stream "" cannot be created or opened');
 
-        new Stream(' ');
+        new Stream(' ', 'x');
     }
 
     public function testThrowsInvalidArgumentExceptionWhenFileCannotBeCreated() : void
