@@ -47,15 +47,19 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
     {
         // Basic usage
         $urgent_logger = new Logger\Runtime();
-        $urgent_logger->setMinLevel('critical'); // catch logs >= to `critical`
+
+        // catch logs >= to `critical`
+        $urgent_logger->setMinLevel('critical');
 
         $urgent_logger->alert(
-            'Running out of {stuff}',
-            ['stuff' => 'beers']
+            'Running out of {items} {left} left, recharge: {recharge}', [
+                'items' => 'beers',
+                'left' => 5,
+                'recharge'  => true,
+            ]
         );
 
         // Advanced usage
-
         $app_logger = new Logger\Runtime();
 
         $app_logger->setMinLevel('warning')
@@ -87,10 +91,7 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
 
         $urgent_logs = $this->getLogs($urgent_logger);
 
-        static::assertSame(
-            'alert Running out of beers',
-            $urgent_logs[0]
-        );
+        static::assertSame('alert Running out of beers 5 left, recharge: true', $urgent_logs[0]);
 
         $prefixException = version_compare(PHP_VERSION, '7.0.0-dev', '>=')
                 ? 'Exception: Boo! in '

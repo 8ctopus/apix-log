@@ -38,19 +38,18 @@ class LogFormatter implements LogFormatterInterface
     public function interpolate(string $message, array $context = []) : string
     {
         $replaces = [];
+
         foreach ($context as $key => $val) {
             if (\is_bool($val)) {
-                $val = '[bool: ' . (int) $val . ']';
-            } elseif (null === $val
-                || \is_scalar($val)
-                || (\is_object($val) && method_exists($val, '__toString'))
-            ) {
+                $val = $val ? 'true' : 'false';
+            } elseif (null === $val || \is_scalar($val) || ($val instanceof \Stringable)) {
                 $val = (string) $val;
             } elseif (\is_array($val) || \is_object($val)) {
                 $val = @json_encode($val);
             } else {
                 $val = '[type: ' . \gettype($val) . ']';
             }
+
             $replaces['{' . $key . '}'] = $val;
         }
 
