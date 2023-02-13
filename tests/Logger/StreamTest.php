@@ -70,7 +70,7 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(ValueError::class);
         $this->expectExceptionMessage('Path cannot be empty');
-        new Logger\Stream(null);
+        new Logger\Stream('');
     }
 
     public function testThrowsLogicException() : void
