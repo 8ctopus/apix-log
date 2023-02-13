@@ -44,7 +44,7 @@
         "test": "phpunit --coverage-html=coverage",
         "cs-review": "php-cs-fixer fix --verbose --diff --dry-run",
         "cs-fix": "php-cs-fixer fix --verbose",
-        "phpstan": "phpstan analyse --level 2 src tests"
+        "phpstan": "phpstan analyse --level 5 src tests"
     },
     "provide": {
         "psr/log-implementation": "^1.0"
