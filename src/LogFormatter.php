@@ -53,7 +53,7 @@ class LogFormatter implements LogFormatterInterface
             $replaces['{' . $key . '}'] = $val;
         }
 
-        return strtr($message, $replaces);
+        return \strtr($message, $replaces);
     }
 
     /**
@@ -65,10 +65,10 @@ class LogFormatter implements LogFormatterInterface
      */
     public function format(LogEntry $log) : string
     {
-        return sprintf(
+        return \sprintf(
             '[%s] %s %s',
-            date('Y-m-d H:i:s', $log->timestamp),
-            strtoupper($log->name),
+            \date('Y-m-d H:i:s', $log->timestamp),
+            \strtoupper($log->name),
             self::interpolate($log->message, $log->context)
         );
     }
