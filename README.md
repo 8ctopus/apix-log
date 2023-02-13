@@ -21,17 +21,14 @@ Minimalist and fast **PSR-3** compliant logger.
 
 * Clean API, see the [`LoggerInterface`](src/Logger/LoggerInterface.php) and the [`LogFormatterInterface`](src/LogFormatterInterface.php).
 * 100% Unit **tested** and compliant with PSR0, PSR1 and PSR2.
-* Available as a [Composer](https://packagist.org/packages/8ctopus/apix-log).
 
 Feel free to comment, send pull requests and patches...
-
-:new: *Log dispatch can be postponed/accumulated using `setDeferred()`.*
 
 ## Basic usage ~ *standalone*
 
 ```php
-$urgent_logger = new Apix\Log\Logger\Mail('franck@foo.bar');
-$urgent_logger->setMinLevel('critical');   // catch logs >= to `critical`
+$urgentLogger = new Apix\Log\Logger\Mail('franck@foo.bar');
+$urgentLogger->setMinLevel('critical');   // catch logs >= to `critical`
 ```
 
 This simple logger is now set to intercept `critical`, `alert` and `emergency` logs.
@@ -39,7 +36,7 @@ This simple logger is now set to intercept `critical`, `alert` and `emergency` l
 To log an event, use:
 
 ```php
-$urgent_logger->alert('Running out of {stuff}', ['stuff' => 'beers']);
+$urgentLogger->alert('Running out of {stuff}', ['stuff' => 'beers']);
 ```
 
 ## Advanced usage ~ *multi-logs dispatcher*
@@ -47,8 +44,8 @@ $urgent_logger->alert('Running out of {stuff}', ['stuff' => 'beers']);
 Let's create an additional logger with purpose of catching log entries that have a severity level of `warning` or more -- see the [log levels](#log-levels) for the order.
 
 ```php
-$app_logger = new Apix\Log\Logger\File('/var/log/apix_app.log');
-$app_logger->setMinLevel('warning')  // intercept logs that are >= `warning`
+$appLogger = new Apix\Log\Logger\File('/var/log/apix_app.log');
+$appLogger->setMinLevel('warning')  // intercept logs that are >= `warning`
            ->setCascading(false)     // don't propagate to further buckets
            ->setDeferred(true);      // postpone/accumulate logs processing
 ```
@@ -59,7 +56,7 @@ Now, let's create a main logger object and inject the two previous loggers.
 
 ```php
 // The main logger object (injecting an array of loggers)
-$logger = new Apix\Log\Logger( array($urgent_logger, $app_logger) );
+$logger = new Apix\Log\Logger( array($urgentLogger, $appLogger) );
 ```
 
 Let's create an additional logger -- just for development/debug purposes.
@@ -67,12 +64,12 @@ Let's create an additional logger -- just for development/debug purposes.
 ```php
 if (DEBUG) {
   // Bucket for the remaining logs -- i.e. `notice`, `info` and `debug`
-  $dev_logger = new Apix\Log\Logger\Stream(); // default to screen without output buffer
+  $devLogger = new Apix\Log\Logger\Stream(); // default to screen without output buffer
 
-  // $dev_logger = new Logger\File('/tmp/apix_debug.log'); 
-  $dev_logger->setMinLevel('debug');
+  // $devLogger = new Logger\File('/tmp/apix_debug.log');
+  $devLogger->setMinLevel('debug');
 
-  $logger->add($dev_logger);   		// another way to inject a log bucket
+  $logger->add($devLogger);   		// another way to inject a log bucket
 }
 ```
 
@@ -81,13 +78,13 @@ Finally, let's push some log entries:
 ```php
 $e = new \Exception('Boo!');
 
-// handled by both $urgent_logger & $app_logger
+// handled by both $urgentLogger & $appLogger
 $logger->critical('OMG saw {bad-exception}', [ 'bad-exception' => $e ]);
 
-// handled by $app_logger
+// handled by $appLogger
 $logger->error($e); // push an object (or array) directly
 
-// handled by $dev_logger
+// handled by $devLogger
 $logger->info('Testing a var {my_var}', array('my_var' => array(...)));
 ```
 
