@@ -268,10 +268,10 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
         static::assertFalse($this->logger->cascading());
     }
 
-    protected function _getMockLogger(array $r = [])
+    protected function _getMockLogger(array $methods = [])
     {
         return $this->getMockBuilder('Apix\Log\Logger\Nil')
-            ->onlyMethods($r)
+            ->onlyMethods($methods)
             ->getMock();
     }
 
