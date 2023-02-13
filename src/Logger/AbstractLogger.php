@@ -77,9 +77,9 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
     /**
      * Holds the log formatter.
      *
-     * @var null|LogFormatter
+     * @var LogFormatter
      */
-    protected ?LogFormatter $log_formatter;
+    protected LogFormatter $log_formatter;
 
     /**
      * Minimum level logged.
@@ -122,13 +122,21 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
             );
         }
 
-        return $level_code;
+        return (int) $level_code;
     }
 
     /**
-     * {@inheritdoc}
+     * Logs with an arbitrary level.
+     *
+     * @param mixed   $level
+     * @param string|\Stringable $message
+     * @param mixed[] $context
+     *
+     * @return void
+     *
+     * @throws \Psr\Log\InvalidArgumentException
      */
-    public function log($level, Stringable|string $message, array $context = []) : void
+    public function log(mixed $level, Stringable|string $message, array $context = []) : void
     {
         $entry = new LogEntry($level, $message, $context);
         $entry->setFormatter($this->getLogFormatter());

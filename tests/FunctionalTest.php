@@ -27,7 +27,7 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
      * @param Logger\Runtime $logger
      * @param bool $deferred
      *
-     * @return array
+     * @return LogEntry[]
      */
     public function getLogs(Logger\Runtime $logger, bool $deferred = false) : array
     {
@@ -60,8 +60,7 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
 
         $app_logger->setMinLevel('warning')
             ->setCascading(false)
-            ->setDeferred(true)
-        ;
+            ->setDeferred(true);
 
         // The main logger object (injecting the previous loggers/buckets)
         $logger = new Logger([$urgent_logger, $app_logger]);

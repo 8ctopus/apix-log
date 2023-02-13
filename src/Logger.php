@@ -48,6 +48,7 @@ class Logger extends AbstractLogger
                 );
             }
         }
+
         $this->sortBuckets();
     }
 
@@ -62,6 +63,7 @@ class Logger extends AbstractLogger
     public function process(LogEntry $log) : bool
     {
         $i = $this->getIndexFirstBucket($log->level_code);
+
         if (false !== $i) {
             while (
                 isset($this->buckets[$i])
@@ -98,6 +100,7 @@ class Logger extends AbstractLogger
     public static function getPsrLevelName(string $level_name) : string
     {
         $logLevel = '\Psr\Log\LogLevel::' . strtoupper($level_name);
+
         if (!\defined($logLevel)) {
             throw new InvalidArgumentException(
                 sprintf('Invalid PSR-3 log level "%s"', $level_name)
