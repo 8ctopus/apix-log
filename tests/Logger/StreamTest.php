@@ -17,6 +17,7 @@ use ValueError;
 /**
  * @internal
  *
+ * @covers Apix\Log\Logger\Stream
  */
 final class StreamTest extends \PHPUnit\Framework\TestCase
 {

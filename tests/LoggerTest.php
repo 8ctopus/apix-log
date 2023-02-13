@@ -17,6 +17,7 @@ use stdClass;
 /**
  * @internal
  *
+ * @covers Apix\Log\Logger
  */
 final class LoggerTest extends \PHPUnit\Framework\TestCase
 {

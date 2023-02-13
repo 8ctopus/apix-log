@@ -15,6 +15,7 @@ use Psr\Log\InvalidArgumentException;
 /**
  * @internal
  *
+ * @covers Apix\Log\Logger\Mail
  */
 final class MailTest extends \PHPUnit\Framework\TestCase
 {

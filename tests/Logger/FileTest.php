@@ -16,6 +16,7 @@ use Psr\Log\InvalidArgumentException;
 /**
  * @internal
  *
+ * @covers Apix\Log\Logger\File
  */
 final class FileTest extends \PHPUnit\Framework\TestCase
 {
