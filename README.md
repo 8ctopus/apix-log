@@ -26,22 +26,19 @@ Feel free to comment, send pull requests and patches...
 
 ## Basic usage ~ *standalone*
 
+This simple logger is set to intercept `critical`, `alert` and `emergency` logs -- see the [log levels](#log-levels) for the order.
+
 ```php
 $urgentLogger = new Apix\Log\Logger\Mail('franck@foo.bar');
-$urgentLogger->setMinLevel('critical');   // catch logs >= to `critical`
+
+$urgentLogger
+   // catch logs >= to `critical`
+   ->setMinLevel('critical')
+   ->alert('Running out of {items}', ['items' => 'beers']);
 ```
-
-This simple logger is now set to intercept `critical`, `alert` and `emergency` logs.
-
-To log an event, use:
-
-```php
-$urgentLogger->alert('Running out of {stuff}', ['stuff' => 'beers']);
-```
-
 ## Advanced usage ~ *multi-logs dispatcher*
 
-Let's create an additional logger with purpose of catching log entries that have a severity level of `warning` or more -- see the [log levels](#log-levels) for the order.
+Let's create an additional logger with purpose of catching log entries that have a severity level of `warning` or more.
 
 ```php
 $appLogger = new Apix\Log\Logger\File('/var/log/apix_app.log');
@@ -65,7 +62,6 @@ $appLogger
 Now, let's create a main logger object and inject the two previous loggers.
 
 ```php
-// The main logger object (injecting an array of loggers)
 $logger = new Apix\Log\Logger([$urgentLogger, $appLogger]);
 ```
 
