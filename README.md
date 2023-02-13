@@ -45,47 +45,60 @@ Let's create an additional logger with purpose of catching log entries that have
 
 ```php
 $appLogger = new Apix\Log\Logger\File('/var/log/apix_app.log');
-$appLogger->setMinLevel('warning')  // intercept logs that are >= `warning`
-           ->setCascading(false)     // don't propagate to further buckets
-           ->setDeferred(true);      // postpone logs processing
+$appLogger
+   // intercept logs that are >= `warning`
+   ->setMinLevel('warning')
+   // don't propagate to further buckets
+   ->setCascading(false)
+   // postpone writing logs to file
+   ->setDeferred(true)
+   // flush logs to file once 100 logs are collected
+   ->setDeferredTrigger(100);
 ```
 
-`setCascading()` was set to *false* (default is *true*) so the entries caught here won't continue downstream past that particular log bucket. `setDeferred()` was set to *true* (default is *false*) so processing happens on `__destruct` (end of script generally) rather than on the fly.
+`setCascading()` set to *false* (default: *true*) so the entries caught here won't continue downstream past that particular log bucket.\
+`setDeferred()` was set to *true* (default: *false*) so processing happens when:
+- `__destruct` (end of script generally)
+- `flushDeferredLogs` is called
+- `setDeferredTrigger` is reached
 
 Now, let's create a main logger object and inject the two previous loggers.
 
 ```php
 // The main logger object (injecting an array of loggers)
-$logger = new Apix\Log\Logger( array($urgentLogger, $appLogger) );
+$logger = new Apix\Log\Logger([$urgentLogger, $appLogger]);
 ```
 
 Let's create an additional logger -- just for development/debug purposes.
 
 ```php
 if (DEBUG) {
-  // Bucket for the remaining logs -- i.e. `notice`, `info` and `debug`
-  $devLogger = new Apix\Log\Logger\Stream(); // default to screen without output buffer
+   // Bucket for the remaining logs -- i.e. `notice`, `info` and `debug`
+   // default to screen without output buffer
+   $devLogger = new Apix\Log\Logger\Stream();
 
-  // $devLogger = new Logger\File('/tmp/apix_debug.log');
-  $devLogger->setMinLevel('debug');
+   // $devLogger = new Logger\File('/tmp/apix_debug.log');
+   $devLogger->setMinLevel('debug');
 
-  $logger->add($devLogger);   		// another way to inject a log bucket
+   // another way to inject a log bucket
+   $logger->add($devLogger);
 }
 ```
 
 Finally, let's push some log entries:
 
 ```php
-$e = new \Exception('Boo!');
+$exception = new \Exception('Boo!');
 
 // handled by both $urgentLogger & $appLogger
-$logger->critical('OMG saw {bad-exception}', [ 'bad-exception' => $e ]);
+$logger->critical('OMG saw {bad-exception}', ['bad-exception' => $exception]);
 
 // handled by $appLogger
-$logger->error($e); // push an object (or array) directly
+// push an object (or array) directly
+$logger->error($exception);
 
 // handled by $devLogger
-$logger->info('Testing a var {my_var}', array('my_var' => array(...)));
+$logger->info('Testing a var {my_var}', ['my_var' => [...]]);
 ```
 
 ## Log levels
