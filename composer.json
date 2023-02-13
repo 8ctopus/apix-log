@@ -53,5 +53,8 @@
         "PHPMailer/apix-log-phpmailer": "Allow sending log messages via PHPMailer",
         "jspalink/apix-log-pushover": "Allow sending log messages via Pushover",
         "apix/log-tracker": "Allow sending log messages to logger/tracker such as Google Analytics, Dashbot, etc."
+    },
+    "replace": {
+        "apix/log":"1.2.2"
     }
 }
