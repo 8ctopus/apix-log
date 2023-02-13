@@ -44,7 +44,7 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
     public function testConstructorThrowsInvalidArgumentException() : void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('"stdClass" must interface "Apix\Log\Logger\LoggerInterface"');
+        $this->expectExceptionMessage('"stdClass" must interface "Apix\Log\Logger\AbstractLogger"');
         new Logger([new stdClass()]);
     }
 
