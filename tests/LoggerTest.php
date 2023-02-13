@@ -11,6 +11,7 @@
 namespace Apix\Log;
 
 use Apix\Log\Logger\Stream;
+use Apix\Log\ApixLogException;
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LogLevel;
 use stdClass;
@@ -33,6 +34,12 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
     protected function tearDown() : void
     {
         $this->logger = null;
+    }
+
+    public function testWriteException() : void
+    {
+        static::expectException(ApixLogException::class);
+        $this->logger->write('cannot write');
     }
 
     /**
