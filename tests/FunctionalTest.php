@@ -66,12 +66,10 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
         // The main logger object (injecting the previous loggers/buckets)
         $logger = new Logger([$urgent_logger, $app_logger]);
 
-        if (true) {
-            $debug_logger = new Logger\Runtime();
-            $debug_logger->setMinLevel('debug');
+        $debug_logger = new Logger\Runtime();
+        $debug_logger->setMinLevel('debug');
 
-            $logger->add($debug_logger);
-        }
+        $logger->add($debug_logger);
 
         // handled by both $urgent_logger & $app_logger
         $e = new Exception('Boo!');
