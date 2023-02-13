@@ -11,6 +11,7 @@
 namespace Apix\Log\tests\Logger;
 
 use Apix\Log\Logger;
+use Apix\Log\tests\Logger\TestCase;
 use LogicException;
 use ValueError;
 
@@ -49,7 +50,7 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
             -1
         );
 
-        return self::normalizeLogs($lines);
+        return TestCase::normalizeLogs($lines);
     }
 
     /**
