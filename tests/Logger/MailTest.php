@@ -10,6 +10,7 @@
 
 namespace Apix\Log;
 
+use Apix\Log\Logger\Mail;
 use Psr\Log\InvalidArgumentException;
 
 /**
@@ -23,19 +24,19 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('"" is an invalid email address');
-        new Logger\Mail('');
+        new Mail('');
     }
 
     public function testThrowsInvalidArgumentException() : void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('"foo" is an invalid email address');
-        new Logger\Mail('foo');
+        new Mail('foo');
     }
 
     public function testConstructor() : void
     {
-        new Logger\Mail('foo@bar.com', 'CC: some@somewhere.com');
+        new Mail('foo@bar.com', 'CC: some@somewhere.com');
         static::assertTrue(true);
     }
 }

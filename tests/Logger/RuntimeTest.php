@@ -9,7 +9,7 @@
 
 namespace Apix\Log\tests\Logger;
 
-use Apix\Log\Logger;
+use Apix\Log\Logger\Runtime;
 
 /**
  * @internal
@@ -18,11 +18,11 @@ use Apix\Log\Logger;
  */
 final class RuntimeTest extends \PHPUnit\Framework\TestCase
 {
-    protected ?Logger\Runtime $logger;
+    protected ?Runtime $logger;
 
     protected function setUp() : void
     {
-        $this->logger = new Logger\Runtime();
+        $this->logger = new Runtime();
     }
 
     protected function tearDown() : void
