@@ -22,7 +22,7 @@ class Runtime extends AbstractLogger implements LoggerInterface
     /**
      * Holds the logged items.
      *
-     * @var array
+     * @var string[]
      */
     protected array $items = [];
 
@@ -38,7 +38,7 @@ class Runtime extends AbstractLogger implements LoggerInterface
     /**
      * Returns the logged items.
      *
-     * @return array
+     * @return string[]
      */
     public function getItems() : array
     {
