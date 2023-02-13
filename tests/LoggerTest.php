@@ -71,11 +71,11 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
     {
         $this->logger->add(new Stream('php://memory', 'a'));
 
-        static::assertSame(7, $this->logger->getBuckets()[0]->getMinLevelLogged());
+        static::assertSame(7, $this->logger->getMinLevelLogged());
 
         $this->logger->alert('test');
 
-        static::assertSame(1, $this->logger->getBuckets()[0]->getMinLevelLogged());
+        static::assertSame(1, $this->logger->getMinLevelLogged());
     }
 
     public function testConstructorThrowsInvalidArgumentException() : void

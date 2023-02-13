@@ -60,6 +60,10 @@ class Logger extends AbstractLogger
      */
     public function process(LogEntry $log) : bool
     {
+        if ($this->min_level_logged > $log->level_code) {
+            $this->min_level_logged = $log->level_code;
+        }
+
         $i = $this->getIndexFirstBucket($log->level_code);
 
         if (false !== $i) {
