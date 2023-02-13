@@ -10,8 +10,6 @@
 
 namespace Apix\Log;
 
-use Psr\Log\InvalidArgumentException;
-
 /**
  * Describes a log Entry.
  *
@@ -64,15 +62,15 @@ class LogEntry
     /**
      * Constructor.
      *
-     * @param string|int $level    the level
-     * @param string $message the message for this log entry
-     * @param mixed[] $context the contexts for this log entry
+     * @param int|string $level   the level
+     * @param string     $message the message for this log entry
+     * @param mixed[]    $context the contexts for this log entry
      */
     public function __construct(string|int $level, string $message, array $context = [])
     {
         $this->timestamp = time();
 
-        if (gettype($level) === 'string') {
+        if (\gettype($level) === 'string') {
             $this->name = $level;
             $this->level_code = Logger::getLevelCode($level);
         } else {

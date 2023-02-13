@@ -30,7 +30,7 @@ class LogFormatter implements LogFormatterInterface
      * Builds a replacement array with braces around the context keys.
      * It replaces {foo} with the value from $context['foo'].
      *
-     * @param string $message
+     * @param string  $message
      * @param mixed[] $context
      *
      * @return string

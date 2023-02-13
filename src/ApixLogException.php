@@ -10,6 +10,8 @@
 
 namespace Apix\Log;
 
-class ApixLogException extends \Exception
+use Exception;
+
+class ApixLogException extends Exception
 {
 }

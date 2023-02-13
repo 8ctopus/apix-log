@@ -25,7 +25,7 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
      * Example ->error('Foo') would yield "error Foo"
      *
      * @param Logger\Runtime $logger
-     * @param bool $deferred
+     * @param bool           $deferred
      *
      * @return LogEntry[]
      */

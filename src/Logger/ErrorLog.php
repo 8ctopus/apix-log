@@ -72,7 +72,7 @@ class ErrorLog extends AbstractLogger implements LoggerInterface
         $message = (string) $log;
 
         if (!$this->deferred && self::FILE === $this->type) {
-            if (gettype($log) === 'object') {
+            if (\gettype($log) === 'object') {
                 $message = $log->formatter->separator . $message . $log->formatter->separator;
             }
         }

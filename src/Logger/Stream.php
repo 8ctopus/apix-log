@@ -32,7 +32,7 @@ class Stream extends AbstractLogger implements LoggerInterface
      * Constructor.
      *
      * @param resource|string $stream the stream to append to
-     * @param string           $mode
+     * @param string          $mode
      *
      * @throws InvalidArgumentException if the stream cannot be created/opened
      */
@@ -61,7 +61,7 @@ class Stream extends AbstractLogger implements LoggerInterface
             throw new LogicException('The stream resource has been destructed too early');
         }
 
-        if (gettype($log) === 'object') {
+        if (\gettype($log) === 'object') {
             $log = (string) $log . $log->formatter->separator;
         }
 

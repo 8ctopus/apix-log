@@ -10,8 +10,8 @@
 
 namespace Apix\Log\tests\Logger;
 
-use Exception;
 use Apix\Log\Logger\LoggerInterface;
+use Exception;
 use stdClass;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase implements LoggerInterface
@@ -82,28 +82,28 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase implements LoggerInt
      * @dataProvider providerMessagesAndContextes
      *
      * @param string $msg
-     * @param mixed $context
+     * @param mixed  $context
      * @param string $exp
      */
     public function testMessageWithContext(string $msg, mixed $context, string $exp) : void
     {
         $this->getLogger()->alert('{' . $msg . '}', [$msg => $context]);
 
-        self::assertEquals(['alert ' . $exp], $this->getLogs());
+        static::assertSame(['alert ' . $exp], $this->getLogs());
     }
 
     /**
      * @dataProvider providerMessagesAndContextes
      *
      * @param string $msg
-     * @param mixed $context
+     * @param mixed  $context
      * @param string $exp
      */
     public function testContextIsPermutted(string $msg, mixed $context, string $exp) : void
     {
         $this->getLogger()->notice($context);
 
-        self::assertEquals(['notice ' . $exp], $this->getLogs());
+        static::assertSame(['notice ' . $exp], $this->getLogs());
     }
 
     public function testContextIsAnException() : void
@@ -116,7 +116,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase implements LoggerInt
                 ? 'critical Exception: Boo! in '
                 : "critical exception 'Exception' with message 'Boo!' in ";
 
-        $this->assertStringStartsWith(
+        static::assertStringStartsWith(
             $prefix,
             $logs[0]
         );

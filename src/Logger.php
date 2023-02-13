@@ -11,7 +11,6 @@
 namespace Apix\Log;
 
 use Apix\Log\Logger\AbstractLogger;
-use Apix\Log\ApixLogException;
 use Psr\Log\InvalidArgumentException;
 
 /**
@@ -134,6 +133,11 @@ class Logger extends AbstractLogger
         return $this->buckets;
     }
 
+    public function write(LogEntry|string $log) : bool
+    {
+        throw new ApixLogException('Write must be called on children not on parent');
+    }
+
     /**
      * Checks if any log bucket can handle the given code.
      *
@@ -166,10 +170,5 @@ class Logger extends AbstractLogger
                 return $a->getMinLevel() - $b->getMinLevel();
             }
         );
-    }
-
-    public function write(LogEntry|string $log) : bool
-    {
-        throw new ApixLogException('Write must be called on children not on parent');
     }
 }

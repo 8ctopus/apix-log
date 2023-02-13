@@ -142,9 +142,9 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
     /**
      * Logs with an arbitrary level.
      *
-     * @param mixed   $level
-     * @param string|\Stringable $message
-     * @param mixed[] $context
+     * @param mixed             $level
+     * @param string|Stringable $message
+     * @param mixed[]           $context
      *
      * @return void
      *
