@@ -1,9 +1,9 @@
 # APIx Log, very thin PSR-3 logger
 ==================================
 
-[![Latest Stable Version](https://poser.pugx.org/8ctopus/log/version)](https://packagist.org/packages/8ctopus/log)
-[![Total Downloads](https://poser.pugx.org/8ctopus/log/downloads)](https://packagist.org/packages/8ctopus/log)
-[![License](https://poser.pugx.org/8ctopus/log/license.svg)](https://packagist.org/packages/8ctopus/log)
+[![Latest Stable Version](https://poser.pugx.org/8ctopus/apix-log/version)](https://packagist.org/packages/8ctopus/log)
+[![Total Downloads](https://poser.pugx.org/8ctopus/apix-log/downloads)](https://packagist.org/packages/8ctopus/log)
+[![License](https://poser.pugx.org/8ctopus/apix-log/license.svg)](https://packagist.org/packages/8ctopus/log)
 
 Minimalist and fast **PSR-3** compliant logger.
 

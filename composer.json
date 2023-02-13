@@ -3,7 +3,7 @@
     "description": "Minimalist, thin and fast PSR-3 compliant (multi-bucket) logger.",
     "type": "library",
     "keywords": ["psr", "psr-3", "psr-log", "log", "logger", "logging", "tracker", "tracking", "apix"],
-    "homepage": "https://github.com/8ctopus/log",
+    "homepage": "https://github.com/8ctopus/apix-log",
     "license": "BSD-3-Clause",
     "authors": [
         {
