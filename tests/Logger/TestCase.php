@@ -17,6 +17,7 @@ use stdClass;
 abstract class TestCase extends \PHPUnit\Framework\TestCase implements LoggerInterface
 {
     protected string $dest = 'build/apix-unit-test-logger.log';
+    protected $logger;
 
     public static function normalizeLogs($logs)
     {
