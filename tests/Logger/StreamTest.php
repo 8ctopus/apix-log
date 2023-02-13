@@ -10,7 +10,7 @@
 
 namespace Apix\Log\tests\Logger;
 
-use Apix\Log\Logger;
+use Apix\Log\Logger\Stream;
 use LogicException;
 use ValueError;
 
@@ -23,12 +23,12 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
 {
     protected string $dest = 'php://memory';
     protected $stream;
-    protected ?Logger\Stream $logger;
+    protected ?Stream $logger;
 
     protected function setUp() : void
     {
         $this->stream = fopen($this->dest, 'a');
-        $this->logger = new Logger\Stream($this->stream);
+        $this->logger = new Stream($this->stream);
     }
 
     protected function tearDown() : void
@@ -63,23 +63,23 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
 
     // public function testStreamFromString()
     // {
-    //     $logger = new Logger\Stream($this->dest, 'a');
-    //     $this->assertEquals($this->logger, $logger);
+    //     $logger = new Stream(self::dest, 'a');
+    //     self::assertEquals(self::logger, $logger);
     // }
 
     public function testThrowsInvalidArgumentExceptionWhenFileCannotBeCreated() : void
     {
-        $this->expectException(ValueError::class);
-        $this->expectExceptionMessage('Path cannot be empty');
-        new Logger\Stream('');
+        self::expectException(ValueError::class);
+        self::expectExceptionMessage('Path cannot be empty');
+        new Stream('');
     }
 
     public function testThrowsLogicException() : void
     {
-        $this->expectException(LogicException::class);
-        $this->expectExceptionMessage('The stream resource has been destructed too early');
+        self::expectException(LogicException::class);
+        self::expectExceptionMessage('The stream resource has been destructed too early');
 
-        $logger = new Logger\Stream();
+        $logger = new Stream();
         $logger->__destruct();
         $logger->debug('foo');
     }
