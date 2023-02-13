@@ -58,9 +58,7 @@ class Stream extends AbstractLogger implements LoggerInterface
     public function write(LogEntry|string $log) : bool
     {
         if (!\is_resource($this->stream)) {
-            throw new LogicException(
-                'The stream resource has been __destruct() too early'
-            );
+            throw new LogicException('The stream resource has been destructed too early');
         }
 
         return (bool) fwrite($this->stream, $log . $log->formatter->separator);

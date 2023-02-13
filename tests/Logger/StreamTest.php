@@ -76,7 +76,7 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
     public function testThrowsLogicException() : void
     {
         $this->expectException(LogicException::class);
-        $this->expectExceptionMessage('The stream resource has been __destruct() too early');
+        $this->expectExceptionMessage('The stream resource has been destructed too early');
 
         $logger = new Logger\Stream();
         $logger->__destruct();
