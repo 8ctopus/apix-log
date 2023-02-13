@@ -11,6 +11,7 @@
 namespace Apix\Log;
 
 use Apix\Log\Logger\AbstractLogger;
+use Apix\Log\ApixLogException;
 use Psr\Log\InvalidArgumentException;
 
 /**
@@ -164,7 +165,6 @@ class Logger extends AbstractLogger
 
     public function write(LogEntry|string $log) : bool
     {
-        // this method must never be called
-        throw new \Exception("");
+        throw new ApixLogException('Write must be called on children not on parent');
     }
 }
