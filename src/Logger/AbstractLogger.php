@@ -82,13 +82,6 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
     protected ?LogFormatter $log_formatter;
 
     /**
-     * Holds the logger options (useful to set default options).
-     *
-     * @var array
-     */
-    protected array $options = [];
-
-    /**
      * Minimum level logged.
      *
      * @var int
@@ -288,7 +281,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
     /**
      * Returns all the deferred logs.
      *
-     * @return array
+     * @return LogEntry[]
      */
     public function getDeferredLogs() : array
     {
@@ -350,18 +343,6 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
         }
 
         return $this->log_formatter;
-    }
-
-    /**
-     * Sets and merges the options for this logger, overriding any default.
-     *
-     * @param ?array
-     */
-    public function setOptions(array $options = null) : void
-    {
-        if (null !== $options) {
-            $this->options = $options + $this->options;
-        }
     }
 
     /**
