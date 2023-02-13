@@ -1,6 +1,8 @@
 # APIx Log, very thin PSR-3 logger
 ==================================
 
+This project is a detached fork of [APIx Log](https://github.com/apix/log) as I wanted to add features not available in the original version.
+
 [![Latest Stable Version](https://poser.pugx.org/8ctopus/apix-log/version)](https://packagist.org/packages/8ctopus/log)
 [![Total Downloads](https://poser.pugx.org/8ctopus/apix-log/downloads)](https://packagist.org/packages/8ctopus/log)
 [![License](https://poser.pugx.org/8ctopus/apix-log/license.svg)](https://packagist.org/packages/8ctopus/log)
