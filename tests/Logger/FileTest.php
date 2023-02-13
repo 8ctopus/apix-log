@@ -10,7 +10,7 @@
 
 namespace Apix\Log\tests\Logger;
 
-use Apix\Log\Logger;
+use Apix\Log\Logger\File;
 use Psr\Log\InvalidArgumentException;
 
 /**
@@ -30,12 +30,19 @@ final class FileTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    public function testConstructor() : void
+    {
+        $logger = new File($this->dest);
+
+        static::assertInstanceOf(File::class, $logger);
+    }
+
     public function testThrowsInvalidArgumentExceptionWhenFileCannotBeCreated() : void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Log file "" cannot be created');
         $this->expectExceptionCode(1);
-        new Logger\File('');
+        new File('');
     }
 
     public function testThrowsInvalidArgumentExceptionWhenNotWritable() : void
@@ -47,6 +54,6 @@ final class FileTest extends \PHPUnit\Framework\TestCase
         $this->expectExceptionMessage("Log file \"{$this->dest}\" is not writable");
         $this->expectExceptionCode(2);
 
-        new Logger\File($this->dest);
+        new File($this->dest);
     }
 }
