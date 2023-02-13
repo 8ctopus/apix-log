@@ -13,6 +13,7 @@ namespace Apix\Log\tests\Logger;
 use Apix\Log\Logger\Stream;
 use LogicException;
 use ValueError;
+use InvalidArgumentException;
 
 /**
  * @internal
@@ -71,6 +72,14 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
     {
         $this->logger->info('test');
         self::assertEquals('info test', $this->getLogs()[0]);
+    }
+
+    public function testInvalidResource() : void
+    {
+        self::expectException(InvalidArgumentException::class);
+        self::expectExceptionMessage('The stream "" cannot be created or opened');
+
+        new Stream(' ');
     }
 
     public function testThrowsInvalidArgumentExceptionWhenFileCannotBeCreated() : void

@@ -10,6 +10,7 @@
 
 namespace Apix\Log;
 
+use Apix\Log\Logger\Stream;
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LogLevel;
 use stdClass;
@@ -18,6 +19,7 @@ use stdClass;
  * @internal
  *
  * @covers Apix\Log\Logger
+ * @covers Apix\Log\Logger\AbstractLogger
  */
 final class LoggerTest extends \PHPUnit\Framework\TestCase
 {
@@ -40,6 +42,33 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
     {
         static::assertSame(3, Logger::getLevelCode(LogLevel::ERROR));
         static::assertSame(3, Logger::getLevelCode('error'));
+    }
+
+    public function testLevelName() : void
+    {
+        static::assertSame('emergency', Logger::getLevelName(0));
+    }
+
+    public function testInvalidLevel() : void
+    {
+        static::expectException(InvalidArgumentException::class);
+        Logger::getLevelCode('not existing level');
+    }
+
+    public function testEmpty() : void
+    {
+        static::assertTrue($this->logger->isEmpty());
+    }
+
+    public function testMinimumLevelLogged() : void
+    {
+        $this->logger->add(new Stream('php://memory', 'a'));
+
+        static::assertSame(7, $this->logger->getBuckets()[0]->getMinLevelLogged());
+
+        $this->logger->alert('test');
+
+        static::assertSame(1, $this->logger->getBuckets()[0]->getMinLevelLogged());
     }
 
     public function testConstructorThrowsInvalidArgumentException() : void
@@ -221,6 +250,9 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
         );
 
         $this->logger->setDeferred(true);
+
+        $this->logger->setDeferredTrigger(100);
+
         static::assertTrue($this->logger->deferred());
     }
 
