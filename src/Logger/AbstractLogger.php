@@ -21,7 +21,7 @@ use Stringable;
  *
  * @author Franck Cassedanne <franck at ouarz.net>
  */
-abstract class AbstractLogger extends PsrAbstractLogger
+abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterface
 {
     /**
      * The PSR-3 logging levels.

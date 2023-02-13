@@ -161,4 +161,10 @@ class Logger extends AbstractLogger
             }
         );
     }
+
+    public function write(LogEntry|string $log) : bool
+    {
+        // this method must never be called
+        throw new \Exception("");
+    }
 }
