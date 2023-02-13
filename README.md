@@ -17,8 +17,8 @@ Minimalist and fast **PSR-3** compliant logger.
    * [PHPMailer/apix-log-phpmailer](https://github.com/PHPMailer/apix-log-phpmailer) ~ logs are sent using PHPMailer,
    * [jspalink/apix-log-pushover](https://github.com/jspalink/apix-log-pushover) ~ logs are sent using Pushover,
    * [apix/log-tracker](https://github.com/apix/log-tracker) ~ adds logger/tracker such as Google Analytics, Dashbot, etc...,
-   * More contributions will be linked here.
 
+* Very fast and even faster when logging is deferred
 * Clean API, see the [`LoggerInterface`](src/Logger/LoggerInterface.php) and the [`LogFormatterInterface`](src/LogFormatterInterface.php).
 * 100% Unit **tested** and compliant with PSR0, PSR1 and PSR2.
 
@@ -47,10 +47,10 @@ Let's create an additional logger with purpose of catching log entries that have
 $appLogger = new Apix\Log\Logger\File('/var/log/apix_app.log');
 $appLogger->setMinLevel('warning')  // intercept logs that are >= `warning`
            ->setCascading(false)     // don't propagate to further buckets
-           ->setDeferred(true);      // postpone/accumulate logs processing
+           ->setDeferred(true);      // postpone logs processing
 ```
 
-`setCascading()` was set to *false* (default is *true*) so the entries caught here won't continue downstream past that particular log bucket. `setDeferred()` was set to *true* (default is *false*) so processing happen on `__destruct` (end of script generally) rather than on the fly. 
+`setCascading()` was set to *false* (default is *true*) so the entries caught here won't continue downstream past that particular log bucket. `setDeferred()` was set to *true* (default is *false*) so processing happens on `__destruct` (end of script generally) rather than on the fly.
 
 Now, let's create a main logger object and inject the two previous loggers.
 
