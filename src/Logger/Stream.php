@@ -32,11 +32,11 @@ class Stream extends AbstractLogger implements LoggerInterface
      * Constructor.
      *
      * @param resource|string $stream the stream to append to
-     * @param mixed           $mode
+     * @param string           $mode
      *
      * @throws InvalidArgumentException if the stream cannot be created/opened
      */
-    public function __construct($stream = 'php://stdout', $mode = 'a')
+    public function __construct($stream = 'php://stdout', string $mode = 'a')
     {
         if (!\is_resource($stream)) {
             $stream = @fopen($stream, $mode);
