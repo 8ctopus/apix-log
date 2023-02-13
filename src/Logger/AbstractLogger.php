@@ -26,7 +26,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
     /**
      * The PSR-3 logging levels.
      *
-     * @var array
+     * @var string[]
      */
     protected static array $levels = [
         'emergency',
@@ -63,7 +63,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
     /**
      * Holds the deferred logs.
      *
-     * @var array
+     * @var LogEntry[]
      */
     protected array $deferred_logs = [];
 
@@ -354,6 +354,8 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
 
     /**
      * Sets and merges the options for this logger, overriding any default.
+     *
+     * @param ?array
      */
     public function setOptions(array $options = null) : void
     {

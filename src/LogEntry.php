@@ -48,7 +48,7 @@ class LogEntry
     /**
      * Holds this log context.
      *
-     * @var array
+     * @var mixed[]
      */
     public array $context;
 
@@ -64,7 +64,7 @@ class LogEntry
      *
      * @param string $name    the level name
      * @param string $message the message for this log entry
-     * @param array  $context the contexts for this log entry
+     * @param mixed[] $context the contexts for this log entry
      */
     public function __construct(string $name, string $message, array $context = [])
     {

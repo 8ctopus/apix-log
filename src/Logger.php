@@ -124,7 +124,7 @@ class Logger extends AbstractLogger
     /**
      * Returns all the registered log buckets.
      *
-     * @return array
+     * @return Logger\AbstractLogger[]
      */
     public function getBuckets() : array
     {

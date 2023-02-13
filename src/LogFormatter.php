@@ -31,6 +31,7 @@ class LogFormatter implements LogFormatterInterface
      * It replaces {foo} with the value from $context['foo'].
      *
      * @param string $message
+     * @param mixed[] $context
      *
      * @return string
      */
