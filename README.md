@@ -3,9 +3,9 @@
 
 This project is a detached fork of [APIx Log](https://github.com/apix/log) as I wanted to add features not available in the original version.
 
-[![Latest Stable Version](https://poser.pugx.org/8ctopus/apix-log/version)](https://packagist.org/packages/8ctopus/log)
-[![Total Downloads](https://poser.pugx.org/8ctopus/apix-log/downloads)](https://packagist.org/packages/8ctopus/log)
-[![License](https://poser.pugx.org/8ctopus/apix-log/license.svg)](https://packagist.org/packages/8ctopus/log)
+[![Latest Stable Version](https://poser.pugx.org/8ctopus/apix-log/version)](https://packagist.org/packages/8ctopus/apix-log)
+[![Total Downloads](https://poser.pugx.org/8ctopus/apix-log/downloads)](https://packagist.org/packages/8ctopus/apix-log)
+[![License](https://poser.pugx.org/8ctopus/apix-log/license.svg)](https://packagist.org/packages/8ctopus/apix-log)
 
 Minimalist and fast **PSR-3** compliant logger.
 
@@ -17,12 +17,12 @@ Minimalist and fast **PSR-3** compliant logger.
 * Extendable, additional logging backends are available:
    * [PHPMailer/apix-log-phpmailer](https://github.com/PHPMailer/apix-log-phpmailer) ~ logs are sent using PHPMailer,
    * [jspalink/apix-log-pushover](https://github.com/jspalink/apix-log-pushover) ~ logs are sent using Pushover,
-   * [8ctopus/log-tracker](https://github.com/8ctopus/log-tracker) ~ adds logger/tracker such as Google Analytics, Dashbot, etc...,
+   * [apix/log-tracker](https://github.com/apix/log-tracker) ~ adds logger/tracker such as Google Analytics, Dashbot, etc...,
    * More contributions will be linked here.
 
 * Clean API, see the [`LoggerInterface`](src/Logger/LoggerInterface.php) and the [`LogFormatterInterface`](src/LogFormatterInterface.php).
 * 100% Unit **tested** and compliant with PSR0, PSR1 and PSR2.
-* Available as a [Composer](https://packagist.org/packages/8ctopus/log).
+* Available as a [Composer](https://packagist.org/packages/8ctopus/apix-log).
 
 Feel free to comment, send pull requests and patches...
 
@@ -112,7 +112,7 @@ Installation
 ------------------------
 
 ```
-$ composer require 8ctopus/log
+$ composer require 8ctopus/apix-log
 ```
 
 License
