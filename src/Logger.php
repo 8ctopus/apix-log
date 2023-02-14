@@ -37,15 +37,16 @@ class Logger extends AbstractLogger
         foreach ($loggers as $logger) {
             if ($logger instanceof Logger\AbstractLogger) {
                 $this->buckets[] = $logger;
-            } else {
-                throw new InvalidArgumentException(
-                    sprintf(
-                        '"%s" must interface "%s".',
-                        \get_class($logger),
-                        __NAMESPACE__ . '\Logger\AbstractLogger'
-                    )
-                );
+                continue;
             }
+
+            throw new InvalidArgumentException(
+                sprintf(
+                    '"%s" must interface "%s".',
+                    \get_class($logger),
+                    __NAMESPACE__ . '\Logger\AbstractLogger'
+                )
+            );
         }
 
         $this->sortBuckets();

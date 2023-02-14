@@ -47,7 +47,11 @@ class LogFormatter implements LogFormatterInterface
             } elseif (null === $val || \is_scalar($val) || ($val instanceof Stringable)) {
                 $val = (string) $val;
             } elseif (\is_array($val) || \is_object($val)) {
-                $val = @json_encode($val);
+                $val = json_encode($val);
+
+                if ($val === false) {
+                    $val = 'json encode error';
+                }
             } else {
                 $val = '[type: ' . \gettype($val) . ']';
             }
