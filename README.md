@@ -5,6 +5,7 @@ This project is a detached fork of [APIx Log](https://github.com/apix/log) as I 
 [![Latest Stable Version](https://poser.pugx.org/8ctopus/apix-log/version)](https://packagist.org/packages/8ctopus/apix-log)
 [![Total Downloads](https://poser.pugx.org/8ctopus/apix-log/downloads)](https://packagist.org/packages/8ctopus/apix-log)
 [![License](https://poser.pugx.org/8ctopus/apix-log/license.svg)](https://packagist.org/packages/8ctopus/apix-log)
+[![PHP Version Require](http://poser.pugx.org/8ctopus/apix-log/require/php)](https://packagist.org/packages/8ctopus/apix-log)
 
 Minimalist and fast **PSR-3** compliant logger.
 
