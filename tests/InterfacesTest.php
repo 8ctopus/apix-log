@@ -86,7 +86,7 @@ final class InterfacesTest extends \PHPUnit\Framework\TestCase
         $this->logger->error('hello {who}', ['who' => 'world']);
 
         $this->expectOutputRegex(
-            '@\{"timestamp":.*\,"name":"error"\,"level_code":3\,"message":"hello world","context":\{"who":"world"\}\,"formatter":\{"separator":"~"\}\}@'
+            '@\{"timestamp":.*\,"name":"error"\,"levelCode":3\,"message":"hello world","context":\{"who":"world"\}\,"formatter":\{"separator":"~"\}\}@'
         );
     }
 }

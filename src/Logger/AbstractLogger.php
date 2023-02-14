@@ -44,7 +44,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      *
      * @var int
      */
-    protected int $min_level = 7;
+    protected int $minLevel = 7;
 
     /**
      * Whether this logger will cascade downstream.
@@ -65,28 +65,28 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      *
      * @var LogEntry[]
      */
-    protected array $deferred_logs = [];
+    protected array $deferredLogs = [];
 
     /**
      * Flush deferred logs when deferred array reaches count.
      *
      * @var null|int
      */
-    protected ?int $deferred_trigger;
+    protected ?int $deferredTrigger;
 
     /**
      * Holds the log formatter.
      *
      * @var LogFormatter
      */
-    protected LogFormatter $log_formatter;
+    protected LogFormatter $logFormatter;
 
     /**
      * Minimum level logged.
      *
      * @var int
      */
-    protected int $min_level_logged = 7;
+    protected int $minLevelLogged = 7;
 
     /**
      * Whether or not log is empty.
@@ -107,36 +107,36 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
     /**
      * Gets the named level code.
      *
-     * @param string $level_name the name of a PSR-3 level
+     * @param string $levelName the name of a PSR-3 level
      *
      * @return int
      *
      * @throws InvalidArgumentException
      */
-    public static function getLevelCode(string $level_name) : int
+    public static function getLevelCode(string $levelName) : int
     {
-        $level_code = array_search($level_name, static::$levels, true);
-        if (false === $level_code) {
+        $levelCode = array_search($levelName, static::$levels, true);
+        if (false === $levelCode) {
             throw new InvalidArgumentException(
-                sprintf('Invalid log level "%s"', $level_name)
+                sprintf('Invalid log level "%s"', $levelName)
             );
         }
 
-        return (int) $level_code;
+        return (int) $levelCode;
     }
 
     /**
      * Gets the level name.
      *
-     * @param int $level_code PSR-3 level
+     * @param int $levelCode PSR-3 level
      *
      * @return string
      *
      * @throws InvalidArgumentException
      */
-    public static function getLevelName(int $level_code) : string
+    public static function getLevelName(int $levelCode) : string
     {
-        return static::$levels[$level_code];
+        return static::$levels[$levelCode];
     }
 
     /**
@@ -166,8 +166,8 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      */
     public function process(LogEntry $log) : bool
     {
-        if ($this->min_level_logged > $log->level_code) {
-            $this->min_level_logged = $log->level_code;
+        if ($this->minLevelLogged > $log->levelCode) {
+            $this->minLevelLogged = $log->levelCode;
         }
 
         if ($this->empty) {
@@ -175,9 +175,9 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
         }
 
         if ($this->deferred) {
-            $this->deferred_logs[] = $log;
+            $this->deferredLogs[] = $log;
 
-            if (isset($this->deferred_trigger) && \count($this->deferred_logs) >= $this->deferred_trigger) {
+            if (isset($this->deferredTrigger) && \count($this->deferredLogs) >= $this->deferredTrigger) {
                 $this->flushDeferredLogs();
             }
         } else {
@@ -190,13 +190,13 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
     /**
      * Checks whether the given level code is handled by this logger.
      *
-     * @param int $level_code
+     * @param int $levelCode
      *
      * @return bool
      */
-    public function isHandling(int $level_code) : bool
+    public function isHandling(int $levelCode) : bool
     {
-        return $this->min_level >= $level_code;
+        return $this->minLevel >= $levelCode;
     }
 
     /**
@@ -209,7 +209,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      */
     public function setMinLevel(string $name, bool $cascading = true) : self
     {
-        $this->min_level = self::getLevelCode(strtolower($name));
+        $this->minLevel = self::getLevelCode(strtolower($name));
         $this->cascading = (bool) $cascading;
 
         return $this;
@@ -235,7 +235,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      */
     public function getMinLevel() : int
     {
-        return $this->min_level;
+        return $this->minLevel;
     }
 
     /**
@@ -295,7 +295,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      */
     public function setDeferredTrigger(?int $value) : self
     {
-        $this->deferred_trigger = $value;
+        $this->deferredTrigger = $value;
 
         return $this;
     }
@@ -307,7 +307,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      */
     public function getDeferredLogs() : array
     {
-        return $this->deferred_logs;
+        return $this->deferredLogs;
     }
 
     /**
@@ -315,12 +315,12 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      */
     public function flushDeferredLogs() : void
     {
-        if ($this->deferred && !empty($this->deferred_logs)) {
+        if ($this->deferred && !empty($this->deferredLogs)) {
             $messages = array_map(
                 function ($log) {
                     return (string) $log;
                 },
-                $this->deferred_logs
+                $this->deferredLogs
             );
 
             $formatter = $this->getLogFormatter();
@@ -330,7 +330,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
             $this->write($messages);
 
             // cleanup array
-            $this->deferred_logs = [];
+            $this->deferredLogs = [];
             // return $this->formatter->format($this);
         }
     }
@@ -350,7 +350,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      */
     public function setLogFormatter(LogFormatter $formatter) : void
     {
-        $this->log_formatter = $formatter;
+        $this->logFormatter = $formatter;
     }
 
     /**
@@ -360,11 +360,11 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      */
     public function getLogFormatter() : LogFormatter
     {
-        if (!isset($this->log_formatter)) {
+        if (!isset($this->logFormatter)) {
             $this->setLogFormatter(new LogFormatter());
         }
 
-        return $this->log_formatter;
+        return $this->logFormatter;
     }
 
     /**
@@ -372,7 +372,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      */
     public function getMinLevelLogged() : int
     {
-        return $this->min_level_logged;
+        return $this->minLevelLogged;
     }
 
     /**

@@ -60,11 +60,11 @@ class Logger extends AbstractLogger
      */
     public function process(LogEntry $log) : bool
     {
-        if ($this->min_level_logged > $log->level_code) {
-            $this->min_level_logged = $log->level_code;
+        if ($this->minLevelLogged > $log->levelCode) {
+            $this->minLevelLogged = $log->levelCode;
         }
 
-        $i = $this->getIndexFirstBucket($log->level_code);
+        $i = $this->getIndexFirstBucket($log->levelCode);
 
         if (false !== $i) {
             while (
@@ -93,23 +93,23 @@ class Logger extends AbstractLogger
     /**
      * Gets the name of the PSR-3 logging level.
      *
-     * @param string $level_name
+     * @param string $levelName
      *
      * @return string
      *
      * @throws InvalidArgumentException
      */
-    public static function getPsrLevelName(string $level_name) : string
+    public static function getPsrLevelName(string $levelName) : string
     {
-        $logLevel = '\Psr\Log\LogLevel::' . strtoupper($level_name);
+        $logLevel = '\Psr\Log\LogLevel::' . strtoupper($levelName);
 
         if (!\defined($logLevel)) {
             throw new InvalidArgumentException(
-                sprintf('Invalid PSR-3 log level "%s"', $level_name)
+                sprintf('Invalid PSR-3 log level "%s"', $levelName)
             );
         }
 
-        return $level_name;
+        return $levelName;
     }
 
     /**
@@ -144,14 +144,14 @@ class Logger extends AbstractLogger
     /**
      * Checks if any log bucket can handle the given code.
      *
-     * @param int $level_code
+     * @param int $levelCode
      *
      * @return false|int
      */
-    protected function getIndexFirstBucket(int $level_code)
+    protected function getIndexFirstBucket(int $levelCode)
     {
         foreach ($this->buckets as $key => $logger) {
-            if ($logger->isHandling($level_code)) {
+            if ($logger->isHandling($levelCode)) {
                 return $key;
             }
         }

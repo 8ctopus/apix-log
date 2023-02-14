@@ -36,7 +36,7 @@ class LogEntry
      *
      * @var int
      */
-    public int $level_code;
+    public int $levelCode;
 
     /**
      * Holds this log message.
@@ -72,10 +72,10 @@ class LogEntry
 
         if (\gettype($level) === 'string') {
             $this->name = $level;
-            $this->level_code = Logger::getLevelCode($level);
+            $this->levelCode = Logger::getLevelCode($level);
         } else {
             $this->name = Logger::getLevelName($level);
-            $this->level_code = $level;
+            $this->levelCode = $level;
         }
 
         $this->message = $message;
