@@ -65,14 +65,14 @@ class Logger extends AbstractLogger
             $this->minLevelLogged = $log->levelCode;
         }
 
-        $i = $this->getIndexFirstBucket($log->levelCode);
+        $index = $this->getIndexFirstBucket($log->levelCode);
 
-        if (false !== $i) {
+        if (false !== $index) {
             while (
-                isset($this->buckets[$i])
-                && $this->buckets[$i]->process($log)
+                isset($this->buckets[$index])
+                && $this->buckets[$index]->process($log)
             ) {
-                ++$i;
+                ++$index;
             }
 
             return true;
@@ -170,8 +170,8 @@ class Logger extends AbstractLogger
     {
         return usort(
             $this->buckets,
-            function ($a, $b) {
-                return $a->getMinLevel() - $b->getMinLevel();
+            function ($first, $second) {
+                return $first->getMinLevel() - $second->getMinLevel();
             }
         );
     }
