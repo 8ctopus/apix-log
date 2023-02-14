@@ -46,7 +46,7 @@
         "cs-review": "php-cs-fixer fix --verbose --diff --dry-run",
         "cs-fix": "php-cs-fixer fix --verbose",
         "phpstan": "phpstan analyse --level 9 src",
-        "phpmd": "phpmd src ansi cleancode,codesize,design,naming,unusedcode,controversial"
+        "phpmd": "phpmd src ansi phpmd.xml"
     },
     "provide": {
         "psr/log-implementation": "^1.0"
