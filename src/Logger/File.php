@@ -36,7 +36,6 @@ class File extends ErrorLog
             throw new InvalidArgumentException(sprintf('Log file "%s" is not writable', $file), 2);
         }
 
-        $this->destination = $file;
-        $this->type = static::FILE;
+        parent::__construct($file, static::FILE, null);
     }
 }

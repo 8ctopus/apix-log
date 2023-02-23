@@ -26,7 +26,6 @@ class Sapi extends ErrorLog
      */
     public function __construct(string $destination = \PHP_SAPI)
     {
-        $this->destination = $destination;
-        $this->type = static::SAPI;
+        parent::__construct($destination, static::SAPI, null);
     }
 }

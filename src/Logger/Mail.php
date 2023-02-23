@@ -35,8 +35,6 @@ class Mail extends ErrorLog
             );
         }
 
-        $this->destination = $email;
-        $this->type = static::MAIL;
-        $this->headers = (string) $headers;
+        parent::__construct($email, static::MAIL, $headers);
     }
 }
