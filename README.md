@@ -1,10 +1,12 @@
 # APIx Log, very thin PSR-3 logger
 
-[![Latest Stable Version](https://poser.pugx.org/8ctopus/apix-log/version)](https://packagist.org/packages/8ctopus/apix-log)
-![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/8ctopus/apix-log/tests.yml?branch=master)
-[![Total Downloads](https://poser.pugx.org/8ctopus/apix-log/downloads)](https://packagist.org/packages/8ctopus/apix-log)
-[![PHP Version Require](http://poser.pugx.org/8ctopus/apix-log/require/php)](https://packagist.org/packages/8ctopus/apix-log)
-[![License](https://poser.pugx.org/8ctopus/apix-log/license.svg)](https://packagist.org/packages/8ctopus/apix-log)
+[![packagist](http://poser.pugx.org/8ctopus/apix-log/v)](https://packagist.org/packages/8ctopus/apix-log)
+[![downloads](http://poser.pugx.org/8ctopus/apix-log/downloads)](https://packagist.org/packages/8ctopus/apix-log)
+[![min php version](http://poser.pugx.org/8ctopus/apix-log/require/php)](https://packagist.org/packages/8ctopus/apix-log)
+[![license](http://poser.pugx.org/8ctopus/apix-log/license)](https://packagist.org/packages/8ctopus/apix-log)
+[![tests](https://github.com/8ctopus/apix-log/actions/workflows/tests.yml/badge.svg)](https://github.com/8ctopus/apix-log/actions/workflows/tests.yml)
+![code coverage badge](https://raw.githubusercontent.com/8ctopus/apix-log/image-data/coverage.svg)
+![lines of code](https://raw.githubusercontent.com/8ctopus/apix-log/image-data/lines.svg)
 
 This project is a detached fork of [APIx Log](https://github.com/apix/log) as I wanted to add features and bug fixes not available in the original version.
 
