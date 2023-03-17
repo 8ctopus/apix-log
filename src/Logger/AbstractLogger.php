@@ -347,10 +347,13 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
 
     /**
      * Sets a log formatter.
+     *
+     * @return self
      */
-    public function setLogFormatter(LogFormatter $formatter) : void
+    public function setLogFormatter(LogFormatter $formatter) : self
     {
         $this->logFormatter = $formatter;
+        return $this;
     }
 
     /**
