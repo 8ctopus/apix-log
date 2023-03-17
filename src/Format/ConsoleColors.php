@@ -4,7 +4,7 @@ namespace Apix\Log\Format;
 
 use Apix\Log\LogEntry;
 
-class Console extends Standard
+class ConsoleColors extends Standard
 {
     // https://misc.flogisoft.com/bash/tip_colors_and_formatting
     private array $colors = [
