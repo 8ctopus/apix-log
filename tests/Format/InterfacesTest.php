@@ -11,22 +11,8 @@
 namespace Apix\Log\tests\Format;
 
 use Apix\Log\LogEntry;
-use Apix\Log\Logger\AbstractLogger;
-use Apix\Log\Logger\LoggerInterface;
+use Apix\Log\Logger\Runtime;
 use Apix\Log\Format\Standard;
-
-class StandardOutput extends AbstractLogger implements LoggerInterface
-{
-    public function write(LogEntry|string $log) : bool
-    {
-        if ($log instanceof LogEntry) {
-            $log = $this->getFormat()->format($log);
-        }
-
-        echo $log;
-        return true;
-    }
-}
 
 /**
  * A JSON Formatter (example).
@@ -55,11 +41,11 @@ class MyJsonFormatter extends Standard
  */
 final class InterfacesTest extends \PHPUnit\Framework\TestCase
 {
-    protected ?StandardOutput $logger;
+    protected ?Runtime $logger;
 
     protected function setUp() : void
     {
-        $this->logger = new StandardOutput();
+        $this->logger = new Runtime();
     }
 
     protected function tearDown() : void
@@ -88,8 +74,9 @@ final class InterfacesTest extends \PHPUnit\Framework\TestCase
         $this->logger->setFormat($formatter);
         $this->logger->error('hello {who}', ['who' => 'world']);
 
-        $this->expectOutputRegex(
-            '@\{"timestamp":.*\,"name":"error"\,"levelCode":3\,"message":"hello world","context":\{"who":"world"\}\}@'
+        static::assertMatchesRegularExpression(
+            '@\{"timestamp":.*\,"name":"error"\,"levelCode":3\,"message":"hello world","context":\{"who":"world"\}\}@',
+            $this->logger->getItems()[0]
         );
     }
 }
