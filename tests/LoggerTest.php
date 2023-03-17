@@ -229,14 +229,14 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
 
     public function testCascading() : void
     {
-        $dev_log = new Logger\Runtime();
-        $dev_log->setMinLevel('debug');
+        $dev = new Logger\Runtime();
+        $dev->setMinLevel('debug');
 
-        $app_log = new Logger\Runtime();
-        $app_log->setMinLevel('alert');
+        $app = new Logger\Runtime();
+        $app->setMinLevel('alert');
 
-        $this->logger->add($dev_log);
-        $this->logger->add($app_log);
+        $this->logger->add($dev);
+        $this->logger->add($app);
 
         $buckets = $this->logger->getBuckets();
 
@@ -244,7 +244,7 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
         static::assertCount(1, $buckets[0]->getItems());
         static::assertCount(1, $buckets[1]->getItems());
 
-        $app_log->setCascading(false)->alert('not-cascading');
+        $app->setCascading(false)->alert('not-cascading');
 
         static::assertCount(2, $buckets[0]->getItems(), 'app_log count = 2');
         static::assertCount(1, $buckets[1]->getItems(), 'dev_log count = 1');

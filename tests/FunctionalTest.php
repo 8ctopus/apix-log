@@ -93,7 +93,6 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
         $logger->info('Something happened -> {abc}', ['abc' => ['xyz']]);
 
         // -- All the assertions --
-
         $urgent_logs = $this->getLogs($urgent_logger);
 
         static::assertSame('alert Running out of beers 5 left, recharge: true [type: resource]' . PHP_EOL, $urgent_logs[0]);
