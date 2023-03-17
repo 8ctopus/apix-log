@@ -14,11 +14,6 @@ use Apix\Log\Logger\AbstractLogger;
 use Apix\Log\Logger\LoggerInterface;
 use Apix\Log\Format\Standard;
 
-/**
- * Standard output log wrapper (example).
- *
- * @author Franck Cassedanne <franck at ouarz.net>
- */
 class StandardOutput extends AbstractLogger implements LoggerInterface
 {
     public function write(LogEntry|string $log) : bool
@@ -35,7 +30,6 @@ class StandardOutput extends AbstractLogger implements LoggerInterface
 /**
  * A JSON Formatter (example).
  *
- * @author Franck Cassedanne <franck at ouarz.net>
  */
 class MyJsonFormatter extends Standard
 {
