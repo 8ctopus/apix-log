@@ -78,7 +78,7 @@ class LogEntry
     }
 
     /**
-     * Returns the formated string for this log entry.
+     * Returns the formatted string for this log entry.
      *
      * @return string
      */
