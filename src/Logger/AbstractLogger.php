@@ -10,8 +10,9 @@
 
 namespace Apix\Log\Logger;
 
+use Apix\Log\Format\FormatInterface;
+use Apix\Log\Format\Standard;
 use Apix\Log\LogEntry;
-use Apix\Log\LogFormatter;
 use Psr\Log\AbstractLogger as PsrAbstractLogger;
 use Psr\Log\InvalidArgumentException;
 use Stringable;
@@ -77,9 +78,9 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
     /**
      * Holds the log formatter.
      *
-     * @var LogFormatter
+     * @var FormatInterface
      */
-    protected LogFormatter $logFormatter;
+    protected FormatInterface $format;
 
     /**
      * Minimum level logged.
@@ -152,9 +153,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      */
     public function log(mixed $level, Stringable|string $message, array $context = []) : void
     {
-        $entry = new LogEntry($level, $message, $context);
-        $entry->setFormatter($this->getLogFormatter());
-        $this->process($entry);
+        $this->process(new LogEntry($level, $message, $context));
     }
 
     /**
@@ -318,12 +317,16 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
         if ($this->deferred && !empty($this->deferredLogs)) {
             $messages = array_map(
                 function ($log) {
-                    return (string) $log;
+                    if ($log instanceof LogEntry) {
+                        $log = $this->getFormat()->format($log);
+                    }
+
+                    return $log;
                 },
                 $this->deferredLogs
             );
 
-            $formatter = $this->getLogFormatter();
+            $formatter = $this->getFormat();
 
             $messages = implode($formatter->separator, $messages) . $formatter->separator;
 
@@ -348,26 +351,28 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
     /**
      * Sets a log formatter.
      *
+     * @param FormatInterface $format
+     *
      * @return self
      */
-    public function setLogFormatter(LogFormatter $formatter) : self
+    public function setFormat(FormatInterface $format) : self
     {
-        $this->logFormatter = $formatter;
+        $this->format = $format;
         return $this;
     }
 
     /**
      * Returns the current log formatter.
      *
-     * @return LogFormatter
+     * @return FormatInterface
      */
-    public function getLogFormatter() : LogFormatter
+    public function getFormat() : FormatInterface
     {
-        if (!isset($this->logFormatter)) {
-            $this->setLogFormatter(new LogFormatter());
+        if (!isset($this->format)) {
+            $this->setFormat(new Standard());
         }
 
-        return $this->logFormatter;
+        return $this->format;
     }
 
     /**

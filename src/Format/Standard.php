@@ -8,8 +8,9 @@
  * @license http://opensource.org/licenses/BSD-3-Clause  New BSD License
  */
 
-namespace Apix\Log;
+namespace Apix\Log\Format;
 
+use Apix\Log\LogEntry;
 use Stringable;
 
 /**
@@ -17,14 +18,19 @@ use Stringable;
  *
  * @author Franck Cassedanne <franck at ouarz.net>
  */
-class LogFormatter implements LogFormatterInterface
+class Standard implements FormatInterface
 {
     /**
      * Holds this log separator.
      *
      * @var string
      */
-    public string $separator = PHP_EOL;
+    public readonly string $separator;
+
+    public function __construct(string $separator = PHP_EOL)
+    {
+        $this->separator = $separator;
+    }
 
     /**
      * Interpolates context values into the message placeholders.
@@ -76,6 +82,6 @@ class LogFormatter implements LogFormatterInterface
             date('Y-m-d H:i:s', $log->timestamp),
             strtoupper($log->name),
             self::interpolate($log->message, $log->context)
-        );
+        ) . $this->separator;
     }
 }

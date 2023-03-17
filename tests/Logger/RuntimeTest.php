@@ -53,7 +53,7 @@ final class RuntimeTest extends \PHPUnit\Framework\TestCase
         $this->logger->error('msg2', $context);
 
         static::assertSame(
-            ['debug msg1', 'error msg2'],
+            ['debug msg1' . PHP_EOL, 'error msg2' . PHP_EOL],
             $this->getLogs()
         );
     }

@@ -10,6 +10,7 @@
 
 namespace Apix\Log\Logger;
 
+use Apix\Log\Format\Standard;
 use Apix\Log\LogEntry;
 
 /**
@@ -26,12 +27,21 @@ class Runtime extends AbstractLogger implements LoggerInterface
      */
     protected array $items = [];
 
+    public function __construct()
+    {
+        $this->setFormat(new Standard());
+    }
+
     /**
      * {@inheritDoc}
      */
     public function write(LogEntry|string $log) : bool
     {
-        $this->items[] = (string) $log;
+        if ($log instanceof LogEntry) {
+            $log = $this->getFormat()->format($log);
+        }
+
+        $this->items[] = $log;
         return true;
     }
 

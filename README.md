@@ -23,7 +23,7 @@ Minimalist and fast **PSR-3** compliant logger.
    * [apix/log-tracker](https://github.com/apix/log-tracker) ~ adds logger/tracker such as Google Analytics, Dashbot, etc...,
 
 * Very fast and even faster when logging is deferred. [See here on how it compares to monolog](https://github.com/apix/log/issues/9)
-* Clean API, see the [`LoggerInterface`](src/Logger/LoggerInterface.php) and the [`LogFormatterInterface`](src/LogFormatterInterface.php).
+* Clean API, see the [`LoggerInterface`](src/Logger/LoggerInterface.php) and the [`FormatInterface`](src/FormatInterface.php).
 * 100% Unit **tested** and compliant with PSR0, PSR1 and PSR2.
 
 Feel free to comment, send pull requests and patches...

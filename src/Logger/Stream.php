@@ -61,8 +61,8 @@ class Stream extends AbstractLogger implements LoggerInterface
             throw new LogicException('The stream resource has been destructed too early');
         }
 
-        if (\gettype($log) === 'object') {
-            $log = (string) $log . $log->formatter->separator;
+        if ($log instanceof LogEntry) {
+            $log = $this->getFormat()->format($log);
         }
 
         return (bool) fwrite($this->stream, $log);

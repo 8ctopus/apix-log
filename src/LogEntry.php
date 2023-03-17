@@ -10,6 +10,8 @@
 
 namespace Apix\Log;
 
+use Apix\Log\Format\Standard;
+
 /**
  * Describes a log Entry.
  *
@@ -53,13 +55,6 @@ class LogEntry
     public array $context;
 
     /**
-     * Holds this log formatter.
-     *
-     * @var LogFormatter
-     */
-    public LogFormatter $formatter;
-
-    /**
      * Constructor.
      *
      * @param int|string $level   the level
@@ -83,17 +78,13 @@ class LogEntry
     }
 
     /**
-     * Returns the formated string for this log entry.
+     * Returns the formatted string for this log entry.
      *
      * @return string
      */
     public function __toString() : string
     {
-        return $this->formatter->format($this);
-    }
-
-    public function setFormatter(LogFormatter $formatter) : void
-    {
-        $this->formatter = $formatter;
+        $format = new Standard();
+        return $format->format($this);
     }
 }
