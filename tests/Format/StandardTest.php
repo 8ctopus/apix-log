@@ -10,9 +10,7 @@
 
 namespace Apix\Log\tests\Format;
 
-use Apix\Log\LogEntry;
 use Apix\Log\Logger\Runtime;
-use Apix\Log\Format\Standard;
 
 /**
  * @internal

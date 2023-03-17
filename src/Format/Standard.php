@@ -11,7 +11,6 @@
 namespace Apix\Log\Format;
 
 use Apix\Log\LogEntry;
-
 use Stringable;
 
 /**

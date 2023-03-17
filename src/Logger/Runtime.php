@@ -10,8 +10,8 @@
 
 namespace Apix\Log\Logger;
 
-use Apix\Log\LogEntry;
 use Apix\Log\Format\Standard;
+use Apix\Log\LogEntry;
 
 /**
  * Runtime (Array/ArrayObject) log wrapper.

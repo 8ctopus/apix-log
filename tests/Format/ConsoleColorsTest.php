@@ -2,8 +2,8 @@
 
 namespace Apix\Log\tests\Format;
 
-use Apix\Log\Logger\Runtime;
 use Apix\Log\Format\ConsoleColors;
+use Apix\Log\Logger\Runtime;
 
 /**
  * @internal
@@ -43,6 +43,6 @@ final class ConsoleColorsTest extends \PHPUnit\Framework\TestCase
         $this->logger->setFormat($format);
 
         $this->logger->error('hello {who}', ['who' => 'world']);
-        $this->assertSame(date('[Y-m-d H:i:s]') . " ERROR [01;31mhello world[0m" . PHP_EOL, $this->logger->getItems()[0]);
+        $this->assertSame(date('[Y-m-d H:i:s]') . ' ERROR [01;31mhello world[0m' . PHP_EOL, $this->logger->getItems()[0]);
     }
 }

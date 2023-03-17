@@ -10,13 +10,12 @@
 
 namespace Apix\Log\tests\Format;
 
+use Apix\Log\Format\Standard;
 use Apix\Log\LogEntry;
 use Apix\Log\Logger\Runtime;
-use Apix\Log\Format\Standard;
 
 /**
  * A JSON Formatter (example).
- *
  */
 class MyJsonFormatter extends Standard
 {

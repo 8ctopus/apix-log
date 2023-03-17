@@ -11,8 +11,8 @@
 namespace Apix\Log\Logger;
 
 use Apix\Log\Format\FormatInterface;
-use Apix\Log\LogEntry;
 use Apix\Log\Format\Standard;
+use Apix\Log\LogEntry;
 use Psr\Log\AbstractLogger as PsrAbstractLogger;
 use Psr\Log\InvalidArgumentException;
 use Stringable;

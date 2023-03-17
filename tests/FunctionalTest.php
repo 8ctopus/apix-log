@@ -10,9 +10,8 @@
 
 namespace Apix\Log\tests;
 
-use Apix\Log\tests\Logger\TestCase;
 use Apix\Log\Logger;
-use Apix\Log\Logger\Runtime;
+use Apix\Log\tests\Logger\TestCase;
 use Exception;
 
 /**
