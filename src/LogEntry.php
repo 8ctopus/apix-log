@@ -53,13 +53,6 @@ class LogEntry
     public array $context;
 
     /**
-     * Holds this log formatter.
-     *
-     * @var LogFormatter
-     */
-    public LogFormatter $formatter;
-
-    /**
      * Constructor.
      *
      * @param int|string $level   the level
@@ -89,11 +82,7 @@ class LogEntry
      */
     public function __toString() : string
     {
-        return $this->formatter->format($this);
-    }
-
-    public function setFormatter(LogFormatter $formatter) : void
-    {
-        $this->formatter = $formatter;
+        $formatter = new LogFormatter();
+        return $formatter->format($this);
     }
 }

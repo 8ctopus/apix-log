@@ -24,7 +24,12 @@ class LogFormatter implements LogFormatterInterface
      *
      * @var string
      */
-    public string $separator = PHP_EOL;
+    public readonly string $separator;
+
+    public function __construct(string $separator = PHP_EOL)
+    {
+        $this->separator = $separator;
+    }
 
     /**
      * Interpolates context values into the message placeholders.
@@ -76,6 +81,6 @@ class LogFormatter implements LogFormatterInterface
             date('Y-m-d H:i:s', $log->timestamp),
             strtoupper($log->name),
             self::interpolate($log->message, $log->context)
-        );
+        ) . $this->separator;
     }
 }

@@ -14,7 +14,7 @@ use Apix\Log\Logger\AbstractLogger;
 use Apix\Log\Logger\LoggerInterface;
 
 /**
- * StandardOutput log wrapper (example).
+ * Standard output log wrapper (example).
  *
  * @author Franck Cassedanne <franck at ouarz.net>
  */
@@ -22,6 +22,10 @@ class StandardOutput extends AbstractLogger implements LoggerInterface
 {
     public function write(LogEntry|string $log) : bool
     {
+        if ($log instanceof LogEntry) {
+            $log = $this->logFormatter->format($log);
+        }
+
         echo $log;
         return true;
     }
@@ -34,7 +38,10 @@ class StandardOutput extends AbstractLogger implements LoggerInterface
  */
 class MyJsonFormatter extends LogFormatter
 {
-    public string $separator = '~';
+    public function __construct()
+    {
+        parent::__construct('~');
+    }
 
     public function format(LogEntry $log) : string
     {
@@ -86,7 +93,7 @@ final class InterfacesTest extends \PHPUnit\Framework\TestCase
         $this->logger->error('hello {who}', ['who' => 'world']);
 
         $this->expectOutputRegex(
-            '@\{"timestamp":.*\,"name":"error"\,"levelCode":3\,"message":"hello world","context":\{"who":"world"\}\,"formatter":\{"separator":"~"\}\}@'
+            '@\{"timestamp":.*\,"name":"error"\,"levelCode":3\,"message":"hello world","context":\{"who":"world"\}\}@'
         );
     }
 }

@@ -11,7 +11,6 @@
 namespace Apix\Log\tests\Logger;
 
 use Apix\Log\LogEntry;
-use Apix\Log\LogFormatter;
 
 /**
  * @internal
@@ -23,13 +22,11 @@ final class LogEntryTest extends \PHPUnit\Framework\TestCase
     public function testConstructor() : void
     {
         $entry = new LogEntry('emergency', 'test', ['a' => 1, 'b' => false]);
-        $entry->setFormatter(new LogFormatter());
 
-        static::assertSame(date('[Y-m-d H:i:s]') . ' EMERGENCY test', (string) $entry);
+        static::assertSame(date('[Y-m-d H:i:s]') . ' EMERGENCY test' . PHP_EOL, (string) $entry);
 
         $entry = new LogEntry(0, 'test', ['a' => 1, 'b' => false]);
-        $entry->setFormatter(new LogFormatter());
 
-        static::assertSame(date('[Y-m-d H:i:s]') . ' EMERGENCY test', (string) $entry);
+        static::assertSame(date('[Y-m-d H:i:s]') . ' EMERGENCY test' . PHP_EOL, (string) $entry);
     }
 }

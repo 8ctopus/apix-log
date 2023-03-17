@@ -46,7 +46,7 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
 
     public function testUsages() : void
     {
-        // Basic usage
+        // basic usage
         $urgent_logger = new Logger\Runtime();
 
         // catch logs >= to `critical`
@@ -94,7 +94,7 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
 
         $urgent_logs = $this->getLogs($urgent_logger);
 
-        static::assertSame('alert Running out of beers 5 left, recharge: true [type: resource]', $urgent_logs[0]);
+        static::assertSame('alert Running out of beers 5 left, recharge: true [type: resource]' . PHP_EOL, $urgent_logs[0]);
 
         $prefixException = version_compare(PHP_VERSION, '7.0.0-dev', '>=')
                 ? 'Exception: Boo! in '
@@ -105,8 +105,9 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
             $urgent_logs[1]
         );
 
-        $app_logger->getLogFormatter()->separator = PHP_EOL . '~' . PHP_EOL;
-        $app_logger->__destruct(); // just to ensure deferred logs are written
+        //$app_logger->getLogFormatter()->separator = PHP_EOL . '~' . PHP_EOL;
+        // just to ensure deferred logs are written
+        $app_logger->__destruct();
 
         $app_logs = $this->getLogs($app_logger, true);
 
@@ -117,11 +118,11 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
 
         static::assertStringStartsWith(
             'error ' . $prefixException,
-            $app_logs[1]
+            $app_logs[2]
         );
 
         static::assertSame(
-            ['info Something happened -> ["xyz"]'],
+            ['info Something happened -> ["xyz"]' . PHP_EOL],
             $this->getLogs($debug_logger)
         );
     }

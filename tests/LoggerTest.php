@@ -286,14 +286,6 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
         static::assertCount(1, $logger->getDeferredLogs());
     }
 
-    public function testSeparatorOfLogFormatter() : void
-    {
-        $test = $this->logger->getLogFormatter();
-        $test->separator = '~';
-
-        static::assertSame('~', $this->logger->getLogFormatter()->separator);
-    }
-
     public function testInterceptAtAliasSetMinLevel() : void
     {
         static::assertSame(7, $this->logger->getMinLevel());

@@ -152,9 +152,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      */
     public function log(mixed $level, Stringable|string $message, array $context = []) : void
     {
-        $entry = new LogEntry($level, $message, $context);
-        $entry->setFormatter($this->getLogFormatter());
-        $this->process($entry);
+        $this->process(new LogEntry($level, $message, $context));
     }
 
     /**
@@ -318,7 +316,11 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
         if ($this->deferred && !empty($this->deferredLogs)) {
             $messages = array_map(
                 function ($log) {
-                    return (string) $log;
+                    if ($log instanceof LogEntry) {
+                        $log = $this->getLogFormatter()->format($log);
+                    }
+
+                    return $log;
                 },
                 $this->deferredLogs
             );
