@@ -8,17 +8,19 @@
  * @license http://opensource.org/licenses/BSD-3-Clause  New BSD License
  */
 
-namespace Apix\Log;
+namespace Apix\Log\Format;
+
+use Apix\Log\LogEntry;
 
 /**
  * Log Formatter Interface.
  *
  * To contribute a formatter, essentially it needs to:
- *    1.) Extends the `LogFormatter`
- *    2.) Implements this interface `LogFormatterInterface`
+ *    1.) Extends the `Format`
+ *    2.) Implements this interface `FormatInterface`
  *
  * @example
- *   class MyJsonFormatter extends LogFormatter
+ *   class MyJsonFormatter extends Format
  *   {
  *     public function format(LogEntry $log)
  *     {
@@ -30,7 +32,7 @@ namespace Apix\Log;
  *
  * @author Franck Cassedanne <franck at ouarz.net>
  */
-interface LogFormatterInterface
+interface FormatInterface
 {
     /**
      * Formats the given log entry.

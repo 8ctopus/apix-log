@@ -36,7 +36,7 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
 
         if ($deferred) {
             $lines = explode(
-                $logger->getLogFormatter()->separator,
+                $logger->getFormat()->separator,
                 $lines[0]
             );
         }
@@ -105,7 +105,7 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
             $urgent_logs[1]
         );
 
-        //$app_logger->getLogFormatter()->separator = PHP_EOL . '~' . PHP_EOL;
+        //$app_logger->getFormat()->separator = PHP_EOL . '~' . PHP_EOL;
         // just to ensure deferred logs are written
         $app_logger->__destruct();
 

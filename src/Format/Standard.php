@@ -8,7 +8,9 @@
  * @license http://opensource.org/licenses/BSD-3-Clause  New BSD License
  */
 
-namespace Apix\Log;
+namespace Apix\Log\Format;
+
+use Apix\Log\LogEntry;
 
 use Stringable;
 
@@ -17,7 +19,7 @@ use Stringable;
  *
  * @author Franck Cassedanne <franck at ouarz.net>
  */
-class LogFormatter implements LogFormatterInterface
+class Standard implements FormatInterface
 {
     /**
      * Holds this log separator.

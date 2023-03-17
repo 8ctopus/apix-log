@@ -62,7 +62,7 @@ class Stream extends AbstractLogger implements LoggerInterface
         }
 
         if ($log instanceof LogEntry) {
-            $log = $this->getLogFormatter()->format($log);
+            $log = $this->getFormat()->format($log);
         }
 
         return (bool) fwrite($this->stream, $log);

@@ -71,12 +71,12 @@ class ErrorLog extends AbstractLogger implements LoggerInterface
     public function write(LogEntry|string $log) : bool
     {
         if ($log instanceof LogEntry) {
-            $message = $this->getLogFormatter()->format($log);
+            $message = $this->getFormat()->format($log);
         }
 
         if (!$this->deferred && self::FILE === $this->type) {
             if ($log instanceof LogEntry) {
-                $message = $this->getLogFormatter()->format($log);
+                $message = $this->getFormat()->format($log);
             }
         }
 

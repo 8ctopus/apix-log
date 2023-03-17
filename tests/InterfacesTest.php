@@ -12,6 +12,7 @@ namespace Apix\Log;
 
 use Apix\Log\Logger\AbstractLogger;
 use Apix\Log\Logger\LoggerInterface;
+use Apix\Log\Format\Standard;
 
 /**
  * Standard output log wrapper (example).
@@ -23,7 +24,7 @@ class StandardOutput extends AbstractLogger implements LoggerInterface
     public function write(LogEntry|string $log) : bool
     {
         if ($log instanceof LogEntry) {
-            $log = $this->logFormatter->format($log);
+            $log = $this->getFormat()->format($log);
         }
 
         echo $log;
@@ -36,7 +37,7 @@ class StandardOutput extends AbstractLogger implements LoggerInterface
  *
  * @author Franck Cassedanne <franck at ouarz.net>
  */
-class MyJsonFormatter extends LogFormatter
+class MyJsonFormatter extends Standard
 {
     public function __construct()
     {
@@ -71,25 +72,25 @@ final class InterfacesTest extends \PHPUnit\Framework\TestCase
         $this->logger = null;
     }
 
-    public function testGetLogFormatterReturnsDefaultLogFormatter() : void
+    public function testGetFormatReturnsStandardFormat() : void
     {
         static::assertInstanceOf(
-            '\Apix\Log\LogFormatter',
-            $this->logger->getLogFormatter()
+            '\Apix\Log\Format\Standard',
+            $this->logger->getFormat()
         );
     }
 
-    public function testSetLogFormatter() : void
+    public function testSetFormat() : void
     {
         $formatter = new MyJsonFormatter();
-        $this->logger->setLogFormatter($formatter);
-        static::assertSame($this->logger->getLogFormatter(), $formatter);
+        $this->logger->setFormat($formatter);
+        static::assertSame($this->logger->getFormat(), $formatter);
     }
 
-    public function testLogFormatterInterfaceExample() : void
+    public function testFormatInterfaceExample() : void
     {
         $formatter = new MyJsonFormatter();
-        $this->logger->setLogFormatter($formatter);
+        $this->logger->setFormat($formatter);
         $this->logger->error('hello {who}', ['who' => 'world']);
 
         $this->expectOutputRegex(

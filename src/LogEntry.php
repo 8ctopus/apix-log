@@ -10,6 +10,8 @@
 
 namespace Apix\Log;
 
+use Apix\Log\Format\Standard;
+
 /**
  * Describes a log Entry.
  *
@@ -82,7 +84,7 @@ class LogEntry
      */
     public function __toString() : string
     {
-        $formatter = new LogFormatter();
-        return $formatter->format($this);
+        $format = new Standard();
+        return $format->format($this);
     }
 }

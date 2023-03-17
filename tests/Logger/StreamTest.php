@@ -46,7 +46,7 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
         fseek($this->stream, 0);
         $lines = fread($this->stream, 1000);
         $lines = explode(
-            $this->logger->getLogFormatter()->separator,
+            $this->logger->getFormat()->separator,
             $lines,
             -1
         );
