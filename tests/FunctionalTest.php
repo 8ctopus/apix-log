@@ -80,13 +80,15 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
 
         // handled by both $urgent_logger & $app_logger
         $e = new Exception('Boo!');
+
         $logger->critical(
             'OMG saw {bad-exception}',
             ['bad-exception' => $e]
         );
 
         // handled by $app_logger
-        $logger->error($e); // push an object (or array) directly
+        // push an object (or array) directly
+        $logger->error($e);
 
         // handled by $debug_logger
         $logger->info('Something happened -> {abc}', ['abc' => ['xyz']]);
@@ -100,10 +102,7 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
                 ? 'Exception: Boo! in '
                 : "exception 'Exception' with message 'Boo!' in ";
 
-        static::assertStringStartsWith(
-            'critical OMG saw ' . $prefixException,
-            $urgent_logs[1]
-        );
+        static::assertStringStartsWith('critical OMG saw ' . $prefixException, $urgent_logs[1]);
 
         //$app_logger->getFormat()->separator = PHP_EOL . '~' . PHP_EOL;
         // just to ensure deferred logs are written
@@ -111,19 +110,10 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
 
         $app_logs = $this->getLogs($app_logger, true);
 
-        static::assertStringStartsWith(
-            'critical OMG saw ' . $prefixException,
-            $app_logs[0]
-        );
+        static::assertStringStartsWith('critical OMG saw ' . $prefixException, $app_logs[0]);
 
-        static::assertStringStartsWith(
-            'error ' . $prefixException,
-            $app_logs[2]
-        );
+        static::assertStringStartsWith('error ' . $prefixException, $app_logs[2]);
 
-        static::assertSame(
-            ['info Something happened -> ["xyz"]' . PHP_EOL],
-            $this->getLogs($debug_logger)
-        );
+        static::assertSame(['info Something happened -> ["xyz"]' . PHP_EOL], $this->getLogs($debug_logger));
     }
 }
