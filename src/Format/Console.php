@@ -11,10 +11,10 @@ class Console extends Standard
         'alert' => 91,
         'critical' => 91,
         'error' => 31,
-        'warning' => 33,
+        'warning' => 93,
         'notice' => 32,
-        'info' => 34,
-        'debug' => 35,
+        'info' => 39,
+        'debug' => 34,
     ];
 
     public function __construct()
