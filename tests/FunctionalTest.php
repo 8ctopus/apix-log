@@ -8,9 +8,11 @@
  * @license http://opensource.org/licenses/BSD-3-Clause  New BSD License
  */
 
-namespace Apix\Log;
+namespace Apix\Log\tests;
 
 use Apix\Log\tests\Logger\TestCase;
+use Apix\Log\Logger;
+use Apix\Log\Logger\Runtime;
 use Exception;
 
 /**

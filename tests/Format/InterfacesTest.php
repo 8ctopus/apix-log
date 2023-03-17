@@ -8,8 +8,9 @@
  * @license http://opensource.org/licenses/BSD-3-Clause  New BSD License
  */
 
-namespace Apix\Log;
+namespace Apix\Log\tests\Format;
 
+use Apix\Log\LogEntry;
 use Apix\Log\Logger\AbstractLogger;
 use Apix\Log\Logger\LoggerInterface;
 use Apix\Log\Format\Standard;

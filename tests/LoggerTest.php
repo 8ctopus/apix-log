@@ -8,8 +8,10 @@
  * @license http://opensource.org/licenses/BSD-3-Clause  New BSD License
  */
 
-namespace Apix\Log;
+namespace Apix\Log\tests;
 
+use Apix\Log\ApixLogException;
+use Apix\Log\Logger;
 use Apix\Log\Logger\Stream;
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LogLevel;
