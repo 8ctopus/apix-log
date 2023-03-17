@@ -19,22 +19,16 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase implements LoggerInt
     protected string $dest = 'build/apix-unit-test-logger.log';
     protected $logger;
 
-    public static function normalizeLogs($logs)
+    public static function normalizeLogs(array $logs) : array
     {
-        $normalize = function ($log) {
+        return array_map(function ($line) {
             return preg_replace_callback(
                 '{^\[.+\] (\w+) (.+)?}',
                 function ($match) {
-                    return strtolower($match[1]) . ' '
-                    . (
-                        isset($match[2]) ? $match[2] : null
-                    );
+                    return strtolower($match[1]) . ' ' . (isset($match[2]) ? $match[2] : null);
                 },
-                $log
-            );
-        };
-
-        return array_map($normalize, $logs);
+                $line);
+        }, $logs);
     }
 
     /**

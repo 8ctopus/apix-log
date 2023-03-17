@@ -63,28 +63,23 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
             ]
         );
 
-        // Advanced usage
-        $app_logger = new Logger\Runtime();
-
-        $app_logger->setMinLevel('warning')
+        // advanced usage
+        $app_logger = (new Logger\Runtime())
+            ->setMinLevel('warning')
             ->setCascading(false)
             ->setDeferred(true);
 
-        // The main logger object (injecting the previous loggers/buckets)
         $logger = new Logger([$urgent_logger, $app_logger]);
 
-        $debug_logger = new Logger\Runtime();
-        $debug_logger->setMinLevel('debug');
+        $debug_logger = (new Logger\Runtime())
+            ->setMinLevel('debug');
 
         $logger->add($debug_logger);
 
         // handled by both $urgent_logger & $app_logger
         $e = new Exception('Boo!');
 
-        $logger->critical(
-            'OMG saw {bad-exception}',
-            ['bad-exception' => $e]
-        );
+        $logger->critical('OMG saw {bad-exception}', ['bad-exception' => $e]);
 
         // handled by $app_logger
         // push an object (or array) directly
@@ -93,26 +88,21 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
         // handled by $debug_logger
         $logger->info('Something happened -> {abc}', ['abc' => ['xyz']]);
 
-        // -- All the assertions --
         $urgent_logs = $this->getLogs($urgent_logger);
 
         static::assertSame('alert Running out of beers 5 left, recharge: true [type: resource]' . PHP_EOL, $urgent_logs[0]);
 
-        $prefixException = version_compare(PHP_VERSION, '7.0.0-dev', '>=')
-                ? 'Exception: Boo! in '
-                : "exception 'Exception' with message 'Boo!' in ";
+        $prefixException = 'Exception: Boo! in ';
 
         static::assertStringStartsWith('critical OMG saw ' . $prefixException, $urgent_logs[1]);
 
-        //$app_logger->getFormat()->separator = PHP_EOL . '~' . PHP_EOL;
-        // just to ensure deferred logs are written
-        $app_logger->__destruct();
+        $app_logger->flushDeferredLogs();
 
         $app_logs = $this->getLogs($app_logger, true);
 
         static::assertStringStartsWith('critical OMG saw ' . $prefixException, $app_logs[0]);
 
-        static::assertStringStartsWith('error ' . $prefixException, $app_logs[2]);
+        static::assertStringStartsWith('error ' . $prefixException, $app_logs[1]);
 
         static::assertSame(['info Something happened -> ["xyz"]' . PHP_EOL], $this->getLogs($debug_logger));
     }

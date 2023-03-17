@@ -246,7 +246,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      */
     public function setCascading(bool $bool) : self
     {
-        $this->cascading = (bool) $bool;
+        $this->cascading = $bool;
 
         return $this;
     }
@@ -270,7 +270,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      */
     public function setDeferred(bool $bool) : self
     {
-        $this->deferred = (bool) $bool;
+        $this->deferred = $bool;
 
         return $this;
     }
