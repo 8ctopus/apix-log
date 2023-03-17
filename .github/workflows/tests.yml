@@ -2,8 +2,8 @@ name: tests
 
 on:
   push:
-    branches:
-      - master
+#    branches:
+#      - master
     paths:
       - 'src/**'
 #    paths-ignore:
