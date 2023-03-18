@@ -326,15 +326,11 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
                 $this->deferredLogs
             );
 
-            $formatter = $this->getFormat();
-
-            $messages = implode($formatter->separator, $messages) . $formatter->separator;
+            $messages = implode('', $messages);
 
             $this->write($messages);
 
-            // cleanup array
             $this->deferredLogs = [];
-            // return $this->formatter->format($this);
         }
     }
 
