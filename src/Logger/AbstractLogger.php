@@ -315,21 +315,14 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
     public function flushDeferredLogs() : void
     {
         if ($this->deferred && !empty($this->deferredLogs)) {
-            $messages = array_map(
-                function ($log) {
-                    if ($log instanceof LogEntry) {
-                        $log = $this->getFormat()->format($log);
-                    }
+            $format = $this->getFormat();
+            $messages = '';
 
-                    return $log;
-                },
-                $this->deferredLogs
-            );
-
-            $messages = implode('', $messages);
+            foreach ($this->deferredLogs as $log) {
+                $messages .= $format->format($log);
+            }
 
             $this->write($messages);
-
             $this->deferredLogs = [];
         }
     }
