@@ -1,4 +1,4 @@
-# APIx Log, very thin PSR-3 logger
+# APIx Log - a tiny PSR-3 logger
 
 [![packagist](http://poser.pugx.org/8ctopus/apix-log/v)](https://packagist.org/packages/8ctopus/apix-log)
 [![downloads](http://poser.pugx.org/8ctopus/apix-log/downloads)](https://packagist.org/packages/8ctopus/apix-log)
