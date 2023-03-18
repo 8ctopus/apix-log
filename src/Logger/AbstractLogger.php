@@ -310,7 +310,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
     }
 
     /**
-     * Process any accumulated deferred log if there are any.
+     * Process accumulated deferred logs.
      */
     public function flushDeferredLogs() : void
     {
