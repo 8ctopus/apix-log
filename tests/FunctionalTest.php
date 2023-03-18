@@ -100,6 +100,8 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
 
         $app_logs = $this->getLogs($app_logger, true);
 
+        var_dump($app_logs);
+
         static::assertStringStartsWith('critical OMG saw ' . $prefixException, $app_logs[0]);
 
         static::assertStringStartsWith('error ' . $prefixException, $app_logs[1]);
