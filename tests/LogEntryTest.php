@@ -8,7 +8,7 @@
  * @license http://opensource.org/licenses/BSD-3-Clause  New BSD License
  */
 
-namespace Apix\Log\tests\Logger;
+namespace Apix\Log\tests;
 
 use Apix\Log\LogEntry;
 
