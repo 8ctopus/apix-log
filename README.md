@@ -30,11 +30,11 @@ Feel free to comment, send pull requests and patches...
 
 ## Installation
 
-   composer require 8ctopus/apix-log
+      composer require 8ctopus/apix-log
 
 ## Basic usage
 
-This simple logger is set to intercept all logs.
+This simple logger is set to intercept all logs and display them in the console.
 
 ```php
 $console = (new Apix\Log\Logger\Stream('php://stdout'))
@@ -42,6 +42,8 @@ $console = (new Apix\Log\Logger\Stream('php://stdout'))
    ->setFormat(new Apix\Log\Format\ConsoleColors())
    ->notice('Running out of {items}', ['items' => 'beers']);
 ```
+
+      [2023-03-20 08:01:25] NOTICE Running out of beers
 
 ## Advanced usage ~ *multi-logs dispatcher*
 
