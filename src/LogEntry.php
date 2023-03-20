@@ -32,9 +32,9 @@ class LogEntry
     /**
      * Constructor.
      *
-     * @param int|string $level   the level
-     * @param string     $message the message for this log entry
-     * @param mixed[]    $context the contexts for this log entry
+     * @param int|string $level   error level
+     * @param string     $message message
+     * @param mixed[]    $context context
      */
     public function __construct(string|int $level, string $message, array $context = [])
     {
