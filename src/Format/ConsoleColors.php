@@ -7,6 +7,9 @@ use Apix\Log\LogEntry;
 class ConsoleColors extends Standard
 {
     // https://misc.flogisoft.com/bash/tip_colors_and_formatting
+    /**
+     * @var array<string, int>
+     */
     private array $colors = [
         'emergency' => 91,
         'alert' => 91,

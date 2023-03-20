@@ -23,6 +23,10 @@ class LogEntry
     public string $name;
     public int $levelCode;
     public string $message;
+
+    /**
+     * @var mixed[]
+     */
     public array $context;
 
     /**
