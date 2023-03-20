@@ -19,39 +19,10 @@ use Apix\Log\Format\Standard;
  */
 class LogEntry
 {
-    /**
-     * Holds this log timestamp.
-     *
-     * @var int
-     */
     public int $timestamp;
-
-    /**
-     * Holds this log name.
-     *
-     * @var string
-     */
     public string $name;
-
-    /**
-     * Holds this log level code.
-     *
-     * @var int
-     */
     public int $levelCode;
-
-    /**
-     * Holds this log message.
-     *
-     * @var string
-     */
     public string $message;
-
-    /**
-     * Holds this log context.
-     *
-     * @var mixed[]
-     */
     public array $context;
 
     /**
