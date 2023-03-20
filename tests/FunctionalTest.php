@@ -42,7 +42,7 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
             );
         }
 
-        return TestCase::normalizeLogs($lines);
+        return $lines;
     }
 
     public function testUsages() : void
@@ -90,22 +90,22 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
 
         $urgent_logs = $this->getLogs($urgent_logger);
 
-        static::assertSame('alert Running out of beers 5 left, recharge: true [type: resource]' . PHP_EOL, $urgent_logs[0]);
+        $date = date('[Y-m-d H:i:s]');
+
+        static::assertSame($date . ' ALERT Running out of beers 5 left, recharge: true [type: resource]' . PHP_EOL, $urgent_logs[0]);
 
         $prefixException = 'Exception: Boo! in ';
 
-        static::assertStringStartsWith('critical OMG saw ' . $prefixException, $urgent_logs[1]);
+        static::assertStringStartsWith($date . ' CRITICAL OMG saw ' . $prefixException, $urgent_logs[1]);
 
         $app_logger->flushDeferredLogs();
 
         $app_logs = $this->getLogs($app_logger, true);
 
-        var_dump($app_logs);
+        static::assertStringStartsWith($date . ' CRITICAL OMG saw ' . $prefixException, $app_logs[0]);
 
-        static::assertStringStartsWith('critical OMG saw ' . $prefixException, $app_logs[0]);
+        static::assertStringStartsWith($date . ' ERROR ' . $prefixException, $app_logs[1]);
 
-        static::assertStringStartsWith('error ' . $prefixException, $app_logs[1]);
-
-        static::assertSame(['info Something happened -> ["xyz"]' . PHP_EOL], $this->getLogs($debug_logger));
+        static::assertSame([$date . ' INFO Something happened -> ["xyz"]' . PHP_EOL], $this->getLogs($debug_logger));
     }
 }

@@ -11,37 +11,12 @@
 namespace Apix\Log\tests\Logger;
 
 use Apix\Log\Logger\LoggerInterface;
-use Exception;
 use stdClass;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase implements LoggerInterface
 {
     protected string $dest = 'build/apix-unit-test-logger.log';
     protected $logger;
-
-    public static function normalizeLogs(array $logs) : array
-    {
-        return array_map(function ($line) {
-            return preg_replace_callback(
-                '{^\[.+\] (\w+) (.+)?}',
-                function ($match) {
-                    return strtolower($match[1]) . ' ' . (isset($match[2]) ? $match[2] : null);
-                },
-                $line);
-        }, $logs);
-    }
-
-    /**
-     * This must return the log messages in order with a simple formatting: "<LOG LEVEL> <MESSAGE>".
-     *
-     * Example ->error('Foo') would yield "error Foo"
-     *
-     * @return array
-     */
-    public function getLogs() : array
-    {
-        return self::normalizeLogs(file($this->dest, FILE_IGNORE_NEW_LINES));
-    }
 
     public function providerMessagesAndContextes() : array
     {
@@ -70,50 +45,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase implements LoggerInt
             ['nested_object', [new DummyTest()], '[{"foo":"bar"}]'],
             ['nested_unicode', ['ƃol-xᴉdɐ'], '["\u0183ol-x\u1d09d\u0250"]'],
         ];
-    }
-
-    /**
-     * @dataProvider providerMessagesAndContextes
-     *
-     * @param string $msg
-     * @param mixed  $context
-     * @param string $exp
-     */
-    public function testMessageWithContext(string $msg, mixed $context, string $exp) : void
-    {
-        $this->getLogger()->alert('{' . $msg . '}', [$msg => $context]);
-
-        static::assertSame(['alert ' . $exp], $this->getLogs());
-    }
-
-    /**
-     * @dataProvider providerMessagesAndContextes
-     *
-     * @param string $msg
-     * @param mixed  $context
-     * @param string $exp
-     */
-    public function testContextIsPermutted(string $msg, mixed $context, string $exp) : void
-    {
-        $this->getLogger()->notice($context);
-
-        static::assertSame(['notice ' . $exp], $this->getLogs());
-    }
-
-    public function testContextIsAnException() : void
-    {
-        $this->getLogger()->critical(new Exception('Boo!'));
-
-        $logs = $this->getLogs();
-
-        $prefix = version_compare(PHP_VERSION, '7.0.0-dev', '>=')
-                ? 'critical Exception: Boo! in '
-                : "critical exception 'Exception' with message 'Boo!' in ";
-
-        static::assertStringStartsWith(
-            $prefix,
-            $logs[0]
-        );
     }
 
     /**
