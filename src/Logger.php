@@ -139,6 +139,13 @@ class Logger extends AbstractLogger
         return $this->buckets;
     }
 
+    /**
+     * Write entry to log
+     *
+     * @param LogEntry|array <LogEntry> $log
+     *
+     * @return bool
+     */
     public function write(LogEntry|array $log) : bool
     {
         throw new ApixLogException('Write must be called on children not on parent');

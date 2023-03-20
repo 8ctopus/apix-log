@@ -79,12 +79,12 @@ class ErrorLog extends AbstractLogger implements LoggerInterface
         $result = true;
 
         foreach ($log as $item) {
-            $result &= error_log(
+            $result = (bool) error_log(
                 $this->getFormat()->format($item),
                 $this->type,
                 $this->destination,
                 $this->headers
-            );
+            ) && $result;
         }
 
         return $result;

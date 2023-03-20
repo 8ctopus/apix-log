@@ -35,21 +35,23 @@ class LogEntry
     /**
      * Constructor.
      *
-     * @param int|string $level   error level
+     * @param mixed      $level   error level
      * @param string     $message message
      * @param mixed[]    $context context
      * @param FormatInterface $format  the formatter
      */
-    public function __construct(string|int $level, string $message, array $context = [], ?FormatInterface $format = null)
+    public function __construct(mixed $level, string $message, array $context = [], ?FormatInterface $format = null)
     {
         $this->timestamp = time();
 
         if (\gettype($level) === 'string') {
             $this->name = $level;
             $this->levelCode = Logger::getLevelCode($level);
-        } else {
+        } elseif (\gettype($level) === 'integer') {
             $this->name = Logger::getLevelName($level);
             $this->levelCode = $level;
+        } else {
+            throw new \InvalidArgumentException(sprintf('"%s" is not a valid level', \gettype($level)));
         }
 
         $this->message = $message;

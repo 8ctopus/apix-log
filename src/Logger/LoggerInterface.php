@@ -36,9 +36,11 @@ use Apix\Log\LogEntry;
 interface LoggerInterface
 {
     /**
-     * Writes the given log entry.
+     * Write entry to log
      *
-     * @return bool whether the log entry was successfully written or not
+     * @param LogEntry|array <LogEntry> $log
+     *
+     * @return bool
      */
     public function write(LogEntry|array $log) : bool;
 }
