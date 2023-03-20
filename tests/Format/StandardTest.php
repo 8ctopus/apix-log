@@ -38,12 +38,17 @@ final class StandardTest extends \PHPUnit\Framework\TestCase
 
     public function testFormatInterfaceExample() : void
     {
-        $sample = [
-            'key1' => '2',
-            'key2' => true,
-        ];
+        $this->logger->error('hello {who} {age} {bool} {object}', [
+            'who' => 'world',
+            'age' => 18,
+            'bool' => true,
+            'object' => [
+                'key1' => '2',
+                'key2' => true,
+            ],
+            'file' => tmpfile(),
+        ]);
 
-        $this->logger->error('hello {who} {age} {bool} {object}', ['who' => 'world', 'age' => 18, 'bool' => true, 'object' => $sample]);
         static::assertSame(date('[Y-m-d H:i:s]') . ' ERROR hello world 18 true {"key1":"2","key2":true}' . PHP_EOL, $this->logger->getItems()[0]);
     }
 }
