@@ -368,6 +368,8 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
 
     /**
      * Gets min level logged.
+     *
+     * @return int
      */
     public function getMinLevelLogged() : int
     {
@@ -376,6 +378,8 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
 
     /**
      * Check if log is empty.
+     *
+     * @return bool
      */
     public function isEmpty() : bool
     {
