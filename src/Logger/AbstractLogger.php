@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of the Apix Project.
  *
@@ -158,7 +160,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      */
     public function log(mixed $level, Stringable|string $message, array $context = []) : void
     {
-        $this->process(new LogEntry($level, $message, $context, $this->format));
+        $this->process(new LogEntry($level, (string) $message, $context, $this->format));
     }
 
     /**

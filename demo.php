@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 require __DIR__ . '/vendor/autoload.php';
 
 $console = (new Apix\Log\Logger\Stream('php://stdout'))
@@ -7,13 +9,13 @@ $console = (new Apix\Log\Logger\Stream('php://stdout'))
     ->setMinLevel('debug');
 
 $file = (new Apix\Log\Logger\File(__DIR__ . '/app.log'))
-   // intercept logs that are >= `warning`
+    // intercept logs that are >= `warning`
     ->setMinLevel('warning')
-   // don't propagate to further buckets
+    // don't propagate to further buckets
     ->setCascading(false)
-   // postpone writing logs to file
+    // postpone writing logs to file
     ->setDeferred(true)
-   // flush logs to file once 100 logs are collected
+    // flush logs to file once 100 logs are collected
     ->setDeferredTrigger(100);
 
 $logger = new Apix\Log\Logger([$console, $file]);
