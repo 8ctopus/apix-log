@@ -33,6 +33,23 @@ class Standard implements FormatInterface
     }
 
     /**
+     * Formats the given log entry.
+     *
+     * @param LogEntry $log the log entry to format
+     *
+     * @return string
+     */
+    public function format(LogEntry $log) : string
+    {
+        return sprintf(
+            '[%s] %s %s',
+            date('Y-m-d H:i:s', $log->timestamp),
+            strtoupper($log->name),
+            self::interpolate($log->message, $log->context)
+        ) . $this->separator;
+    }
+
+    /**
      * Interpolates context values into the message placeholders.
      *
      * Builds a replacement array with braces around the context keys.
@@ -43,7 +60,7 @@ class Standard implements FormatInterface
      *
      * @return string
      */
-    public function interpolate(string $message, array $context = []) : string
+    protected function interpolate(string $message, array $context = []) : string
     {
         $replaces = [];
 
@@ -66,22 +83,5 @@ class Standard implements FormatInterface
         }
 
         return strtr($message, $replaces);
-    }
-
-    /**
-     * Formats the given log entry.
-     *
-     * @param LogEntry $log the log entry to format
-     *
-     * @return string
-     */
-    public function format(LogEntry $log) : string
-    {
-        return sprintf(
-            '[%s] %s %s',
-            date('Y-m-d H:i:s', $log->timestamp),
-            strtoupper($log->name),
-            self::interpolate($log->message, $log->context)
-        ) . $this->separator;
     }
 }
