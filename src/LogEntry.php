@@ -19,15 +19,15 @@ use Apix\Log\Format\Standard;
  */
 class LogEntry
 {
-    public int $timestamp;
-    public string $name;
-    public int $levelCode;
+    public readonly int $timestamp;
+    public readonly string $name;
+    public readonly int $levelCode;
     public string $message;
 
     /**
      * @var mixed[]
      */
-    public array $context;
+    public readonly array $context;
 
     /**
      * Constructor.
