@@ -30,22 +30,6 @@ final class RuntimeTest extends \PHPUnit\Framework\TestCase
         $this->logger = null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getLogs()
-    {
-        return TestCase::normalizeLogs($this->logger->getItems());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getLogger()
-    {
-        return $this->logger;
-    }
-
     public function testAbstractLogger() : void
     {
         $context = ['foo', 'bar'];
@@ -53,8 +37,11 @@ final class RuntimeTest extends \PHPUnit\Framework\TestCase
         $this->logger->error('msg2', $context);
 
         static::assertSame(
-            ['debug msg1' . PHP_EOL, 'error msg2' . PHP_EOL],
-            $this->getLogs()
+            [
+                date('[Y-m-d H:i:s]') . ' DEBUG msg1' . PHP_EOL,
+                date('[Y-m-d H:i:s]') . ' ERROR msg2' . PHP_EOL,
+            ],
+            $this->logger->getItems()
         );
     }
 }

@@ -51,15 +51,7 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
             -1
         );
 
-        return TestCase::normalizeLogs($lines);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getLogger()
-    {
-        return $this->logger;
+        return $lines;
     }
 
     // public function testStreamFromString()
@@ -71,7 +63,7 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
     public function testWrite() : void
     {
         $this->logger->info('test');
-        static::assertSame('info test', $this->getLogs()[0]);
+        static::assertSame(date('[Y-m-d H:i:s]') . ' INFO test', $this->getLogs()[0]);
     }
 
     public function testInvalidResource() : void
