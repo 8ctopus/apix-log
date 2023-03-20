@@ -40,14 +40,18 @@ This simple logger is set to intercept all logs and display them in the console.
 $console = (new Apix\Log\Logger\Stream('php://stdout'))
    ->setMinLevel('debug')
    ->setFormat(new Apix\Log\Format\ConsoleColors())
-   ->notice('Running out of {items}', ['items' => 'beers']);
+   ->notice('Running out of {items}', 'Running out of {items} - left {left}', [
+      'items' => 'beers',
+      'left' => 5,
+   ]);
 ```
 
-      [2023-03-20 08:01:25] NOTICE Running out of beers
+   [2023-03-20 08:01:25] NOTICE Running out of beers - left 5
 
 ## Advanced usage ~ *multi-logs dispatcher*
 
-Let's create an additional logger with purpose of catching log entries that have a severity level of `warning` or more. See the [log levels](#log-levels) for the order.
+Let's create an additional logger with purpose of catching log entries that have a severity level of `warning` or more.\
+See the [log levels](#log-levels) for the order.
 
 ```php
 $file = (new Apix\Log\Logger\File(__DIR__ . '/app.log'))
@@ -61,11 +65,11 @@ $file = (new Apix\Log\Logger\File(__DIR__ . '/app.log'))
    ->setDeferredTrigger(100);
 ```
 
-`setCascading()` set to *false* (default: *true*) so the entries caught here won't continue downstream past that particular log bucket.\
-`setDeferred()` was set to *true* (default: *false*) so processing happens when:
-- `setDeferredTrigger` is reached
-- `flushDeferredLogs` is called
-- `__destruct` (end of script generally)
+- `setCascading()` set to *false* (default: *true*) so the entries caught here won't continue downstream past that particular log bucket.\
+- `setDeferred()` was set to *true* (default: *false*) so processing happens when:
+   - `setDeferredTrigger` is reached
+   - `flushDeferredLogs` is called
+   - `__destruct` (end of script generally)
 
 Now, let's create a main logger object and inject the two previous loggers.
 
