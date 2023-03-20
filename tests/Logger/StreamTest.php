@@ -45,13 +45,11 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
     {
         fseek($this->stream, 0);
         $lines = fread($this->stream, 1000);
-        $lines = explode(
+        return explode(
             $this->logger->getFormat()->separator,
             $lines,
             -1
         );
-
-        return $lines;
     }
 
     // public function testStreamFromString()

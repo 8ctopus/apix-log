@@ -11,7 +11,6 @@
 namespace Apix\Log\tests;
 
 use Apix\Log\Logger;
-use Apix\Log\tests\Logger\TestCase;
 use Exception;
 
 /**
