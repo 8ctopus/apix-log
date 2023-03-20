@@ -40,12 +40,13 @@ $urgentLogger
    ->setMinLevel('critical')
    ->alert('Running out of {items}', ['items' => 'beers']);
 ```
+
 ## Advanced usage ~ *multi-logs dispatcher*
 
 Let's create an additional logger with purpose of catching log entries that have a severity level of `warning` or more.
 
 ```php
-$appLogger = new Apix\Log\Logger\File('/var/log/apix_app.log');
+$appLogger = new Apix\Log\Logger\File(__DIR__ . '/app.log');
 $appLogger
    // intercept logs that are >= `warning`
    ->setMinLevel('warning')
@@ -59,9 +60,9 @@ $appLogger
 
 `setCascading()` set to *false* (default: *true*) so the entries caught here won't continue downstream past that particular log bucket.\
 `setDeferred()` was set to *true* (default: *false*) so processing happens when:
-- `__destruct` (end of script generally)
-- `flushDeferredLogs` is called
 - `setDeferredTrigger` is reached
+- `flushDeferredLogs` is called
+- `__destruct` (end of script generally)
 
 Now, let's create a main logger object and inject the two previous loggers.
 
