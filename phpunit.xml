@@ -10,7 +10,7 @@
   displayDetailsOnTestsThatTriggerErrors="true"
 >
   <testsuites>
-    <testsuite name="Apix Log Unit Tests">
+    <testsuite name="test">
       <directory>tests</directory>
     </testsuite>
   </testsuites>
