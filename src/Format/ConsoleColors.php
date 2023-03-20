@@ -36,13 +36,11 @@ class ConsoleColors extends Standard
      */
     public function format(LogEntry $log) : string
     {
-        $message = "\033[01;{$this->colors[$log->name]}m{$log->message}\033[0m";
-
         return sprintf(
-            '[%s] %s %s',
+            "[%s] \033[01;{$this->colors[$log->name]}m%s %s\033[0m",
             date('Y-m-d H:i:s', $log->timestamp),
             strtoupper($log->name),
-            self::interpolate($message, $log->context)
+            self::interpolate($log->message, $log->context)
         ) . $this->separator;
     }
 }
