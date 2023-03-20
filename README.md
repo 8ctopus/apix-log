@@ -57,15 +57,15 @@ See the [log levels](#log-levels) for the order.
 $file = (new Apix\Log\Logger\File(__DIR__ . '/app.log'))
    // intercept logs that are >= `warning`
    ->setMinLevel('warning')
-   // don't propagate to further buckets
-   ->setCascading(false)
+   // propagate to other loggers
+   ->setCascading(true)
    // postpone writing logs to file
    ->setDeferred(true)
    // flush logs to file once 100 logs are collected
    ->setDeferredTrigger(100);
 ```
 
-- `setCascading()` set to *false* (default: *true*) so the entries caught here won't continue downstream past that particular log bucket.\
+- `setCascading()` set to *true* (default: *true*) so the entries caught here continue downstream past that particular logger.\
 - `setDeferred()` was set to *true* (default: *false*) so processing happens when:
    - `setDeferredTrigger` is reached
    - `flushDeferredLogs` is called

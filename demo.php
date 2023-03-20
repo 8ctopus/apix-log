@@ -11,8 +11,8 @@ $console = (new Apix\Log\Logger\Stream('php://stdout'))
 $file = (new Apix\Log\Logger\File(__DIR__ . '/app.log'))
     // intercept logs that are >= `warning`
     ->setMinLevel('warning')
-    // don't propagate to further buckets
-    ->setCascading(false)
+    // propagate to further buckets
+    ->setCascading(true)
     // postpone writing logs to file
     ->setDeferred(true)
     // flush logs to file once 100 logs are collected
