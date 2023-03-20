@@ -63,7 +63,7 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
     public function testWrite() : void
     {
         $this->logger->info('test');
-        static::assertSame(date('[Y-m-d H:i:s]') . ' INFO test', $this->getLogs()[0]);
+        static::assertSame(date('[Y-m-d H:i:s]') . ' INFO test', (string) $this->getLogs()[0]);
     }
 
     public function testInvalidResource() : void

@@ -79,9 +79,9 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
 
         $app_logs = $app_logger->getItems();
 
-        static::assertStringStartsWith($date . ' CRITICAL OMG saw ' . $prefixException, $app_logs[0]);
+        static::assertStringStartsWith($date . ' CRITICAL OMG saw ' . $prefixException, (string) $app_logs[0]);
 
-        static::assertStringStartsWith($date . ' ERROR ' . $prefixException, $app_logs[1]);
+        static::assertStringStartsWith($date . ' ERROR ' . $prefixException, (string) $app_logs[1]);
 
         static::assertSame($date . ' INFO Something happened -> ["xyz"]' . PHP_EOL, (string) $debug_logger->getItems()[0]);
     }

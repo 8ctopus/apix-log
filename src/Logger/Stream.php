@@ -72,7 +72,7 @@ class Stream extends AbstractLogger implements LoggerInterface
         $result = true;
 
         foreach ($log as $item) {
-            $result = (bool) fwrite($this->stream, $item) && $result;
+            $result = (bool) fwrite($this->stream, (string) $item) && $result;
         }
 
         return $result;
