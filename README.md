@@ -28,9 +28,13 @@ Minimalist and fast **PSR-3** compliant logger.
 
 Feel free to comment, send pull requests and patches...
 
-## Basic usage ~ *standalone*
+## Installation
 
-This simple logger is set to intercept `critical`, `alert` and `emergency` logs -- see the [log levels](#log-levels) for the order.
+   composer require 8ctopus/apix-log
+
+## Basic usage
+
+This simple logger is set to intercept all logs.
 
 ```php
 $console = (new Apix\Log\Logger\Stream('php://stdout'))
@@ -41,7 +45,7 @@ $console = (new Apix\Log\Logger\Stream('php://stdout'))
 
 ## Advanced usage ~ *multi-logs dispatcher*
 
-Let's create an additional logger with purpose of catching log entries that have a severity level of `warning` or more.
+Let's create an additional logger with purpose of catching log entries that have a severity level of `warning` or more. See the [log levels](#log-levels) for the order.
 
 ```php
 $file = (new Apix\Log\Logger\File(__DIR__ . '/app.log'))
@@ -99,10 +103,6 @@ The eight [RFC 5424][] levels of logs are supported, in cascading order:
 
 [PSR-3]: https://tools.ietf.org/html/rfc5424
 [RFC 5424]: https://tools.ietf.org/html/rfc5424#section-6.2.1
-
-## Installation
-
-   composer require 8ctopus/apix-log
 
 ## License
 
