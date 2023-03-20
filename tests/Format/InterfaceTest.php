@@ -19,7 +19,7 @@ use Apix\Log\Logger\Runtime;
  *
  * @coversNothing
  */
-final class InterfacesTest extends \PHPUnit\Framework\TestCase
+final class InterfaceTest extends \PHPUnit\Framework\TestCase
 {
     protected ?Runtime $logger;
 
