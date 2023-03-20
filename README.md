@@ -1,9 +1,9 @@
 # APIx Log - a tiny PSR-3 logger
 
-[![packagist](http://poser.pugx.org/8ctopus/apix-log/v)](https://packagist.org/packages/8ctopus/apix-log)
-[![downloads](http://poser.pugx.org/8ctopus/apix-log/downloads)](https://packagist.org/packages/8ctopus/apix-log)
-[![min php version](http://poser.pugx.org/8ctopus/apix-log/require/php)](https://packagist.org/packages/8ctopus/apix-log)
-[![license](http://poser.pugx.org/8ctopus/apix-log/license)](https://packagist.org/packages/8ctopus/apix-log)
+[![packagist](https://poser.pugx.org/8ctopus/apix-log/v)](https://packagist.org/packages/8ctopus/apix-log)
+[![downloads](https://poser.pugx.org/8ctopus/apix-log/downloads)](https://packagist.org/packages/8ctopus/apix-log)
+[![min php version](https://poser.pugx.org/8ctopus/apix-log/require/php)](https://packagist.org/packages/8ctopus/apix-log)
+[![license](https://poser.pugx.org/8ctopus/apix-log/license)](https://packagist.org/packages/8ctopus/apix-log)
 [![tests](https://github.com/8ctopus/apix-log/actions/workflows/tests.yml/badge.svg)](https://github.com/8ctopus/apix-log/actions/workflows/tests.yml)
 ![code coverage badge](https://raw.githubusercontent.com/8ctopus/apix-log/image-data/coverage.svg)
 ![lines of code](https://raw.githubusercontent.com/8ctopus/apix-log/image-data/lines.svg)
@@ -33,12 +33,10 @@ Feel free to comment, send pull requests and patches...
 This simple logger is set to intercept `critical`, `alert` and `emergency` logs -- see the [log levels](#log-levels) for the order.
 
 ```php
-$urgentLogger = new Apix\Log\Logger\Mail('franck@foo.bar');
-
-$urgentLogger
-   // catch logs >= to `critical`
-   ->setMinLevel('critical')
-   ->alert('Running out of {items}', ['items' => 'beers']);
+$console = (new Apix\Log\Logger\Stream('php://stdout'))
+   ->setMinLevel('debug')
+   ->setFormat(new Apix\Log\Format\ConsoleColors())
+   ->notice('Running out of {items}', ['items' => 'beers']);
 ```
 
 ## Advanced usage ~ *multi-logs dispatcher*
@@ -46,8 +44,7 @@ $urgentLogger
 Let's create an additional logger with purpose of catching log entries that have a severity level of `warning` or more.
 
 ```php
-$appLogger = new Apix\Log\Logger\File(__DIR__ . '/app.log');
-$appLogger
+$file = (new Apix\Log\Logger\File(__DIR__ . '/app.log'))
    // intercept logs that are >= `warning`
    ->setMinLevel('warning')
    // don't propagate to further buckets
@@ -67,23 +64,7 @@ $appLogger
 Now, let's create a main logger object and inject the two previous loggers.
 
 ```php
-$logger = new Apix\Log\Logger([$urgentLogger, $appLogger]);
-```
-
-Let's create an additional logger -- just for development/debug purposes.
-
-```php
-if (DEBUG) {
-   // Bucket for the remaining logs -- i.e. `notice`, `info` and `debug`
-   // default to screen without output buffer
-   $devLogger = new Apix\Log\Logger\Stream();
-
-   // $devLogger = new Logger\File('/tmp/apix_debug.log');
-   $devLogger->setMinLevel('debug');
-
-   // another way to inject a log bucket
-   $logger->add($devLogger);
-}
+$logger = new Apix\Log\Logger([$console, $file]);
 ```
 
 Finally, let's push some log entries:
@@ -91,14 +72,13 @@ Finally, let's push some log entries:
 ```php
 $exception = new \Exception('Boo!');
 
-// handled by both $urgentLogger & $appLogger
+// handled by all loggers
 $logger->critical('OMG saw {bad-exception}', ['bad-exception' => $exception]);
 
-// handled by $appLogger
 // push an object (or array) directly
 $logger->error($exception);
 
-// handled by $devLogger
+// handled by console logger
 $logger->info('Testing a var {my_var}', ['my_var' => [...]]);
 ```
 
@@ -117,8 +97,8 @@ The eight [RFC 5424][] levels of logs are supported, in cascading order:
  Info      | Normal operational messages (no action required)
  Debug     | Verbose info useful to developers for debugging purposes (default)
 
-[PSR-3]: http://tools.ietf.org/html/rfc5424
-[RFC 5424]: http://tools.ietf.org/html/rfc5424#section-6.2.1
+[PSR-3]: https://tools.ietf.org/html/rfc5424
+[RFC 5424]: https://tools.ietf.org/html/rfc5424#section-6.2.1
 
 ## Installation
 
