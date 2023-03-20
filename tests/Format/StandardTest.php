@@ -49,6 +49,6 @@ final class StandardTest extends \PHPUnit\Framework\TestCase
             'file' => tmpfile(),
         ]);
 
-        static::assertSame(date('[Y-m-d H:i:s]') . ' ERROR hello world 18 true {"key1":"2","key2":true}' . PHP_EOL, $this->logger->getItems()[0]);
+        static::assertSame(date('[Y-m-d H:i:s]') . ' ERROR hello world 18 true {"key1":"2","key2":true}' . PHP_EOL, (string) $this->logger->getItems()[0]);
     }
 }

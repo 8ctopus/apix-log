@@ -29,19 +29,22 @@ class Runtime extends AbstractLogger implements LoggerInterface
 
     public function __construct()
     {
-        $this->setFormat(new Standard());
+        parent::__construct();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function write(LogEntry|string $log) : bool
+    public function write(LogEntry|array $log) : bool
     {
-        if ($log instanceof LogEntry) {
-            $log = $this->getFormat()->format($log);
+        if (!is_array($log)) {
+            $log = [$log];
         }
 
-        $this->items[] = $log;
+        foreach ($log as $item) {
+            $this->items[] = $item;
+        }
+
         return true;
     }
 

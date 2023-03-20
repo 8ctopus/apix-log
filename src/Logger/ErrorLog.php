@@ -63,31 +63,31 @@ class ErrorLog extends AbstractLogger implements LoggerInterface
         $this->destination = $file;
         $this->type = $type;
         $this->headers = $headers;
+
+        parent::__construct();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function write(LogEntry|string $log) : bool
+    public function write(LogEntry|array $log) : bool
     {
-        if ($log instanceof LogEntry) {
-            $log = $this->getFormat()->format($log);
+        if (!is_array($log)) {
+            $log = [$log];
         }
 
-        /* REM
-        if (!$this->deferred && self::FILE === $this->type) {
-            if ($log instanceof LogEntry) {
-                $log = $this->getFormat()->format($log);
-            }
-        }
-        */
+        $result = true;
 
-        return error_log(
-            $log,
-            $this->type,
-            $this->destination,
-            $this->headers
-        );
+        foreach ($log as $item) {
+            $result &= error_log(
+                $this->getFormat()->format($item),
+                $this->type,
+                $this->destination,
+                $this->headers
+            );
+        }
+
+        return $result;
     }
 
     /**

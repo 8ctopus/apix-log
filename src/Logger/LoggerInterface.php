@@ -23,7 +23,7 @@ use Apix\Log\LogEntry;
  * @example
  *   class StandardOutput extends AbstractLogger implements LoggerInterface
  *   {
- *     public function write(LogEntry $log)
+ *     public function write(LogEntry|array $log)
  *     {
  *         echo $log;
  *     }
@@ -40,5 +40,5 @@ interface LoggerInterface
      *
      * @return bool whether the log entry was successfully written or not
      */
-    public function write(LogEntry|string $log) : bool;
+    public function write(LogEntry|array $log) : bool;
 }

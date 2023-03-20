@@ -10,6 +10,7 @@
 
 namespace Apix\Log;
 
+use Apix\Log\Format\FormatInterface;
 use Apix\Log\Format\Standard;
 
 /**
@@ -29,14 +30,17 @@ class LogEntry
      */
     public readonly array $context;
 
+    public readonly FormatInterface $format;
+
     /**
      * Constructor.
      *
      * @param int|string $level   error level
      * @param string     $message message
      * @param mixed[]    $context context
+     * @param FormatInterface $format  the formatter
      */
-    public function __construct(string|int $level, string $message, array $context = [])
+    public function __construct(string|int $level, string $message, array $context = [], ?FormatInterface $format = null)
     {
         $this->timestamp = time();
 
@@ -50,6 +54,7 @@ class LogEntry
 
         $this->message = $message;
         $this->context = $context;
+        $this->format = $format ?? new Standard();
     }
 
     /**
@@ -59,7 +64,6 @@ class LogEntry
      */
     public function __toString() : string
     {
-        $format = new Standard();
-        return $format->format($this);
+        return $this->format->format($this);
     }
 }

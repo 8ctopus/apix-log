@@ -50,22 +50,30 @@ class Stream extends AbstractLogger implements LoggerInterface
         }
 
         $this->stream = $stream;
+
+        parent::__construct();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function write(LogEntry|string $log) : bool
+    public function write(LogEntry|array $log) : bool
     {
         if (!\is_resource($this->stream)) {
             throw new LogicException('The stream resource has been destructed too early');
         }
 
-        if ($log instanceof LogEntry) {
-            $log = $this->getFormat()->format($log);
+         if (!is_array($log)) {
+            $log = [$log];
         }
 
-        return (bool) fwrite($this->stream, $log);
+        $result = true;
+
+        foreach ($log as $item) {
+            $result &= (bool) fwrite($this->stream, $item);
+        }
+
+        return $result;
     }
 
     /**

@@ -20,30 +20,6 @@ use Exception;
  */
 final class FunctionalTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * This must return the log messages in order with a simple formatting: "<LOG LEVEL> <MESSAGE>".
-     *
-     * Example ->error('Foo') would yield "error Foo"
-     *
-     * @param Logger\Runtime $logger
-     * @param bool           $deferred
-     *
-     * @return LogEntry[]
-     */
-    public function getLogs(Logger\Runtime $logger, bool $deferred = false) : array
-    {
-        $lines = $logger->getItems();
-
-        if ($deferred) {
-            $lines = explode(
-                $logger->getFormat()->separator,
-                $lines[0]
-            );
-        }
-
-        return $lines;
-    }
-
     public function testUsages() : void
     {
         // basic usage
@@ -87,24 +63,24 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
         // handled by $debug_logger
         $logger->info('Something happened -> {abc}', ['abc' => ['xyz']]);
 
-        $urgent_logs = $this->getLogs($urgent_logger);
+        $urgent_logs = $urgent_logger->getItems();
 
         $date = date('[Y-m-d H:i:s]');
 
-        static::assertSame($date . ' ALERT Running out of beers 5 left, recharge: true [type: resource]' . PHP_EOL, $urgent_logs[0]);
+        static::assertSame($date . ' ALERT Running out of beers 5 left, recharge: true [type: resource]' . PHP_EOL, (string) $urgent_logs[0]);
 
         $prefixException = 'Exception: Boo! in ';
 
-        static::assertStringStartsWith($date . ' CRITICAL OMG saw ' . $prefixException, $urgent_logs[1]);
+        static::assertStringStartsWith($date . ' CRITICAL OMG saw ' . $prefixException, (string) $urgent_logs[1]);
 
         $app_logger->flushDeferredLogs();
 
-        $app_logs = $this->getLogs($app_logger, false);
+        $app_logs = $app_logger->getItems();
 
         static::assertStringStartsWith($date . ' CRITICAL OMG saw ' . $prefixException, $app_logs[0]);
 
-        static::assertStringContainsString($date . ' ERROR ' . $prefixException, $app_logs[0]);
+        static::assertStringStartsWith($date . ' ERROR ' . $prefixException, $app_logs[1]);
 
-        static::assertSame([$date . ' INFO Something happened -> ["xyz"]' . PHP_EOL], $this->getLogs($debug_logger));
+        static::assertSame($date . ' INFO Something happened -> ["xyz"]' . PHP_EOL, (string) $debug_logger->getItems()[0]);
     }
 }

@@ -52,8 +52,8 @@ final class InterfaceTest extends \PHPUnit\Framework\TestCase
         $this->logger->error('hello {who}', ['who' => 'world']);
 
         static::assertMatchesRegularExpression(
-            '@\{"timestamp":.*\,"name":"error"\,"levelCode":3\,"message":"hello world","context":\{"who":"world"\}\}@',
-            $this->logger->getItems()[0]
+            '@\{"timestamp":.*\,"name":"error"\,"levelCode":3\,"message":"hello world","context":\{"who":"world"\},.*\}@',
+            (string) $this->logger->getItems()[0]
         );
     }
 }
@@ -72,7 +72,6 @@ class MyJsonFormatter extends Standard
     {
         // Interpolate the context values into the message placeholders.
         $log->message = self::interpolate($log->message, $log->context);
-
-        return json_encode($log);
+        return json_encode($log, 0, 2);
     }
 }

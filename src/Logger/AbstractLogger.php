@@ -96,6 +96,11 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      */
     protected bool $empty = true;
 
+    public function __construct()
+    {
+        $this->format = new Standard();
+    }
+
     /**
      * Process any accumulated deferred log if there are any.
      */
@@ -153,7 +158,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      */
     public function log(mixed $level, Stringable|string $message, array $context = []) : void
     {
-        $this->process(new LogEntry($level, $message, $context));
+        $this->process(new LogEntry($level, $message, $context, $this->format));
     }
 
     /**
@@ -315,14 +320,7 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
     public function flushDeferredLogs() : void
     {
         if ($this->deferred && !empty($this->deferredLogs)) {
-            $format = $this->getFormat();
-            $messages = '';
-
-            foreach ($this->deferredLogs as $log) {
-                $messages .= $format->format($log);
-            }
-
-            $this->write($messages);
+            $this->write($this->deferredLogs);
             $this->deferredLogs = [];
         }
     }

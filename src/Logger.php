@@ -10,6 +10,7 @@
 
 namespace Apix\Log;
 
+use Apix\Log\Format\Standard;
 use Apix\Log\Logger\AbstractLogger;
 use Psr\Log\InvalidArgumentException;
 
@@ -50,6 +51,7 @@ class Logger extends AbstractLogger
         }
 
         $this->sortBuckets();
+        $this->format = new Standard();
     }
 
     /**
@@ -137,7 +139,7 @@ class Logger extends AbstractLogger
         return $this->buckets;
     }
 
-    public function write(LogEntry|string $log) : bool
+    public function write(LogEntry|array $log) : bool
     {
         throw new ApixLogException('Write must be called on children not on parent');
     }

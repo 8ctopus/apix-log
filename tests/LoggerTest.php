@@ -12,6 +12,7 @@ namespace Apix\Log\tests;
 
 use Apix\Log\ApixLogException;
 use Apix\Log\Logger;
+use Apix\Log\LogEntry;
 use Apix\Log\Logger\Stream;
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LogLevel;
@@ -40,7 +41,7 @@ final class LoggerTest extends \PHPUnit\Framework\TestCase
     public function testWriteException() : void
     {
         static::expectException(ApixLogException::class);
-        $this->logger->write('cannot write');
+        $this->logger->write(new LogEntry(0, 'cannot write'));
     }
 
     /**

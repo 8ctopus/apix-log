@@ -21,10 +21,15 @@ use Apix\Log\LogEntry;
  */
 class Nil extends AbstractLogger implements LoggerInterface
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * {@inheritDoc}
      */
-    public function write(LogEntry|string $log) : bool
+    public function write(LogEntry|array $log) : bool
     {
         return false;
     }
