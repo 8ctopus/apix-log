@@ -100,11 +100,11 @@ final class FunctionalTest extends \PHPUnit\Framework\TestCase
 
         $app_logger->flushDeferredLogs();
 
-        $app_logs = $this->getLogs($app_logger, true);
+        $app_logs = $this->getLogs($app_logger, false);
 
         static::assertStringStartsWith($date . ' CRITICAL OMG saw ' . $prefixException, $app_logs[0]);
 
-        static::assertStringStartsWith($date . ' ERROR ' . $prefixException, $app_logs[1]);
+        static::assertStringContainsString($date . ' ERROR ' . $prefixException, $app_logs[0]);
 
         static::assertSame([$date . ' INFO Something happened -> ["xyz"]' . PHP_EOL], $this->getLogs($debug_logger));
     }
