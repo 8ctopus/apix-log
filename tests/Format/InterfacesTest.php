@@ -15,25 +15,6 @@ use Apix\Log\LogEntry;
 use Apix\Log\Logger\Runtime;
 
 /**
- * A JSON Formatter (example).
- */
-class MyJsonFormatter extends Standard
-{
-    public function __construct()
-    {
-        parent::__construct('~');
-    }
-
-    public function format(LogEntry $log) : string
-    {
-        // Interpolate the context values into the message placeholders.
-        $log->message = self::interpolate($log->message, $log->context);
-
-        return json_encode($log);
-    }
-}
-
-/**
  * @internal
  *
  * @coversNothing
@@ -54,10 +35,7 @@ final class InterfacesTest extends \PHPUnit\Framework\TestCase
 
     public function testGetFormatReturnsStandardFormat() : void
     {
-        static::assertInstanceOf(
-            '\Apix\Log\Format\Standard',
-            $this->logger->getFormat()
-        );
+        static::assertInstanceOf('\Apix\Log\Format\Standard', $this->logger->getFormat());
     }
 
     public function testSetFormat() : void
@@ -77,5 +55,24 @@ final class InterfacesTest extends \PHPUnit\Framework\TestCase
             '@\{"timestamp":.*\,"name":"error"\,"levelCode":3\,"message":"hello world","context":\{"who":"world"\}\}@',
             $this->logger->getItems()[0]
         );
+    }
+}
+
+/**
+ * A JSON Formatter (example).
+ */
+class MyJsonFormatter extends Standard
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function format(LogEntry $log) : string
+    {
+        // Interpolate the context values into the message placeholders.
+        $log->message = self::interpolate($log->message, $log->context);
+
+        return json_encode($log);
     }
 }
