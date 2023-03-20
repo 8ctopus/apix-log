@@ -47,12 +47,12 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     public function testThrowsInvalidArgumentExceptionWhenNotWritable() : void
     {
-        touch($this->dest);
-        chmod($this->dest, 0000);
-
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage("Log file \"{$this->dest}\" is not writable");
         $this->expectExceptionCode(2);
+
+        touch($this->dest);
+        chmod($this->dest, 0000);
 
         new File($this->dest);
     }
