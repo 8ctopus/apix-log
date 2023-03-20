@@ -1,10 +1,12 @@
 <?php
 
-require __DIR__ .'/vendor/autoload.php';
+declare(strict_types=1);
+
+require __DIR__ . '/vendor/autoload.php';
 
 $console = (new Apix\Log\Logger\Stream('php://stdout'))
-   ->setFormat(new Apix\Log\Format\ConsoleColors())
-   ->setMinLevel('debug');
+    ->setFormat(new Apix\Log\Format\ConsoleColors())
+    ->setMinLevel('debug');
 
 $file = (new Apix\Log\Logger\File(__DIR__ . '/app.log'))
     // intercept logs that are >= `warning`
@@ -21,8 +23,8 @@ $logger = new Apix\Log\Logger([$console, $file]);
 $logger->debug('App started');
 
 $logger->notice('Running out of {items} - left {left}', [
-   'items' => 'beers',
-   'left' => 5,
+    'items' => 'beers',
+    'left' => 5,
 ]);
 
 $exception = new \Exception('Boo!');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apix\Log\tests\Format;
 
 use Apix\Log\Format\ConsoleColors;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Apix\Log\Format;
 
 use Apix\Log\LogEntry;
