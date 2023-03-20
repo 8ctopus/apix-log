@@ -10,7 +10,6 @@
 
 namespace Apix\Log\Logger;
 
-use Apix\Log\Format\Standard;
 use Apix\Log\LogEntry;
 
 /**

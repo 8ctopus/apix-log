@@ -63,7 +63,7 @@ class Stream extends AbstractLogger implements LoggerInterface
             throw new LogicException('The stream resource has been destructed too early');
         }
 
-         if (!is_array($log)) {
+        if (!is_array($log)) {
             $log = [$log];
         }
 

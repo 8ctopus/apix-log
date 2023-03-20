@@ -11,8 +11,8 @@
 namespace Apix\Log\tests;
 
 use Apix\Log\ApixLogException;
-use Apix\Log\Logger;
 use Apix\Log\LogEntry;
+use Apix\Log\Logger;
 use Apix\Log\Logger\Stream;
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LogLevel;

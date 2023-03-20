@@ -38,7 +38,7 @@ interface LoggerInterface
     /**
      * Write entry to log
      *
-     * @param LogEntry|array <LogEntry> $log
+     * @param array <LogEntry>|LogEntry $log
      *
      * @return bool
      */

@@ -12,6 +12,7 @@ namespace Apix\Log;
 
 use Apix\Log\Format\FormatInterface;
 use Apix\Log\Format\Standard;
+use InvalidArgumentException;
 
 /**
  * Describes a log Entry.
@@ -35,9 +36,9 @@ class LogEntry
     /**
      * Constructor.
      *
-     * @param mixed      $level   error level
-     * @param string     $message message
-     * @param mixed[]    $context context
+     * @param mixed           $level   error level
+     * @param string          $message message
+     * @param mixed[]         $context context
      * @param FormatInterface $format  the formatter
      */
     public function __construct(mixed $level, string $message, array $context = [], ?FormatInterface $format = null)
@@ -51,7 +52,7 @@ class LogEntry
             $this->name = Logger::getLevelName($level);
             $this->levelCode = $level;
         } else {
-            throw new \InvalidArgumentException(sprintf('"%s" is not a valid level', \gettype($level)));
+            throw new InvalidArgumentException(sprintf('"%s" is not a valid level', \gettype($level)));
         }
 
         $this->message = $message;
