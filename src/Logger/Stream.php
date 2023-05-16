@@ -83,7 +83,7 @@ class Stream extends AbstractLogger implements LoggerInterface
      *
      * @return resource
      */
-    public function stream()
+    public function getStream()
     {
         return $this->stream;
     }
