@@ -24,14 +24,12 @@ use Psr\Log\InvalidArgumentException;
 class Stream extends AbstractLogger implements LoggerInterface
 {
     /**
-     * Holds the stream.
-     *
      * @var resource
      */
     protected $stream;
 
     /**
-     * Constructor.
+     * Constructor
      *
      * @param resource|string $stream the stream to append to
      * @param string          $mode
