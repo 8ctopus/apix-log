@@ -1,7 +1,6 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
-    ->exclude('vendor/')
     ->in('.');
 
 $fixer = (new PhpCsFixer\Config('', ''))
