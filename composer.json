@@ -24,8 +24,8 @@
         "psr/log": "^2.0|^3.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.0|^10.0",
         "friendsofphp/php-cs-fixer": "^3.8",
+        "phpunit/phpunit": "^9.0|^10.0",
         "phpstan/phpstan": "^1.9",
         "phpmd/phpmd": "^2.13"
     },
@@ -33,12 +33,12 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "Apix\\Log\\": "src/"
+            "Apix\\Log\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Apix\\Log\\tests\\": "tests/"
+            "Apix\\Log\\tests\\": "tests"
         }
     },
     "scripts": {
