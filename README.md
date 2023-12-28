@@ -113,3 +113,12 @@ The eight [RFC 5424][] levels of logs are supported, in cascading order:
 ## License
 
    APIx Log is licensed under the New BSD license -- see the `LICENSE.txt` for the full license details.
+
+## todo
+
+- compare only log entry vs master branch
+- fix demo colors in branch only log entry if faster
+- should Logger inherit from AbstractLogger?
+- add html formatting for emails
+- change context logging
+- add log line?
