@@ -37,14 +37,14 @@ final class InterfaceTest extends \PHPUnit\Framework\TestCase
 
     public function testGetFormatReturnsStandardFormat() : void
     {
-        static::assertInstanceOf('\Apix\Log\Format\Standard', $this->logger->getFormat());
+        self::assertInstanceOf('\Apix\Log\Format\Standard', $this->logger->getFormat());
     }
 
     public function testSetFormat() : void
     {
         $formatter = new MyJsonFormatter();
         $this->logger->setFormat($formatter);
-        static::assertSame($this->logger->getFormat(), $formatter);
+        self::assertSame($this->logger->getFormat(), $formatter);
     }
 
     public function testFormatInterfaceExample() : void
@@ -53,7 +53,7 @@ final class InterfaceTest extends \PHPUnit\Framework\TestCase
         $this->logger->setFormat($formatter);
         $this->logger->error('hello {who}', ['who' => 'world']);
 
-        static::assertMatchesRegularExpression(
+        self::assertMatchesRegularExpression(
             '@\{"timestamp":.*\,"name":"error"\,"levelCode":3\,"message":"hello world","context":\{"who":"world"\}\}@',
             $this->logger->getItems()[0]
         );

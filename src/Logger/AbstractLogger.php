@@ -151,9 +151,9 @@ abstract class AbstractLogger extends PsrAbstractLogger implements LoggerInterfa
      *
      * @return void
      *
-     * @throws \Psr\Log\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function log(mixed $level, Stringable|string $message, array $context = []) : void
+    public function log(mixed $level, string|Stringable $message, array $context = []) : void
     {
         $this->process(new LogEntry($level, (string) $message, $context));
     }

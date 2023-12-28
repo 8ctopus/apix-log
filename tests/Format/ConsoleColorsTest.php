@@ -28,7 +28,7 @@ final class ConsoleColorsTest extends \PHPUnit\Framework\TestCase
 
     public function testGetFormatReturnsStandardFormat() : void
     {
-        static::assertInstanceOf('\Apix\Log\Format\Standard', $this->logger->getFormat());
+        self::assertInstanceOf('\Apix\Log\Format\Standard', $this->logger->getFormat());
     }
 
     public function testSetFormat() : void
@@ -36,7 +36,7 @@ final class ConsoleColorsTest extends \PHPUnit\Framework\TestCase
         $format = new ConsoleColors();
         $this->logger->setFormat($format);
 
-        static::assertSame($this->logger->getFormat(), $format);
+        self::assertSame($this->logger->getFormat(), $format);
     }
 
     public function testFormatInterfaceExample() : void
@@ -45,6 +45,6 @@ final class ConsoleColorsTest extends \PHPUnit\Framework\TestCase
         $this->logger->setFormat($format);
 
         $this->logger->error('hello {who}', ['who' => 'world']);
-        static::assertSame(date('[Y-m-d H:i:s]') . ' [01;31mERROR hello world[0m' . PHP_EOL, $this->logger->getItems()[0]);
+        self::assertSame(date('[Y-m-d H:i:s]') . ' [01;31mERROR hello world[0m' . PHP_EOL, $this->logger->getItems()[0]);
     }
 }

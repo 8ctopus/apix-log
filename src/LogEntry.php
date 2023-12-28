@@ -38,7 +38,7 @@ class LogEntry
      * @param string     $message message
      * @param mixed[]    $context context
      */
-    public function __construct(string|int $level, string $message, array $context = [])
+    public function __construct(int|string $level, string $message, array $context = [])
     {
         $this->timestamp = time();
 

@@ -39,6 +39,6 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     public function testConstructor() : void
     {
         new Mail('foo@bar.com', 'CC: some@somewhere.com');
-        static::assertTrue(true);
+        self::assertTrue(true);
     }
 }

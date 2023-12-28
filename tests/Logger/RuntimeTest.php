@@ -38,7 +38,7 @@ final class RuntimeTest extends \PHPUnit\Framework\TestCase
         $this->logger->debug('msg1', $context);
         $this->logger->error('msg2', $context);
 
-        static::assertSame(
+        self::assertSame(
             [
                 date('[Y-m-d H:i:s]') . ' DEBUG msg1' . PHP_EOL,
                 date('[Y-m-d H:i:s]') . ' ERROR msg2' . PHP_EOL,

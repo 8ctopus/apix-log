@@ -35,7 +35,7 @@ final class StandardTest extends \PHPUnit\Framework\TestCase
 
     public function testGetFormatReturnsStandardFormat() : void
     {
-        static::assertInstanceOf('\Apix\Log\Format\Standard', $this->logger->getFormat());
+        self::assertInstanceOf('\Apix\Log\Format\Standard', $this->logger->getFormat());
     }
 
     public function testFormatInterfaceExample() : void
@@ -51,6 +51,6 @@ final class StandardTest extends \PHPUnit\Framework\TestCase
             'file' => tmpfile(),
         ]);
 
-        static::assertSame(date('[Y-m-d H:i:s]') . ' ERROR hello world 18 true {"key1":"2","key2":true}' . PHP_EOL, $this->logger->getItems()[0]);
+        self::assertSame(date('[Y-m-d H:i:s]') . ' ERROR hello world 18 true {"key1":"2","key2":true}' . PHP_EOL, $this->logger->getItems()[0]);
     }
 }

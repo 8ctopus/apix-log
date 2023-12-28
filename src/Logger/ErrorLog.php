@@ -97,7 +97,7 @@ class ErrorLog extends AbstractLogger implements LoggerInterface
      *
      * @return null|string
      */
-    public function getDestination() : string|null
+    public function getDestination() : null|string
     {
         return $this->destination;
     }

@@ -14,6 +14,4 @@ namespace Apix\Log;
 
 use Exception;
 
-class ApixLogException extends Exception
-{
-}
+class ApixLogException extends Exception {}

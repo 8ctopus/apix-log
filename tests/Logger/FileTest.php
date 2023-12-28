@@ -36,7 +36,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     {
         $logger = new File($this->dest);
 
-        static::assertInstanceOf(File::class, $logger);
+        self::assertInstanceOf(File::class, $logger);
     }
 
     public function testThrowsInvalidArgumentExceptionWhenFileCannotBeCreated() : void

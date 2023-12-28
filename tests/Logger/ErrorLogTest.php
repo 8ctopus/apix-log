@@ -52,7 +52,7 @@ final class ErrorLogTest extends \PHPUnit\Framework\TestCase
 
         $content = file_get_contents($this->dest);
 
-        static::assertStringContainsString($message, $content);
+        self::assertStringContainsString($message, $content);
     }
 
     public function testWriteObject() : void
@@ -69,8 +69,8 @@ final class ErrorLogTest extends \PHPUnit\Framework\TestCase
 
         $content = file_get_contents($this->dest);
 
-        static::assertStringContainsString((string) $test, $content);
-        static::assertSame($destination, $logger->getDestination());
+        self::assertStringContainsString((string) $test, $content);
+        self::assertSame($destination, $logger->getDestination());
     }
 }
 
