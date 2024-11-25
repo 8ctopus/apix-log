@@ -77,7 +77,13 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
     public function testThrowsInvalidArgumentExceptionWhenFileCannotBeCreated() : void
     {
         self::expectException(ValueError::class);
-        self::expectExceptionMessage('Path cannot be empty');
+
+        if (PHP_MAJOR_VERSION >= 8 && PHP_MINOR_VERSION >= 4) {
+            self::expectExceptionMessage('Path must not be empty');
+        } else {
+            self::expectExceptionMessage('Path cannot be empty' );
+        }
+
         new Stream('');
     }
 
