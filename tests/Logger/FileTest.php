@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Tests\Logger;
 
 use Apix\Log\Logger\File;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\InvalidArgumentException;
 
 /**
@@ -20,7 +21,7 @@ use Psr\Log\InvalidArgumentException;
  *
  * @covers \Apix\Log\Logger\File
  */
-final class FileTest extends \PHPUnit\Framework\TestCase
+final class FileTest extends TestCase
 {
     protected string $dest = 'test';
 

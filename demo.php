@@ -1,14 +1,18 @@
 <?php
 
 declare(strict_types=1);
+use Apix\Log\Format\MinimalColored;
+use Apix\Log\Logger;
+use Apix\Log\Logger\File;
+use Apix\Log\Logger\Stream;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$console = (new Apix\Log\Logger\Stream('php://stdout'))
-    ->setFormat(new Apix\Log\Format\MinimalColored())
+$console = (new Stream('php://stdout'))
+    ->setFormat(new MinimalColored())
     ->setMinLevel('debug');
 
-$file = (new Apix\Log\Logger\File(__DIR__ . '/app.log'))
+$file = (new File(__DIR__ . '/app.log'))
     // intercept logs that are >= `warning`
     ->setMinLevel('warning')
     // propagate to further buckets
@@ -18,7 +22,7 @@ $file = (new Apix\Log\Logger\File(__DIR__ . '/app.log'))
     // flush logs to file once 100 logs are collected
     ->setDeferredTrigger(100);
 
-$logger = new Apix\Log\Logger([$console, $file]);
+$logger = new Logger([$console, $file]);
 
 $logger->debug('App started');
 
@@ -27,7 +31,7 @@ $logger->notice('Running out of {items} - left {left}', [
     'left' => 5,
 ]);
 
-$exception = new \Exception('Boo!');
+$exception = new Exception('Boo!');
 
 // handled by all loggers
 $logger->critical('OMG saw {bad-exception}', ['bad-exception' => $exception]);

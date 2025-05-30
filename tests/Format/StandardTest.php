@@ -13,13 +13,14 @@ declare(strict_types=1);
 namespace Tests\Format;
 
 use Apix\Log\Logger\Runtime;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
  *
  * @covers \Apix\Log\Format\Standard
  */
-final class StandardTest extends \PHPUnit\Framework\TestCase
+final class StandardTest extends TestCase
 {
     protected ?Runtime $logger;
 

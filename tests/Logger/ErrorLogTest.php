@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Tests\Logger;
 
 use Apix\Log\Logger\ErrorLog;
+use PHPUnit\Framework\TestCase;
 use Stringable;
 
 /**
@@ -20,7 +21,7 @@ use Stringable;
  *
  * @covers \Apix\Log\Logger\ErrorLog
  */
-final class ErrorLogTest extends \PHPUnit\Framework\TestCase
+final class ErrorLogTest extends TestCase
 {
     protected string $file;
 

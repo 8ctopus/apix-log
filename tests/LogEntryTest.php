@@ -13,13 +13,14 @@ declare(strict_types=1);
 namespace Tests;
 
 use Apix\Log\LogEntry;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
  *
  * @covers \Apix\Log\LogEntry
  */
-final class LogEntryTest extends \PHPUnit\Framework\TestCase
+final class LogEntryTest extends TestCase
 {
     public function testConstructor() : void
     {

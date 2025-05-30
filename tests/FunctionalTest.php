@@ -14,13 +14,14 @@ namespace Tests;
 
 use Apix\Log\Logger;
 use Exception;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
  *
  * @coversNothing
  */
-final class FunctionalTest extends \PHPUnit\Framework\TestCase
+final class FunctionalTest extends TestCase
 {
     /**
      * This must return the log messages in order with a simple formatting: "<LOG LEVEL> <MESSAGE>".

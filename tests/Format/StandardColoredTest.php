@@ -6,13 +6,14 @@ namespace Apix\Log\tests\Format;
 
 use Apix\Log\Format\StandardColored;
 use Apix\Log\Logger\Runtime;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
  *
  * @covers \Apix\Log\Format\StandardColored
  */
-final class StandardColoredTest extends \PHPUnit\Framework\TestCase
+final class StandardColoredTest extends TestCase
 {
     protected ?Runtime $logger;
 

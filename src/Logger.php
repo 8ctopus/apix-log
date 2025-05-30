@@ -25,19 +25,19 @@ class Logger extends AbstractLogger
     /**
      * Holds all the registered loggers as buckets.
      *
-     * @var Logger\AbstractLogger[]
+     * @var AbstractLogger[]
      */
     protected array $buckets = [];
 
     /**
      * Constructor.
      *
-     * @param Logger\AbstractLogger[] $loggers
+     * @param AbstractLogger[] $loggers
      */
     public function __construct(array $loggers = [])
     {
         foreach ($loggers as $logger) {
-            if (!$logger instanceof Logger\AbstractLogger) {
+            if (!$logger instanceof AbstractLogger) {
                 throw new InvalidArgumentException(
                     sprintf(
                         '"%s" must interface "%s".',
@@ -118,11 +118,11 @@ class Logger extends AbstractLogger
     /**
      * Adds a logger.
      *
-     * @param Logger\AbstractLogger $logger
+     * @param AbstractLogger $logger
      *
      * @return bool returns TRUE on success or FALSE on failure
      */
-    public function add(Logger\AbstractLogger $logger) : bool
+    public function add(AbstractLogger $logger) : bool
     {
         $this->buckets[] = $logger;
 
@@ -132,7 +132,7 @@ class Logger extends AbstractLogger
     /**
      * Returns all the registered log buckets.
      *
-     * @return Logger\AbstractLogger[]
+     * @return AbstractLogger[]
      */
     public function getBuckets() : array
     {

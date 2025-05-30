@@ -15,6 +15,7 @@ namespace Tests\Logger;
 use Apix\Log\Logger\Stream;
 use InvalidArgumentException;
 use LogicException;
+use PHPUnit\Framework\TestCase;
 use ValueError;
 
 /**
@@ -22,7 +23,7 @@ use ValueError;
  *
  * @covers \Apix\Log\Logger\Stream
  */
-final class StreamTest extends \PHPUnit\Framework\TestCase
+final class StreamTest extends TestCase
 {
     protected string $dest = 'php://memory';
     protected $stream;
@@ -81,7 +82,7 @@ final class StreamTest extends \PHPUnit\Framework\TestCase
         if (PHP_MAJOR_VERSION >= 8 && PHP_MINOR_VERSION >= 4) {
             self::expectExceptionMessage('Path must not be empty');
         } else {
-            self::expectExceptionMessage('Path cannot be empty' );
+            self::expectExceptionMessage('Path cannot be empty');
         }
 
         new Stream('');
