@@ -6,7 +6,7 @@ namespace Apix\Log\Format;
 
 use Apix\Log\LogEntry;
 
-class ConsoleColors extends Standard
+class StandardColored extends Standard
 {
     /**
      * @var array<string, int>

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Apix\Log\tests\Format;
 
-use Apix\Log\Format\ConsoleColors;
+use Apix\Log\Format\StandardColored;
 use Apix\Log\Logger\Runtime;
 
 /**
  * @internal
  *
- * @covers \Apix\Log\Format\ConsoleColors
+ * @covers \Apix\Log\Format\StandardColored
  */
-final class ConsoleColorsTest extends \PHPUnit\Framework\TestCase
+final class StandardColoredTest extends \PHPUnit\Framework\TestCase
 {
     protected ?Runtime $logger;
 
@@ -33,7 +33,7 @@ final class ConsoleColorsTest extends \PHPUnit\Framework\TestCase
 
     public function testSetFormat() : void
     {
-        $format = new ConsoleColors();
+        $format = new StandardColored();
         $this->logger->setFormat($format);
 
         self::assertSame($this->logger->getFormat(), $format);
@@ -41,7 +41,7 @@ final class ConsoleColorsTest extends \PHPUnit\Framework\TestCase
 
     public function testFormatInterfaceExample() : void
     {
-        $format = new ConsoleColors();
+        $format = new StandardColored();
         $this->logger->setFormat($format);
 
         $this->logger->error('hello {who}', ['who' => 'world']);

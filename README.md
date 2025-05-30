@@ -39,7 +39,7 @@ This simple logger is set to intercept all logs and display them in the console.
 ```php
 $console = (new Apix\Log\Logger\Stream('php://stdout'))
    ->setMinLevel('debug')
-   ->setFormat(new Apix\Log\Format\ConsoleColors())
+   ->setFormat(new Apix\Log\Format\StandardColored())
    ->notice('Running out of {items}', 'Running out of {items} - left {left}', [
       'items' => 'beers',
       'left' => 5,
