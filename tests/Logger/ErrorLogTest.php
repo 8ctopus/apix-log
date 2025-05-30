@@ -22,25 +22,24 @@ use Stringable;
  */
 final class ErrorLogTest extends \PHPUnit\Framework\TestCase
 {
-    protected string $dest = 'test';
+    protected string $file;
 
     protected function setUp() : void
     {
+        $this->file = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'apix-test.log';
+
         // HHVM support
         // @see: https://github.com/facebook/hhvm/issues/3558
         if (\defined('HHVM_VERSION')) {
             ini_set('log_errors', 'On');
-            ini_set('error_log', $this->dest);
         }
 
-        ini_set('error_log', $this->dest);
+        ini_set('error_log', $this->file);
     }
 
     protected function tearDown() : void
     {
-        if (file_exists($this->dest)) {
-            unlink($this->dest);
-        }
+        file_exists($this->file) && unlink($this->file);
     }
 
     public function testWriteString() : void
@@ -50,16 +49,12 @@ final class ErrorLogTest extends \PHPUnit\Framework\TestCase
         $message = 'test log';
         $logger->debug($message);
 
-        $content = file_get_contents($this->dest);
-
-        self::assertStringContainsString($message, $content);
+        self::assertStringContainsString($message, file_get_contents($this->file));
     }
 
     public function testWriteObject() : void
     {
-        $destination = 'test';
-
-        $logger = (new ErrorLog($destination, ErrorLog::FILE))
+        $logger = (new ErrorLog($this->file, ErrorLog::FILE))
             ->setDeferred(false);
 
         $test = new TestClass();
@@ -67,10 +62,8 @@ final class ErrorLogTest extends \PHPUnit\Framework\TestCase
 
         $logger->flushDeferredLogs();
 
-        $content = file_get_contents($this->dest);
-
-        self::assertStringContainsString((string) $test, $content);
-        self::assertSame($destination, $logger->getDestination());
+        self::assertStringContainsString((string) $test, file_get_contents($this->file));
+        self::assertSame($this->file, $logger->getDestination());
     }
 }
 
