@@ -27,7 +27,7 @@ final class ErrorLogTest extends TestCase
 
     protected function setUp() : void
     {
-        $this->file = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'apix-test.log';
+        $this->file = sys_get_temp_dir() . \DIRECTORY_SEPARATOR . 'apix-test.log';
 
         // HHVM support
         // @see: https://github.com/facebook/hhvm/issues/3558

@@ -151,7 +151,7 @@ class Logger extends AbstractLogger
      *
      * @return false|int
      */
-    protected function getIndexFirstBucket(int $levelCode)
+    protected function getIndexFirstBucket(int $levelCode) : bool|int
     {
         foreach ($this->buckets as $key => $logger) {
             if ($logger->isHandling($levelCode)) {
@@ -172,7 +172,7 @@ class Logger extends AbstractLogger
     {
         return usort(
             $this->buckets,
-            function ($first, $second) {
+            static function ($first, $second) {
                 return $first->getMinLevel() - $second->getMinLevel();
             }
         );
