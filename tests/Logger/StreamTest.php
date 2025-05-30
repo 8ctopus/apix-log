@@ -10,7 +10,7 @@
 
 declare(strict_types=1);
 
-namespace Apix\Log\tests\Logger;
+namespace Tests\Logger;
 
 use Apix\Log\Logger\Stream;
 use InvalidArgumentException;
