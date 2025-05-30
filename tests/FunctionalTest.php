@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * This file is part of the Apix Project.
  *
@@ -9,6 +7,8 @@ declare(strict_types=1);
  *
  * @license http://opensource.org/licenses/BSD-3-Clause  New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Apix\Log\tests;
 
