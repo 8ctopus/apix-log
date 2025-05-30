@@ -8,6 +8,8 @@ use Apix\Log\LogEntry;
 
 class StandardColored extends Standard
 {
+    use Colored;
+
     /**
      * @var array<string, int>
      *
