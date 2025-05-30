@@ -5,7 +5,7 @@ declare(strict_types=1);
 require __DIR__ . '/vendor/autoload.php';
 
 $console = (new Apix\Log\Logger\Stream('php://stdout'))
-    ->setFormat(new Apix\Log\Format\ConsoleColors())
+    ->setFormat(new Apix\Log\Format\MinimalColored())
     ->setMinLevel('debug');
 
 $file = (new Apix\Log\Logger\File(__DIR__ . '/app.log'))
