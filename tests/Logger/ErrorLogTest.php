@@ -45,12 +45,19 @@ final class ErrorLogTest extends TestCase
 
     public function testWriteString() : void
     {
+        // phpunit 12 changed error_log behavior
+        if (method_exists(self::class, 'expectErrorLog')) {
+            self::expectErrorLog();
+        }
+
         $logger = new ErrorLog();
 
         $message = 'test log';
         $logger->debug($message);
 
-        self::assertStringContainsString($message, file_get_contents($this->file));
+        if (!method_exists(self::class, 'expectErrorLog')) {
+            self::assertStringContainsString($message, file_get_contents($this->file) ?? '');
+        }
     }
 
     public function testWriteObject() : void
@@ -63,7 +70,7 @@ final class ErrorLogTest extends TestCase
 
         $logger->flushDeferredLogs();
 
-        self::assertStringContainsString((string) $test, file_get_contents($this->file));
+        self::assertStringContainsString((string) $test, file_get_contents($this->file) ?? '');
         self::assertSame($this->file, $logger->getDestination());
     }
 }
