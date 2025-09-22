@@ -14,18 +14,16 @@ namespace Tests;
 
 use Apix\Log\ApixLogException;
 use Apix\Log\Logger;
+use Apix\Log\Logger\AbstractLogger;
 use Apix\Log\Logger\Stream;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LogLevel;
 use stdClass;
 
-/**
- * @internal
- *
- * @covers \Apix\Log\Logger
- * @covers \Apix\Log\Logger\AbstractLogger
- */
+#[CoversClass(Logger::class)]
+#[CoversClass(AbstractLogger::class)]
 final class LoggerTest extends TestCase
 {
     protected ?Logger $logger;

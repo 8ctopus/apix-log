@@ -13,13 +13,10 @@ declare(strict_types=1);
 namespace Tests;
 
 use Apix\Log\LogEntry;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- *
- * @covers \Apix\Log\LogEntry
- */
+#[CoversClass(LogEntry::class)]
 final class LogEntryTest extends TestCase
 {
     public function testConstructor() : void

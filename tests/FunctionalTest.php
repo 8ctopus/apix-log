@@ -14,13 +14,10 @@ namespace Tests;
 
 use Apix\Log\Logger;
 use Exception;
+use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- *
- * @coversNothing
- */
+#[CoversNothing]
 final class FunctionalTest extends TestCase
 {
     /**

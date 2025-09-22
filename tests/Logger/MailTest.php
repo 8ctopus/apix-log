@@ -13,14 +13,11 @@ declare(strict_types=1);
 namespace Tests\Logger;
 
 use Apix\Log\Logger\Mail;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\InvalidArgumentException;
 
-/**
- * @internal
- *
- * @covers \Apix\Log\Logger\Mail
- */
+#[CoversClass(Mail::class)]
 final class MailTest extends TestCase
 {
     public function testThrowsInvalidArgumentExceptionWhenNull() : void

@@ -15,14 +15,11 @@ namespace Tests\Logger;
 use Apix\Log\Logger\Stream;
 use InvalidArgumentException;
 use LogicException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use ValueError;
 
-/**
- * @internal
- *
- * @covers \Apix\Log\Logger\Stream
- */
+#[CoversClass(Stream::class)]
 final class StreamTest extends TestCase
 {
     protected string $dest = 'php://memory';

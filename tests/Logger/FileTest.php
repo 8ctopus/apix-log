@@ -13,14 +13,11 @@ declare(strict_types=1);
 namespace Tests\Logger;
 
 use Apix\Log\Logger\File;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\InvalidArgumentException;
 
-/**
- * @internal
- *
- * @covers \Apix\Log\Logger\File
- */
+#[CoversClass(File::class)]
 final class FileTest extends TestCase
 {
     protected string $dest = 'test';

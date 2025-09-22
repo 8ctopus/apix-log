@@ -13,13 +13,10 @@ declare(strict_types=1);
 namespace Tests\Logger;
 
 use Apix\Log\Logger\Runtime;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- *
- * @covers \Apix\Log\Logger\Runtime
- */
+#[CoversClass(Runtime::class)]
 final class RuntimeTest extends TestCase
 {
     protected ?Runtime $logger;

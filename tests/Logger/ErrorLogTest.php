@@ -13,14 +13,11 @@ declare(strict_types=1);
 namespace Tests\Logger;
 
 use Apix\Log\Logger\ErrorLog;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Stringable;
 
-/**
- * @internal
- *
- * @covers \Apix\Log\Logger\ErrorLog
- */
+#[CoversClass(ErrorLog::class)]
 final class ErrorLogTest extends TestCase
 {
     protected string $file;

@@ -15,13 +15,10 @@ namespace Tests\Format;
 use Apix\Log\Format\Standard;
 use Apix\Log\LogEntry;
 use Apix\Log\Logger\Runtime;
+use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @internal
- *
- * @coversNothing
- */
+#[CoversNothing]
 final class InterfaceTest extends TestCase
 {
     protected ?Runtime $logger;
