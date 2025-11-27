@@ -342,3 +342,4 @@ final class LoggerTest extends TestCase
         return $this->logger->getBuckets();
     }
 }
+
